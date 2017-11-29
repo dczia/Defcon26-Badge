@@ -11,12 +11,8 @@ Everything is awesome!
 
 Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 
-DCZia Badge Idea:
+DCZia Badge Idea: 4x4KeyOledAWESOMNESS?
 
-Parts List:
+Parts List: Stuff! And Things!
 
 Refrences:
-
-
-
-
