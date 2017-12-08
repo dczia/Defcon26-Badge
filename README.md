@@ -13,17 +13,18 @@ Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 
 Microcontroller:
 ESP32
-[Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
+
+Dev Board So Far: [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
 
 Cost Breakdown: 
 * ESP32
 * PCB
 * Keyswitches - RGB Type Needed (They have clear casings allowing for SMD leds to shine through. Some have specific cutouts for flat rgb led’s to peek through.
 	* Gateron Blues / Whatevers - Clear top, white bottom. Supposedly the white bottom ones have the smd cutout $0.25ea[Gateron Blue (60G) Tactile Click Switches (Pack of 10) by Mechanical Keyboards Inc](https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=1272)
-	* Otemu Ice - Totally Clear, no smd cutout though $0.35ea [switchTop — Outemu ICE Switches](http://www.switchtop.com/product/outemu-switches)
+
 * Keycaps
 	* DIY Casting - [Capcraft Hub - Updates & Tom Foolery Herein](https://geekhack.org/index.php?topic=46284.0)
-	* Reddid DIY Keycap Wiki [key_modifications - MechanicalKeyboards](https://www.reddit.com/r/MechanicalKeyboards/wiki/key_modifications)
+	* Reddit DIY Keycap Wiki [key_modifications - MechanicalKeyboards](https://www.reddit.com/r/MechanicalKeyboards/wiki/key_modifications)
 * Lipo // AA’s?
 
 OLED Notes:
