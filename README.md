@@ -25,11 +25,9 @@ Feb 8th 2018 Update --
 
 Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 
-Microcontroller:
-Dev Board: [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
 
 Parts Breakdown: 
-* ESP32
+* ESP32 - [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
 * PCB
 * Keyswitches - SMD RGB Type Needed (They have clear casings allowing for SMD leds to shine through.
 	* Gateron Blues / Whatevers - Clear top, white bottom. Supposedly the white bottom ones have the smd cutout $0.25ea[Gateron Blue (60G) Tactile Click Switches (Pack of 10) by Mechanical Keyboards Inc](https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=1272)
