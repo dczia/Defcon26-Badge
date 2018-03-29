@@ -15,6 +15,10 @@
 
 ```
 
+March 2018 Update --
+
+	Proto Dos boards are in, working, and off to Lithochasm for redistribution with the keys
+
 Feb 8th 2018 Update --
 	Dev boards have been made by Hamster. He identified an issue with the footprint of the leds, and is working on a fix.
 	Clear keycaps have begun printing by Litho. Switches and LED's for a dev board test have been ordered as well.
