@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name esp32_oled)(type Legacy)(uri "$(KIPRJMOD)/lib_sch/esp32_oled.lib")(options "")(descr ""))
+  (lib (name LED_RGBW_SK6812)(type Legacy)(uri "$(KIPRJMOD)/lib_sch/LED_RGBW_SK6812.lib")(options "")(descr ""))
+)
