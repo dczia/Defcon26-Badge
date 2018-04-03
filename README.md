@@ -15,6 +15,7 @@
 
 ```
 **News**
+
 March 2018 Update --
 
 	Proto Dos boards are in, working, and off to Lithochasm for redistribution with the keys
@@ -29,6 +30,7 @@ Feb 8th 2018 Update --
 
 
 **What is the DCZia 2018 Badge**
+
 This year we want to keep up with the tradition of our past badge which contained mechanical keyswitches on it to give it a retro look and feel. We decided on a 4x4 grid of mechanical keyswitches with an rgb led underneath and transparent keycaps to make an interactive display of sorts.
 
 We also will be adding a small oled at the top center of the badge for more ovbious visual output. Board will be powered by an ESP32 and will talk BTLE and possibly Wi-Fi if we can find something cool to do with it.
@@ -38,6 +40,7 @@ Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 
 
 **Technical Notes**
+
 Parts Breakdown: 
 * ESP32 - [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
 * PCB
