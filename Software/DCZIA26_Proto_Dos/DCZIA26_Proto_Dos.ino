@@ -13,7 +13,9 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
+//Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); //Gradual Fade
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(40, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); //Rainbow Fade
+
 
 // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
 // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
@@ -27,8 +29,9 @@ void setup() {
 
 void loop() {
   // Some example procedures showing how to display to the pixels:
-  rainbow(30);
-  rainbowCycle(30);
+  //rainbow(60);
+  rainbowCycle(32);
+
 }
 
 
