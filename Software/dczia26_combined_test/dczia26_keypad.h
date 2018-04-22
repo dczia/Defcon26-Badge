@@ -9,7 +9,7 @@
 || | Demonstrates changing the keypad size and key values.
 || #
 */
-#include <Keypad.h>
+#include "Keypad.h"
 
 Keypad* keypad_setup(void);
 

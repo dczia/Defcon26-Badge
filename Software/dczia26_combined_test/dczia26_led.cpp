@@ -1,6 +1,6 @@
 #include "dczia26_led.h"
 
-Adafruit_NeoPixel* led_setup(void)
+Adafruit_NeoPixel* led_setup(uint8_t brightness)
 {
   // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
   // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
@@ -21,6 +21,7 @@ Adafruit_NeoPixel* led_setup(void)
   
   strip = new Adafruit_NeoPixel(40, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); //Rainbow Fade
   strip->begin();
+  strip->setBrightness(brightness);
   strip->show(); // Initialize all pixels to 'off'
   return(strip);
 }
@@ -29,7 +30,9 @@ void led_loop(Adafruit_NeoPixel* strip)
 {
   // Some example procedures showing how to display to the pixels:
   //rainbow(60);
+  Serial.print("starting rainbowcycle...");
   rainbowCycle(strip, 32);
+  Serial.println("done!");
 }
 
 //////////////////////
@@ -59,15 +62,23 @@ void rainbow(Adafruit_NeoPixel* strip, uint8_t wait) {
 
 // Slightly different, this makes the rainbow equally distributed throughout
 void rainbowCycle(Adafruit_NeoPixel* strip, uint8_t wait) {
-  uint16_t i, j;
+  static uint16_t j = 0;
+         uint16_t i;
 
-  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+  // removed looping to make rest of application more responsive.  
+  // outer "j" variable changed to static so that future calls can 
+  // pick up where it left off ... 
+  
+  //for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+
     for(i=0; i< strip->numPixels(); i++) {
       strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
     }
     strip->show();
-    delay(wait);
-  }
+//    delay(wait);
+//  }
+
+  j++;
 }
 
 //Theatre-style crawling lights.

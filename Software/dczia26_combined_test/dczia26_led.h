@@ -8,7 +8,7 @@
 
 #define NEOPIXEL_PIN 26
 
-Adafruit_NeoPixel* led_setup();
+Adafruit_NeoPixel* led_setup(uint8_t brightness);
 
 void led_loop(Adafruit_NeoPixel* strip);
 
