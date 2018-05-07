@@ -34,8 +34,8 @@ SSD1306* oled_setup(void)
   screen->setContrast(255);
 
   // Initialize the log buffer
-  // allocate memory to store 8 lines of text and 30 chars per line.
-  screen->setLogBuffer(5, 30);
+  // allocate memory to store 8 lines of text and 25 chars per line.
+  screen->setLogBuffer(5, 25);
 
   screen->clear();
 
@@ -52,22 +52,22 @@ void oled_welcome(SSD1306 *screen)
   screen->display();
   delay(1000);
   screen->clear();
-  screen->println("4..");
+  screen->print("4..");
   screen->drawLogBuffer(0, 0);
   screen->display();
   delay(1000);
   screen->clear();
-  screen->println("3..");
+  screen->print("3..");
   screen->drawLogBuffer(0, 0);
   screen->display();
   delay(1000);
   screen->clear();
-  screen->println("2..");
+  screen->print("2..");
   screen->drawLogBuffer(0, 0);
   screen->display();
   delay(1000);
   screen->clear();
-  screen->println("1..");
+  screen->print("1..");
   screen->drawLogBuffer(0, 0);
   screen->display();
   delay(1000);

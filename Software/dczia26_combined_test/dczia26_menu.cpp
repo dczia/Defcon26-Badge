@@ -17,7 +17,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
     screen->setFont(ArialMT_Plain_10);
     screen->setTextAlignment(TEXT_ALIGN_LEFT);
     screen->clear();
-    screen->println("Main Menu");
+    screen->println("dczia 2018 proto dos menu");
     screen->println("2) led test");
     screen->println("3) screen test");
     screen->println("A) keypad test");
@@ -51,10 +51,18 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
     {
       Serial.println("main_menu(): case '2'");
 
+      screen->clear();
+      screen->display();
+      screen->setTextAlignment(TEXT_ALIGN_LEFT);
+      screen->setFont(ArialMT_Plain_24);
+      
       uint8_t i = 0;
       int led_delay = 2000;
 
       // red
+      screen->clear();
+      screen->drawString(0, 0, "Red!");
+      screen->display();
       for(i=0; i< ledgrid->numPixels(); i++)
       {
         ledgrid->setPixelColor(i, ledgrid->Color(255, 0, 0));
@@ -63,6 +71,9 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
       delay(led_delay);
       
       // green
+      screen->clear();
+      screen->drawString(0, 0, "Green!");
+      screen->display();
       for(i=0; i< ledgrid->numPixels(); i++)
       {
         ledgrid->setPixelColor(i, ledgrid->Color(0, 255, 0));
@@ -71,6 +82,9 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
       delay(led_delay);
 
       // blue
+      screen->clear();
+      screen->drawString(0, 0, "Blue!");
+      screen->display();
       for(i=0; i< ledgrid->numPixels(); i++)
       {
         ledgrid->setPixelColor(i, ledgrid->Color(0, 0, 255));
