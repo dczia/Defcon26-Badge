@@ -10,7 +10,7 @@
 
 Adafruit_NeoPixel* led_setup(uint8_t brightness);
 
-void led_loop(Adafruit_NeoPixel* strip);
+void led_loop_advance(Adafruit_NeoPixel* strip);
 
 //////////////////////
 // Color Functions // 

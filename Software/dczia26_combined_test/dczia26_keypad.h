@@ -27,7 +27,7 @@ Keypad* keypad_setup(void);
 #define KEY_R2C2 '9'
 #define KEY_R2C3 'C'
 #define KEY_R3C0 '*'
-#define KEY_R3C1 '9'
+#define KEY_R3C1 '0'
 #define KEY_R3C2 '#'
 #define KEY_R3C3 'D'
 

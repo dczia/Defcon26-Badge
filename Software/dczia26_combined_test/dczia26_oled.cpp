@@ -38,12 +38,39 @@ SSD1306* oled_setup(void)
   screen->setLogBuffer(5, 30);
 
   screen->clear();
-  screen->println("Welcome, dczia..");
-  screen->println("You've got mail..");
-  screen->drawLogBuffer(0, 0);
-  screen->display();
 
   return(screen);
+}
+
+
+void oled_welcome(SSD1306 *screen)
+{
+  screen->clear();
+  screen->println("Welcome, dczia..");
+  screen->println("main_menu() starts in 5..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(1000);
+  screen->clear();
+  screen->println("4..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(1000);
+  screen->clear();
+  screen->println("3..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(1000);
+  screen->clear();
+  screen->println("2..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(1000);
+  screen->clear();
+  screen->println("1..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(1000);
 }
 
 

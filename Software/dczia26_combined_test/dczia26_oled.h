@@ -15,7 +15,10 @@
 
 
 
-SSD1306*oled_setup(void);
+SSD1306* oled_setup(void);
+
+void oled_welcome(SSD1306 *screen);
+
 void oled_drawLines(SSD1306 *screen);
 void oled_drawRect(SSD1306 *screen);
 void oled_drawZia(SSD1306 *screen);

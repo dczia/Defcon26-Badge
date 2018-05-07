@@ -13,7 +13,7 @@ char hexaKeys[ROWS][COLS] = {
   {KEY_R3C0, KEY_R3C1, KEY_R3C2, KEY_R3C3}
 };
 byte rowPins[ROWS] = {16,  0,  2, 25}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = { 8, 12, 13, 15}; //connect to the column pinouts of the keypad
+byte colPins[COLS] = {14, 12, 13, 15}; //connect to the column pinouts of the keypad
 
 
 Keypad* keypad_setup(void)
