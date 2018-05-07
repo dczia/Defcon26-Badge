@@ -1,4 +1,4 @@
-# dczia2018
+# ＤＣＺＩＡ ２０１８
 
 ```
  ___   ___ _____        ___ __  _ ___
@@ -15,6 +15,10 @@
 
 ```
 **News**
+
+May 2018  Update --
+	Proto Tres Board revision has begun.
+	Please write down your ideas for lighting / BLE in the Google Doc for badge development.
 
 March 2018 Update --
 
@@ -41,7 +45,15 @@ Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 
 **Technical Notes**
 
-Parts Breakdown: 
+ESP32 Microcontroller
+SSD1306 OLED Screen
+Gatreon Blue Keyswitches
+Neopixel Mini RGB LEDs
+2x or 3x AA power
+Shitty / Minibadge Addons supported
+
+
+OLD NOTES:
 * ESP32 - [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
 * PCB
 * Keyswitches - SMD RGB Type Needed (They have clear casings allowing for SMD leds to shine through.
