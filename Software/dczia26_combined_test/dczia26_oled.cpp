@@ -50,27 +50,27 @@ void oled_welcome(SSD1306 *screen)
   screen->println("main_menu() starts in 5..");
   screen->drawLogBuffer(0, 0);
   screen->display();
-  delay(1000);
+  delay(250);
   screen->clear();
   screen->print("4..");
   screen->drawLogBuffer(0, 0);
   screen->display();
-  delay(1000);
+  delay(250);
   screen->clear();
   screen->print("3..");
   screen->drawLogBuffer(0, 0);
   screen->display();
-  delay(1000);
+  delay(250);
   screen->clear();
   screen->print("2..");
   screen->drawLogBuffer(0, 0);
   screen->display();
-  delay(1000);
+  delay(250);
   screen->clear();
   screen->print("1..");
   screen->drawLogBuffer(0, 0);
   screen->display();
-  delay(1000);
+  delay(250);
 }
 
 
@@ -195,29 +195,5 @@ void oled_drawCircle(SSD1306 *screen) {
   delay(200);
   screen->drawCircleQuads(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_HEIGHT/4, 0b00001111);
   screen->display();
-}
-
-void oled_printBuffer(SSD1306 *screen) {
-
-  // Some test data
-  int16_t array_size=5;
-  const char* test[] = {
-      "Hello DCZIA 2018!!!",
-      "We should put", 
-      "all our handles in", 
-      "a scrolling list", 
-      "here."
-  };
-
-  for (uint8_t i = 0; i < array_size; i++) {
-    screen->clear();
-    // Print to the screen
-    screen->println(test[i]);
-    // Draw it to the internal screen buffer
-    screen->drawLogBuffer(0, 0);
-    // Display it on the screen
-    screen->display();
-    delay(500);
-  }
 }
 

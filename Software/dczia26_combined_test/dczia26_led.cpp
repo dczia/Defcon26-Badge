@@ -1,5 +1,8 @@
 #include "dczia26_led.h"
 
+uint8_t brightness_value_current   = 255;
+uint8_t brightness_value_previous  = 255;
+
 Adafruit_NeoPixel* led_setup(uint8_t brightness)
 {
   // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
@@ -18,11 +21,17 @@ Adafruit_NeoPixel* led_setup(uint8_t brightness)
   //Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); //Gradual Fade
 
   Adafruit_NeoPixel* strip = NULL;
+  int i;
   
-  strip = new Adafruit_NeoPixel(40, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); //Rainbow Fade
+  strip = new Adafruit_NeoPixel(20, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); 
   strip->begin();
-  strip->setBrightness(brightness);
+  led_brightness_set(strip, brightness);
+  for(i=0; i<strip->numPixels(); i++) 
+  {
+    strip->setPixelColor(i, 0);
+  }
   strip->show(); // Initialize all pixels to 'off'
+  delay(1);
   return(strip);
 }
 
@@ -34,6 +43,34 @@ void led_loop_advance(Adafruit_NeoPixel* strip)
   rainbowCycle(strip, 32);
   //Serial.println("done!");
 }
+
+
+void led_set_color(Adafruit_NeoPixel* strip, uint8_t key, uint8_t r, uint8_t g, uint8_t b, bool show_now)
+{
+  int color = strip->Color(r, g, b);
+  strip->setPixelColor(key, color);
+  if (show_now) strip->show();
+}
+
+void led_brightness_set(Adafruit_NeoPixel* strip, uint8_t newbrightness)
+{
+  // led_brightness
+  // 1-255 = dim setting (1 = dimmest, 255 = needweldingmask)
+  // any actual dimming (less than 255) will "sparkle" natively ...  it's a "feature"'d bug... we think.
+
+  brightness_value_previous  = brightness_value_current;  // save current
+  brightness_value_current   = newbrightness;             // set new
+  strip->setBrightness(brightness_value_current);
+}
+
+void led_brightness_restore_last(Adafruit_NeoPixel* strip)
+{
+  brightness_value_current   = brightness_value_previous; // restore previous
+  strip->setBrightness(brightness_value_current);
+}
+
+
+
 
 //////////////////////
 // Color Functions // 

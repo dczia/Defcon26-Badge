@@ -1,7 +1,7 @@
 #include "dczia26_menu.h"
 #include "dczia26_keypad.h"
 
-void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
+void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
 {
   // Serial.println("main_menu(): entering");
 
@@ -63,33 +63,33 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
       screen->clear();
       screen->drawString(0, 0, "Red!");
       screen->display();
-      for(i=0; i< ledgrid->numPixels(); i++)
+      for(i=0; i< ledstrip->numPixels(); i++)
       {
-        ledgrid->setPixelColor(i, ledgrid->Color(255, 0, 0));
+        ledstrip->setPixelColor(i, ledstrip->Color(255, 0, 0));
       }
-      ledgrid->show();
+      ledstrip->show();
       delay(led_delay);
       
       // green
       screen->clear();
       screen->drawString(0, 0, "Green!");
       screen->display();
-      for(i=0; i< ledgrid->numPixels(); i++)
+      for(i=0; i< ledstrip->numPixels(); i++)
       {
-        ledgrid->setPixelColor(i, ledgrid->Color(0, 255, 0));
+        ledstrip->setPixelColor(i, ledstrip->Color(0, 255, 0));
       }
-      ledgrid->show();
+      ledstrip->show();
       delay(led_delay);
 
       // blue
       screen->clear();
       screen->drawString(0, 0, "Blue!");
       screen->display();
-      for(i=0; i< ledgrid->numPixels(); i++)
+      for(i=0; i< ledstrip->numPixels(); i++)
       {
-        ledgrid->setPixelColor(i, ledgrid->Color(0, 0, 255));
+        ledstrip->setPixelColor(i, ledstrip->Color(0, 0, 255));
       }
-      ledgrid->show();
+      ledstrip->show();
       delay(led_delay);
 
       break;
@@ -114,7 +114,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
         oled_fillRect(screen);
         delay(display_delay);
         
-        screen->clear();
+/        screen->clear();
         oled_drawCircle(screen);
         delay(display_delay);
 */        
@@ -129,6 +129,8 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
     {
       Serial.println("main_menu(): case 'A'");
 
+      led_brightness_set(ledstrip, 255);
+      
       if (keypd)
       {
         while (keypd->getState(KEY_R3C3) != RELEASED)
@@ -150,7 +152,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
           outstr += keypd->getState(KEY_R0C2);
           outstr += keypd->getState(KEY_R0C3);
           outstr += "    'D' to exit";
-          Serial.println(outstr);
+          //Serial.println(outstr);
           if (screen) screen->drawString(0, 0, outstr);
       
           // Row 1
@@ -158,7 +160,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
           outstr += keypd->getState(KEY_R1C1);
           outstr += keypd->getState(KEY_R1C2);
           outstr += keypd->getState(KEY_R1C3);
-          Serial.println(outstr);
+          //Serial.println(outstr);
           if (screen) screen->drawString(0, 16, outstr);
       
           // Row 2
@@ -166,7 +168,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
           outstr += keypd->getState(KEY_R2C1);
           outstr += keypd->getState(KEY_R2C2);
           outstr += keypd->getState(KEY_R2C3);
-          Serial.println(outstr);
+          //Serial.println(outstr);
           if (screen) screen->drawString(0, 32, outstr);
       
           // Row 3
@@ -174,12 +176,41 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
           outstr += keypd->getState(KEY_R3C1);
           outstr += keypd->getState(KEY_R3C2);
           outstr += keypd->getState(KEY_R3C3);
-          Serial.println(outstr);
+          // Serial.println(outstr);
           if (screen) screen->drawString(0, 48, outstr);
       
+          // finally, update screen with new contents
           if (screen) screen->display();
+          delay(1);
+
+          // now let's add some key fun... if key depressed, light it up!
+          if ((keypd) && (ledstrip)) 
+          {
+            set_led_from_keystate(keypd, KEY_R0C0, ledstrip, LED_R0C0, false);
+            set_led_from_keystate(keypd, KEY_R0C1, ledstrip, LED_R0C1, false);
+            set_led_from_keystate(keypd, KEY_R0C2, ledstrip, LED_R0C2, false);
+            set_led_from_keystate(keypd, KEY_R0C3, ledstrip, LED_R0C3, false);
+
+            set_led_from_keystate(keypd, KEY_R1C0, ledstrip, LED_R1C0, false);
+            set_led_from_keystate(keypd, KEY_R1C1, ledstrip, LED_R1C1, false);
+            set_led_from_keystate(keypd, KEY_R1C2, ledstrip, LED_R1C2, false);
+            set_led_from_keystate(keypd, KEY_R1C3, ledstrip, LED_R1C3, false);
+
+            set_led_from_keystate(keypd, KEY_R2C0, ledstrip, LED_R2C0, false);
+            set_led_from_keystate(keypd, KEY_R2C1, ledstrip, LED_R2C1, false);
+            set_led_from_keystate(keypd, KEY_R2C2, ledstrip, LED_R2C2, false);
+            set_led_from_keystate(keypd, KEY_R2C3, ledstrip, LED_R2C3, false);
+
+            set_led_from_keystate(keypd, KEY_R3C0, ledstrip, LED_R3C0, false);
+            set_led_from_keystate(keypd, KEY_R3C1, ledstrip, LED_R3C1, false);
+            set_led_from_keystate(keypd, KEY_R3C2, ledstrip, LED_R3C2, false);
+            set_led_from_keystate(keypd, KEY_R3C3, ledstrip, LED_R3C3, true);
+
+            delay(1);
+          }
         }
       }
+      led_brightness_restore_last(ledstrip);
       break;
     }
 
@@ -194,13 +225,46 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledgrid)
 
     default:
     {
-      Serial.print("main_menu(): case default: "); Serial.println(keypress);
-      if (screen)
-      {
-        screen->println(keypress);    // Print to the screen
-        screen->drawLogBuffer(0, 0);  // Draw it to the internal screen buffer
-        screen->display();            // Display it on the screen
-      }
+//      Serial.print("main_menu(): case default: "); Serial.println(keypress);
+//      if (screen)
+//      {
+//        screen->println(keypress);    // Print to the screen
+//        screen->drawLogBuffer(0, 0);  // Draw it to the internal screen buffer
+//        screen->display();            // Display it on the screen
+//      }
+      break;
+    }
+  }
+}
+
+void set_led_from_keystate(Keypad *keypd, char key, Adafruit_NeoPixel *ledstrip, uint8_t led, bool shownow)
+{
+  // sanity checks
+  if (!key || !ledstrip) return; 
+
+  // states are: typedef enum{ IDLE, PRESSED, HOLD, RELEASED } KeyState;
+  KeyState key_state = keypd->getState(key);
+
+  // change color based on state
+  // Serial.print("key "); Serial.print(key); Serial.print(" state "); Serial.println(key_state);
+
+  switch (key_state)
+  {
+    case PRESSED:
+    {
+      led_set_color(ledstrip, led, 0, 255, 0, shownow);
+      break;
+    }
+
+    case HOLD:
+    {
+      led_set_color(ledstrip, led, 0, 0, 255, shownow);
+      break;
+    }
+
+    default: // includes IDLE
+    {
+      led_set_color(ledstrip, led, 1, 1, 1, shownow);
       break;
     }
   }

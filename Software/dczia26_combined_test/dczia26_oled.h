@@ -24,7 +24,6 @@ void oled_drawRect(SSD1306 *screen);
 void oled_drawZia(SSD1306 *screen);
 void oled_fillRect(SSD1306 *screen);
 void oled_drawCircle(SSD1306 *screen);
-void oled_printBuffer(SSD1306 *screen);
 
   const char zia[] PROGMEM = 
 //{ // 16x16

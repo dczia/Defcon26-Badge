@@ -17,19 +17,16 @@ Adafruit_NeoPixel  *leds = NULL; // uses v1.xx from "Adafruit NeoPixel" (https:/
 // in arduino world, "setup()" is called once at power-up (or reset) ... 
 void setup(void)
 {
-  // led_brightness
-  // 1-255 = dim setting (1 = dimmest, 255 = needweldingmask)
-  // any actual dimming (less than 255) will "sparkle" natively ...  it's a "feature"'d bug... we think.
-  uint8_t led_brightness = 10;
-   
   // init system debug output
   Serial.begin(115200);
 
   // call constructors
   Serial.print("Constructing...");
-  oled = oled_setup();
   keys = keypad_setup();
-  leds = led_setup(led_brightness);
+  delay(1);
+  leds = led_setup(1);
+  delay(1);
+  oled = oled_setup();
 
   // call welcome screen (once)
   if (oled) oled_welcome(oled);
@@ -52,6 +49,7 @@ void loop(void)
   main_menu(oled, keys, leds);
   
   // advance color cycling by one iteration
+  delay(1);
   if (leds) led_loop_advance(leds);
 }
 
