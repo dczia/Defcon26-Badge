@@ -82,25 +82,27 @@ bool Keypad::getKeys() {
 
 // Private : Hardware scan
 void Keypad::scanKeys() {
-	// Re-intialize the row pins. Allows sharing these pins with other hardware.
-	for (byte r=0; r<sizeKpd.rows; r++) {
-		pin_mode(rowPins[r],INPUT_PULLDOWN);
-	}
-//    Serial.println("Scanning...");
-	// bitMap stores ALL the keys that are being pressed.
-	for (byte c=0; c<sizeKpd.columns; c++) {
-//        Serial.print("col "); Serial.print(c);
-        pin_mode(columnPins[c],OUTPUT);
-		pin_write(columnPins[c], HIGH);	// Begin column pulse output.
-		for (byte r=0; r<sizeKpd.rows; r++) {
-			bitWrite(bitMap[r], c, pin_read(rowPins[r]));  // keypress is active high so no need to invert to high.
-//            Serial.print(",   row_"); Serial.print(r); Serial.print("="); Serial.print(pin_read(rowPins[r]));
+    // Re-intialize the column pins. Allows sharing these pins with other hardware.
+    for (byte c = 0; c < sizeKpd.columns; c++) {
+        pin_mode(columnPins[c], INPUT_PULLUP);
+    }
+    // Serial.println("Scanning...");
+    // bitMap stores ALL the keys that are being pressed.
+    for (byte r = 0; r < sizeKpd.rows; r++) {
+        // Serial.print("col "); Serial.print(c);
+        pin_mode(rowPins[r], OUTPUT);
+        pin_write(rowPins[r], LOW); // Begin row pulse output.
+
+        for (byte c = 0; c < sizeKpd.columns; c++) {
+            bitWrite(bitMap[r], c, !pin_read(columnPins[c]));  // keypress is active low so invert to high.
+            // Serial.print(",   col_"); Serial.print(c); Serial.print("="); Serial.print(pin_read(columnPins[c]));
         }
-//        Serial.println("");
-		// Set pin to high impedance input. Effectively ends column pulse.
-		pin_write(columnPins[c],HIGH);
-		pin_mode(columnPins[c],INPUT);
-	}
+        // Serial.println("");
+        // Set pin to high impedance input. Effectively ends column pulse.
+        pin_mode(rowPins[r], INPUT_PULLUP);
+        // pin_write(columnPins[c],HIGH);
+        // pin_mode(columnPins[c],INPUT);
+    }
 }
 
 // Manage the list without rearranging the keys. Returns true if any keys on the list changed state.

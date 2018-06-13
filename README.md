@@ -1,4 +1,4 @@
-# dczia2018
+# ＤＣＺＩＡ ２０１８
 
 ```
  ___   ___ _____        ___ __  _ ___
@@ -16,17 +16,25 @@
 ```
 **News**
 
-March 2018 Update --
+June 2018 Update
+* Final board revision in the works. Expecting proto tres boards soon.
+* Possibly switching OLED Libraries to U8G2 (https://github.com/olikraus/u8g2)
+* Screen will likely be a 0.91" 128x32pixel OLED ala https://www.aliexpress.com/item/0-91-Inch-128x32-IIC-I2C-Blue-OLED-LCD-Display-DIY-Module-SSD1306-Driver-IC-DC/32793415973.html
+	
+May 2018  Update
+* Proto Tres Board revision has begun.
+* Please write down your ideas for lighting / BLE in the Google Doc for badge development.
 
-	Proto Dos boards are in, working, and off to Lithochasm for redistribution with the keys
+March 2018 Update
+* Proto Dos boards are in, working, and off to Lithochasm for redistribution with the keys
 
-Feb 8th 2018 Update --
-	Dev boards have been made by Hamster. He identified an issue with the footprint of the leds, and is working on a fix.
-	Clear keycaps have begun printing by Litho. Switches and LED's for a dev board test have been ordered as well.
-	Software developemt has not begun. 
-	Goals for Feb, get dev boards up and in the hands of folks. 
-	Ideas for software features
-	Laynard Design
+Feb 2018 Update
+* Dev boards have been made by Hamster. He identified an issue with the footprint of the leds, and is working on a fix.
+* Clear keycaps have begun printing by Litho. Switches and LED's for a dev board test have been ordered as well.
+* Software developemt has not begun. 
+* Goals for Feb, get dev boards up and in the hands of folks. 
+* Ideas for software features
+* Laynard Design
 
 
 **What is the DCZia 2018 Badge**
@@ -40,19 +48,23 @@ Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 
 
 **Technical Notes**
+* ESP32 Microcontroller
+* SSD1306 OLED Screen
+* Gatreon Blue Keyswitches
+* Neopixel Mini RGB LEDs
+* 2x or 3x AA power
+* Shitty / Minibadge Addons supported
 
-Parts Breakdown: 
+
+**Old Notes**
 * ESP32 - [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
-* PCB
 * Keyswitches - SMD RGB Type Needed (They have clear casings allowing for SMD leds to shine through.
 	* Gateron Blues / Whatevers - Clear top, white bottom. Supposedly the white bottom ones have the smd cutout $0.25ea[Gateron Blue (60G) Tactile Click Switches (Pack of 10) by Mechanical Keyboards Inc](https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=1272)
-
 * Keycaps
-	* DIY 3D Printed. STL File is now in repo.
-	
+	* DIY 3D Printed. STL File is now in repo.	
 * Power - Lipo // AA’s? - Thinking AA's for ease of sourcing, and no need to fuss with lipo packs.
 
-OLED Notes:
+Prototype Board OLED Notes:
 WeMos OLED 
 I2C Data 5, Clock 4
 [u8g2setupcpp · olikraus/u8g2 Wiki · GitHub](https://github.com/olikraus/u8g2/wiki/u8g2setupcpp#ssd1306-128x64_noname)

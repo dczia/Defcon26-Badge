@@ -34,16 +34,43 @@ SSD1306* oled_setup(void)
   screen->setContrast(255);
 
   // Initialize the log buffer
-  // allocate memory to store 8 lines of text and 30 chars per line.
-  screen->setLogBuffer(5, 30);
+  // allocate memory to store 8 lines of text and 25 chars per line.
+  screen->setLogBuffer(5, 25);
 
   screen->clear();
-  screen->println("Welcome, dczia..");
-  screen->println("You've got mail..");
-  screen->drawLogBuffer(0, 0);
-  screen->display();
 
   return(screen);
+}
+
+
+void oled_welcome(SSD1306 *screen)
+{
+  screen->clear();
+  screen->println("Welcome, dczia..");
+  screen->println("main_menu() starts in 5..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(250);
+  screen->clear();
+  screen->print("4..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(250);
+  screen->clear();
+  screen->print("3..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(250);
+  screen->clear();
+  screen->print("2..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(250);
+  screen->clear();
+  screen->print("1..");
+  screen->drawLogBuffer(0, 0);
+  screen->display();
+  delay(250);
 }
 
 
@@ -168,29 +195,5 @@ void oled_drawCircle(SSD1306 *screen) {
   delay(200);
   screen->drawCircleQuads(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_HEIGHT/4, 0b00001111);
   screen->display();
-}
-
-void oled_printBuffer(SSD1306 *screen) {
-
-  // Some test data
-  int16_t array_size=5;
-  const char* test[] = {
-      "Hello DCZIA 2018!!!",
-      "We should put", 
-      "all our handles in", 
-      "a scrolling list", 
-      "here."
-  };
-
-  for (uint8_t i = 0; i < array_size; i++) {
-    screen->clear();
-    // Print to the screen
-    screen->println(test[i]);
-    // Draw it to the internal screen buffer
-    screen->drawLogBuffer(0, 0);
-    // Display it on the screen
-    screen->display();
-    delay(500);
-  }
 }
 
