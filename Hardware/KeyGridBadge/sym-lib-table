@@ -1,0 +1,11 @@
+(sym_lib_table
+  (lib (name esp32_oled)(type Legacy)(uri "$(KIPRJMOD)/lib_sch/esp32_oled.lib")(options "")(descr ""))
+  (lib (name ESP32-footprints-Shem-Lib)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/ESP32-footprints-Shem-Lib.lib)(options "")(descr ""))
+  (lib (name TPS73233DBVT)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/TPS73233DBVT.lib)(options "")(descr ""))
+  (lib (name MicroSD-SPI)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/MicroSD-SPI.lib)(options "")(descr ""))
+  (lib (name power-vbatt-switched)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/power-vbatt-switched.lib)(options "")(descr ""))
+  (lib (name saintcon-minibadge)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/saintcon-minibadge.lib)(options "")(descr ""))
+  (lib (name shitty_addon)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/shitty_addon.lib)(options "")(descr ""))
+  (lib (name Cherry_SK6812)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridBadge/lib_sch/Cherry_SK6812.lib)(options "")(descr ""))
+  (lib (name isl9120ir)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridBadge/lib_sch/isl9120ir.lib)(options "")(descr ""))
+)

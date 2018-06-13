@@ -1,0 +1,595 @@
+Cmp-Mod V01 Created by PcbNew   date = 2/12/2018 1:13:36 AM
+
+BeginCmp
+TimeStamp = 5A363DAF
+Path = /5A35CA1E
+Reference = U1;
+ValeurCmp = ESP32_OLED;
+IdModule  = lib_fp:WEMOS_OLED;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3CB
+Path = /5A33980B
+Reference = SW12;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3EF
+Path = /5A339817
+Reference = SW16;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B383
+Path = /5A3397F2
+Reference = SW4;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3A7
+Path = /5A3397FF
+Reference = SW8;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3B9
+Path = /5A338C47
+Reference = SW10;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3C2
+Path = /5A339670
+Reference = SW11;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3E6
+Path = /5A33967C
+Reference = SW15;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3DD
+Path = /5A338C53
+Reference = SW14;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B39E
+Path = /5A339664
+Reference = SW7;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B395
+Path = /5A338C3B
+Reference = SW6;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B371
+Path = /5A338C2E
+Reference = SW2;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B37A
+Path = /5A339657
+Reference = SW3;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B368
+Path = /5A335E4B
+Reference = SW1;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B38C
+Path = /5A337F96
+Reference = SW5;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3B0
+Path = /5A338149
+Reference = SW9;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B3D4
+Path = /5A338250
+Reference = SW13;
+ValeurCmp = SW_Push;
+IdModule  = lib_fp:CHERRY_SMDLED_100H;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A432AFB
+Path = 
+Reference = REF**;
+ValeurCmp = MountingHole_4.3mm_M4;
+IdModule  = Mounting_Holes:MountingHole_4.3mm_M4;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640BF
+Path = /5A84E5CE
+Reference = D28;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B23A
+Path = /5A35BCBF
+Reference = C12;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B252
+Path = /5A35BCD1
+Reference = C16;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B29A
+Path = /5A339811
+Reference = D12;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B2B2
+Path = /5A33981D
+Reference = D16;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640DF
+Path = /5A85194F
+Reference = D32;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B222
+Path = /5A35BCAD
+Reference = C8;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B26A
+Path = /5A3397F8
+Reference = D4;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B20A
+Path = /5A35BC9B
+Reference = C4;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A36407F
+Path = /5A357F60
+Reference = D20;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B282
+Path = /5A339805
+Reference = D8;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A36409F
+Path = /5A84B43D
+Reference = D24;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B2AC
+Path = /5A339682
+Reference = D15;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640AF
+Path = /5A84E5D5
+Reference = D26;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B294
+Path = /5A339676
+Reference = D11;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B28E
+Path = /5A338C4D
+Reference = D10;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640B7
+Path = /5A84E5C7
+Reference = D27;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640CF
+Path = /5A851956
+Reference = D30;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B2A6
+Path = /5A338C59
+Reference = D14;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640D7
+Path = /5A851948
+Reference = D31;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A364077
+Path = /5A357AC4
+Reference = D19;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B21C
+Path = /5A35AC49
+Reference = C7;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B27C
+Path = /5A33966A
+Reference = D7;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A364097
+Path = /5A84B436
+Reference = D23;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A36406F
+Path = /5A357688
+Reference = D18;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B276
+Path = /5A338C41
+Reference = D6;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B216
+Path = /5A35A99D
+Reference = C6;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A36408F
+Path = /5A84B444
+Reference = D22;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B22E
+Path = /5A35A9AF
+Reference = C10;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B246
+Path = /5A35A9C1
+Reference = C14;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B24C
+Path = /5A35AC6D
+Reference = C15;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B234
+Path = /5A35AC5B
+Reference = C11;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B25E
+Path = /5A338C34
+Reference = D2;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B264
+Path = /5A33965D
+Reference = D3;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B1FE
+Path = /5A35A98B
+Reference = C2;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B204
+Path = /5A35AC37
+Reference = C3;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B1F8
+Path = /5A359CDC
+Reference = C1;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B210
+Path = /5A35A60F
+Reference = C5;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B228
+Path = /5A35A7CB
+Reference = C9;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B240
+Path = /5A35A7DD
+Reference = C13;
+ValeurCmp = 0.1uF;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B258
+Path = /5A3361AD
+Reference = D1;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B270
+Path = /5A337F9C
+Reference = D5;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B288
+Path = /5A33814F
+Reference = D9;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A35B2A0
+Path = /5A338256
+Reference = D13;
+ValeurCmp = D_ALT;
+IdModule  = Diodes_SMD:D_SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A363E84
+Path = /5A372977
+Reference = J2;
+ValeurCmp = LED Power Select;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A364067
+Path = /5A335FD5
+Reference = D17;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A364087
+Path = /5A84B41D
+Reference = D21;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640A7
+Path = /5A84E5AE
+Reference = D25;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A3640C7
+Path = /5A85192F
+Reference = D29;
+ValeurCmp = LED_RGBW_SK6812;
+IdModule  = lib_fp:LED_RGB_3535;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A40AEE1
+Path = 
+Reference = REF**;
+ValeurCmp = SolderWirePad_single_0-8mmDrill;
+IdModule  = Wire_Pads:SolderWirePad_single_0-8mmDrill;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A442AD9
+Path = 
+Reference = REF**;
+ValeurCmp = MountingHole_4.3mm_M4;
+IdModule  = Mounting_Holes:MountingHole_4.3mm_M4;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A40AF04
+Path = 
+Reference = REF**;
+ValeurCmp = MountingHole_4.3mm_M4;
+IdModule  = Mounting_Holes:MountingHole_4.3mm_M4;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A40AF05
+Path = 
+Reference = REF**;
+ValeurCmp = MountingHole_4.3mm_M4;
+IdModule  = Mounting_Holes:MountingHole_4.3mm_M4;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A4427D7
+Path = /5A45BE24
+Reference = J3;
+ValeurCmp = Key Debug;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A4427ED
+Path = /5A441DBF
+Reference = J4;
+ValeurCmp = LED Debug;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 5A44EEAC
+Path = /5A41FC86
+Reference = J1;
+ValeurCmp = Ext Power;
+IdModule  = lib_fp:TE_Modular_2.5_Screwless;
+EndCmp
+
+EndListe
