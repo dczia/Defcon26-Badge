@@ -8,4 +8,6 @@
   (lib (name shitty_addon)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridProto/lib_sch/shitty_addon.lib)(options "")(descr ""))
   (lib (name Cherry_SK6812)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridBadge/lib_sch/Cherry_SK6812.lib)(options "")(descr ""))
   (lib (name isl9120ir)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridBadge/lib_sch/isl9120ir.lib)(options "")(descr ""))
+  (lib (name power-vled)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridBadge/lib_sch/power-vled.lib)(options "")(descr ""))
+  (lib (name TPS613221A)(type Legacy)(uri C:/Users/hamster/Documents/Development/dczia/Defcon26-Badge/Hardware/KeyGridBadge/lib_sch/TPS613221A.lib)(options "")(descr ""))
 )
