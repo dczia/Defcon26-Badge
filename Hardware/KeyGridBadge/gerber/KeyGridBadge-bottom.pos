@@ -1,4 +1,4 @@
-### Module positions - created on 06/25/18 23:30:33 ###
+### Module positions - created on 06/26/18 01:06:53 ###
 ### Printed by Pcbnew version kicad (5.0.0-rc2-dev-321-g78161b592)
 ## Unit = mm, Angle = deg.
 ## Side : bottom
@@ -27,10 +27,12 @@ C21       10uF               C_0805_2012Metric                             -86.3
 C22       0.1uF              C_0805_2012Metric                             -88.9200  -158.2900  270.0000  bottom
 C23       0.1uF              C_0805_2012Metric                             -88.9200  -163.1200  270.0000  bottom
 C24       0.1uF              C_0805_2012Metric                             -94.8600   -47.7100   90.0000  bottom
-C25       22uF               C_0805_2012Metric                             -93.2400  -140.0700    0.0000  bottom
-C26       0.1uF              C_0805_2012Metric                             -81.8200  -137.5800   90.0000  bottom
+C25       22uF               C_0805_2012Metric                             -92.1500  -139.5000  270.0000  bottom
+C26       0.1uF              C_0805_2012Metric                             -82.2400  -137.0600   90.0000  bottom
 C27       0.1uF              C_0805_2012Metric                             -79.3100  -149.8100    0.0000  bottom
 C28       0.1uF              C_0805_2012Metric                             -78.9900  -145.2600  270.0000  bottom
+C30       22uF               C_0805_2012Metric                             -94.2300  -139.5000  270.0000  bottom
+D1        D_Schottky         D_SOD-123-New                                 -83.4000  -141.9300  270.0000  bottom
 D17       D_ALT              D_SOD-123-New                                 -79.3900   -63.6600  270.0000  bottom
 D18       D_ALT              D_SOD-123-New                                 -99.1900   -63.6600  270.0000  bottom
 D19       D_ALT              D_SOD-123-New                                -118.9800   -63.6600  270.0000  bottom
@@ -50,7 +52,7 @@ D32       D_ALT              D_SOD-123-New                                -138.7
 D33       D_Schottky         D_SOD-123-New                                 -70.7900  -148.7400    0.0000  bottom
 J1        USB_B_Micro        MicroUSB-10118192-0001LF                      -64.3000  -155.4000   90.0000  bottom
 J3        Micro_SD_Card_SPI  MicroSD-Socket-1140084168                     -97.5000   -55.1000    0.0000  bottom
-L1        4.7uH              L_0805_2012Metric_Pad1.15x1.50mm_HandSolder   -83.1800  -144.9600    0.0000  bottom
+L1        4.7uH              L_0805_2012Metric_Pad1.15x1.50mm_HandSolder   -83.1600  -146.6300    0.0000  bottom
 Q1        MBT3904DW1         SOT-363_SC-70-6                               -86.7300  -151.8900   90.0000  bottom
 Q2        FDN360P            SuperSOT-3                                    -74.1000  -145.5800    0.0000  bottom
 R1        4.7k               R_0805_2012Metric                             -80.0000   -44.1000  180.0000  bottom

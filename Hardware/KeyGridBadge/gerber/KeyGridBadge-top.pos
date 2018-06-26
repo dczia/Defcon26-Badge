@@ -1,6 +1,8 @@
-### Module positions - created on 06/25/18 23:30:33 ###
+### Module positions - created on 06/26/18 01:06:53 ###
 ### Printed by Pcbnew version kicad (5.0.0-rc2-dev-321-g78161b592)
 ## Unit = mm, Angle = deg.
 ## Side : top
-# Ref     Val       Package                PosX       PosY       Rot  Side
+# Ref     Val       Package                                           PosX       PosY       Rot  Side
+C29       120pF     C_0603_1608Metric_Pad0.84x1.00mm_HandSolder    80.6900  -140.6300   90.0000  top
+R14       5R        R_0603_1608Metric_Pad0.84x1.00mm_HandSolder    80.6900  -143.9800  270.0000  top
 ## End
