@@ -1,4 +1,4 @@
-### Module positions - created on 06/26/18 01:06:53 ###
+### Module positions - created on 06/28/18 02:18:37 ###
 ### Printed by Pcbnew version kicad (5.0.0-rc2-dev-321-g78161b592)
 ## Unit = mm, Angle = deg.
 ## Side : bottom
@@ -51,7 +51,7 @@ D31       D_ALT              D_SOD-123-New                                -118.9
 D32       D_ALT              D_SOD-123-New                                -138.7900  -123.0700  270.0000  bottom
 D33       D_Schottky         D_SOD-123-New                                 -70.7900  -148.7400    0.0000  bottom
 J1        USB_B_Micro        MicroUSB-10118192-0001LF                      -64.3000  -155.4000   90.0000  bottom
-J3        Micro_SD_Card_SPI  MicroSD-Socket-1140084168                     -97.5000   -55.1000    0.0000  bottom
+J3        Micro_SD_Card_SPI  MicroSD-Socket-Seeed-320090008               -106.4400   -43.4900   -0.0000  bottom
 L1        4.7uH              L_0805_2012Metric_Pad1.15x1.50mm_HandSolder   -83.1600  -146.6300    0.0000  bottom
 Q1        MBT3904DW1         SOT-363_SC-70-6                               -86.7300  -151.8900   90.0000  bottom
 Q2        FDN360P            SuperSOT-3                                    -74.1000  -145.5800    0.0000  bottom
