@@ -3,8 +3,6 @@
 
 void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
 {
-  // Serial.println("main_menu(): entering");
-
   // keypad layout
   // 1 2 3 A
   // 4 5 6 B
@@ -35,7 +33,6 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
 
   
   // wait for keypress
-  //Serial.println("main_menu(): wait for keypress");
   char keypress = NO_KEY;
   if (keypd) 
   {
@@ -44,7 +41,6 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
     if (keypress == NO_KEY) return;
   }
   
-  //Serial.println("main_menu(): switch(keypress)");
   switch (keypress)
   {
     case '2':
@@ -101,7 +97,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
       if (screen)
       {
         int display_delay=1000;
-/*
+
         screen->clear();
         oled_drawLines(screen);
         delay(display_delay);
@@ -114,10 +110,10 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
         oled_fillRect(screen);
         delay(display_delay);
         
-/        screen->clear();
+         screen->clear();
         oled_drawCircle(screen);
         delay(display_delay);
-*/        
+       
         screen->clear();
         oled_drawZia(screen);
         delay(display_delay);

@@ -38,10 +38,7 @@ Adafruit_NeoPixel* led_setup(uint8_t brightness)
 void led_loop_advance(Adafruit_NeoPixel* strip)
 {
   // Some example procedures showing how to display to the pixels:
-  //rainbow(60);
-  //Serial.print("starting rainbowcycle...");
   rainbowCycle(strip, 32);
-  //Serial.println("done!");
 }
 
 
