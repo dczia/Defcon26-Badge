@@ -1,7 +1,5 @@
 #include "dczia26_oled.h"
 
-
-
 SSD1306* oled_setup(void)
 {
  // Use the corresponding display class:
@@ -170,6 +168,9 @@ void oled_fillRect(SSD1306 *screen) {
 
 // Adapted from Adafruit_SSD1306
 void oled_drawCircle(SSD1306 *screen) {
+
+  
+
   for (int16_t i=0; i<DISPLAY_HEIGHT; i+=2) {
     screen->drawCircle(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, i);
     screen->display();

@@ -15,6 +15,10 @@
 
 ```
 **News**
+July 2018 Update 1
+* ProtoDos code updated with BLE Code working and advertising to DC26 with 0X5050 Manufacturing ID
+* Some ProtoDos code cleanup 
+
 
 June 2018 Update
 * Final board revision in the works. Expecting proto tres boards soon.
@@ -54,6 +58,16 @@ Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 * Neopixel Mini RGB LEDs
 * 2x or 3x AA power
 * Shitty / Minibadge Addons supported
+
+**DevKit Setup Instructions**
+
+- Follow the [ESP32 Setup Instructions](https://github.com/espressif/arduino-esp32#installation-instructions) to get the latest board version. (NOTE: This is required to use BLE as there are recent updates)
+- Compile and upload to your Proto-Dos board
+- Enjoy all the fun menu settings, light show and BLE experience. 
+
+To Test: 
+- Use Nordic's nRF utility for the phone. 
+- Review #badgelife's doc for BLE communication.  Compare to last year's badge to see the correct manufacturer ID and appearance.
 
 
 **Old Notes**
