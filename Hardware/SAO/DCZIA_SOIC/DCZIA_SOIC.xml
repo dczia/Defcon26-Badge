@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/Users/unknwn/DCZIA_SOIC/DCZIA_SOIC.sch</source>
+    <date>Sunday, July 22, 2018 'AMt' 06:48:35 AM</date>
+    <tool>Eeschema 4.0.7</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>DCZIA_SOIC.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="X1">
+      <value>Badgelife_shitty_connector</value>
+      <libsource lib="badgelife_shitty_connector" part="Badgelife_shitty_connector"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53D942</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53DB40</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>10k</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53DBC8</tstamp>
+    </comp>
+    <comp ref="D2">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53DCD5</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>10k</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53DD18</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>MSP430G2230ID</value>
+      <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
+      <libsource lib="MCU_Texas_MSP430" part="MSP430G2230ID"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53D915</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>47k</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B53E14D</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="badgelife_shitty_connector" part="Badgelife_shitty_connector">
+      <fields>
+        <field name="Reference">X</field>
+        <field name="Value">Badgelife_shitty_connector</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="input"/>
+        <pin num="2" name="GND" type="input"/>
+        <pin num="3" name="SCL" type="input"/>
+        <pin num="4" name="SDA" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="LED">
+      <description>LED generic</description>
+      <footprints>
+        <fp>LED*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MCU_Texas_MSP430" part="MSP430G2230ID">
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MSP430G2230ID</field>
+        <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DVCC" type="power_in"/>
+        <pin num="2" name="TA0.1/A2/P1.2" type="BiDi"/>
+        <pin num="3" name="TA0.0/SCLK/A5/P1.5" type="BiDi"/>
+        <pin num="4" name="TA0.1/SDO/SCL/A6/P1.6" type="BiDi"/>
+        <pin num="5" name="SDI/SDA/A7/P1.7" type="BiDi"/>
+        <pin num="6" name="~RST~/NMI/SBWTDIO" type="input"/>
+        <pin num="7" name="TEST/SBWTCK" type="input"/>
+        <pin num="8" name="DVSS" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="R">
+      <description>Resistor</description>
+      <footprints>
+        <fp>R_*</fp>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="MCU_Texas_MSP430">
+      <uri>/Users/unknwn/v5_pre/kicad-symbols/MCU_Texas_MSP430.lib</uri>
+    </library>
+    <library logical="badgelife_shitty_connector">
+      <uri>/Users/unknwn/Defcon26-Badge/Hardware/SAO/KICAD_LIBS/badgelife_shitty_connector.lib</uri>
+    </library>
+    <library logical="device">
+      <uri>/Library/Application Support/kicad/library/device.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(D2-Pad2)">
+      <node ref="R2" pin="1"/>
+      <node ref="D2" pin="2"/>
+    </net>
+    <net code="2" name="Net-(R2-Pad2)">
+      <node ref="R2" pin="2"/>
+      <node ref="U1" pin="2"/>
+    </net>
+    <net code="3" name="Net-(U1-Pad4)">
+      <node ref="X1" pin="3"/>
+      <node ref="U1" pin="4"/>
+    </net>
+    <net code="4" name="Net-(R3-Pad2)">
+      <node ref="U1" pin="6"/>
+      <node ref="R3" pin="2"/>
+    </net>
+    <net code="5" name="Net-(R3-Pad1)">
+      <node ref="X1" pin="1"/>
+      <node ref="R3" pin="1"/>
+      <node ref="U1" pin="1"/>
+    </net>
+    <net code="6" name="Net-(D1-Pad1)">
+      <node ref="D1" pin="1"/>
+      <node ref="D2" pin="1"/>
+      <node ref="X1" pin="2"/>
+      <node ref="U1" pin="8"/>
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="7" name="Net-(U1-Pad5)">
+      <node ref="U1" pin="5"/>
+      <node ref="X1" pin="4"/>
+    </net>
+    <net code="8" name="Net-(D1-Pad2)">
+      <node ref="D1" pin="2"/>
+      <node ref="R1" pin="1"/>
+    </net>
+    <net code="9" name="Net-(R1-Pad2)">
+      <node ref="R1" pin="2"/>
+      <node ref="U1" pin="3"/>
+    </net>
+  </nets>
+</export>
