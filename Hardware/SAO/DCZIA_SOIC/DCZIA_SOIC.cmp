@@ -1,0 +1,59 @@
+Cmp-Mod V01 Created by PcbNew   date = 7/25/2018 4:04:41 PM
+
+BeginCmp
+TimeStamp = 5B54F0B0
+Path = /5B53D942
+Reference = X1;
+ValeurCmp = Badgelife_shitty_connector;
+IdModule  = KICAD_LIBS:Badgelife-Shitty-2x2;
+EndCmp
+
+BeginCmp
+TimeStamp = 5B548A3A
+Path = /5B53D915
+Reference = U1;
+ValeurCmp = MSP430G2230ID;
+IdModule  = Package_SO:SOIC-8_3.9x4.9mm_P1.27mm;
+EndCmp
+
+BeginCmp
+TimeStamp = 5B548A16
+Path = /5B53DB40
+Reference = D1;
+ValeurCmp = LS T776-P2S1-1-Z ;
+IdModule  = LEDs:LED_PLCC_2835_Handsoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5B548A1C
+Path = /5B53DCD5
+Reference = D2;
+ValeurCmp = LS T776-P2S1-1-Z ;
+IdModule  = LEDs:LED_PLCC_2835_Handsoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5B548A22
+Path = /5B53DBC8
+Reference = R1;
+ValeurCmp = 330;
+IdModule  = Resistors_SMD:R_1206_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5B548A28
+Path = /5B53DD18
+Reference = R2;
+ValeurCmp = 330;
+IdModule  = Resistors_SMD:R_1206_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = 5B548A2E
+Path = /5B53E14D
+Reference = R3;
+ValeurCmp = 47k;
+IdModule  = Resistors_SMD:R_1206_HandSoldering;
+EndCmp
+
+EndListe

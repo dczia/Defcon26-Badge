@@ -1,4 +1,4 @@
-update=Sunday, July 22, 2018 'AMt' 07:00:43 AM
+update=7/25/2018 12:15:27 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -37,7 +37,7 @@ SpiceUseNetNumbers=0
 LabSize=60
 [eeschema]
 version=1
-LibDir=KICAD_LIBS/v5_pre/kicad-symbols
+LibDir=
 [eeschema/libraries]
 LibName1=power
 LibName2=device
