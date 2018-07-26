@@ -1,4 +1,4 @@
-update=7/25/2018 12:15:27 PM
+update=7/25/2018 5:16:39 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -37,7 +37,7 @@ SpiceUseNetNumbers=0
 LabSize=60
 [eeschema]
 version=1
-LibDir=
+LibDir=../KICAD_LIBS;../DCZIA_SOIC
 [eeschema/libraries]
 LibName1=power
 LibName2=device

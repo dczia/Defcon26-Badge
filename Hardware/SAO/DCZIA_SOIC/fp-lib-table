@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name DCZIA_SOIC)(type KiCad)(uri "$(KIPRJMOD)")(options "")(descr ""))
+  (lib (name KICAD_LIBS)(type KiCad)(uri C:/Users/Dane/Documents/git/Defcon26-Badge/Hardware/SAO/KICAD_LIBS)(options "")(descr ""))
 )
