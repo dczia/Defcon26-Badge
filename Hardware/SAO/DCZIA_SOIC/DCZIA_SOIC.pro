@@ -1,4 +1,4 @@
-update=7/25/2018 5:16:39 PM
+update=7/26/2018 9:53:42 AM
 version=1
 last_client=kicad
 [pcbnew]
@@ -37,7 +37,7 @@ SpiceUseNetNumbers=0
 LabSize=60
 [eeschema]
 version=1
-LibDir=../KICAD_LIBS;../DCZIA_SOIC
+LibDir=../KICAD_LIBS
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -68,5 +68,6 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-LibName30=/Users/unknwn/v5_pre/kicad-symbols/MCU_Texas_MSP430
-LibName31=/Users/unknwn/Defcon26-Badge/Hardware/SAO/KICAD_LIBS/badgelife_shitty_connector
+LibName30=MCU_Texas_MSP430
+LibName31=badgelife_shitty_connector
+LibName32=dczia_lib
