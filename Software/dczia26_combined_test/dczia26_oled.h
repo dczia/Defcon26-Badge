@@ -14,7 +14,6 @@
  // #include "SH1106SPi.h"
 
 
-
 SSD1306* oled_setup(void);
 
 void oled_welcome(SSD1306 *screen);
@@ -25,10 +24,7 @@ void oled_drawZia(SSD1306 *screen);
 void oled_fillRect(SSD1306 *screen);
 void oled_drawCircle(SSD1306 *screen);
 
-const int16_t DISPLAY_WIDTH = 128;
-const int16_t DISPLAY_HEIGHT = 64;
-
-const unsigned char zia[] PROGMEM = 
+const char zia[] PROGMEM = 
   { // 64x64
   0x00, 0x00, 0x00, 0x70, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 
   0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x0E, 0x00, 0x00, 0x00, 
