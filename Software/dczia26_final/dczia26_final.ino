@@ -36,6 +36,7 @@ void setup(void)
 
   // done with init fuction
   Serial.println("done!");
+  if (leds) startupLEDS(leds);
 }
 
 // in arduino world, "loop()" is called over and over and over and ... 
@@ -51,6 +52,7 @@ void loop(void)
 //  ble_loop();
   // advance color cycling by one iteration
   delay(1);
+  
   if (leds) led_loop_advance(leds);
 }
 

@@ -31,6 +31,7 @@
 
 Adafruit_NeoPixel* led_setup(uint8_t brightness);
 
+void startupLEDS(Adafruit_NeoPixel* strip);
 void led_loop_advance(Adafruit_NeoPixel* strip);
 void led_set_color(Adafruit_NeoPixel* strip, uint8_t key, uint8_t r, uint8_t g, uint8_t b, bool show_now);
 void led_brightness_set(Adafruit_NeoPixel* strip, uint8_t newbrightness);
@@ -42,6 +43,8 @@ void led_brightness_restore_last(Adafruit_NeoPixel* strip);
 /////////////////////
 
 // Fill the dots one after the other with a color
+void colorFill(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait);
+
 void colorWipe(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait);
 
 void rainbow(Adafruit_NeoPixel* strip, uint8_t wait);

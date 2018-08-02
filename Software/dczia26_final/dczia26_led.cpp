@@ -35,10 +35,17 @@ Adafruit_NeoPixel* led_setup(uint8_t brightness)
   return(strip);
 }
 
+void startupLEDS(Adafruit_NeoPixel* strip)
+{
+
+  colorFill(strip, strip->Color(255,0,0), 20);
+}
+
 void led_loop_advance(Adafruit_NeoPixel* strip)
 {
   // Some example procedures showing how to display to the pixels:
-  rainbowCycle(strip, 32);
+  
+  rainbowCycle(strip, 16);
 }
 
 
@@ -72,6 +79,22 @@ void led_brightness_restore_last(Adafruit_NeoPixel* strip)
 //////////////////////
 // Color Functions // 
 /////////////////////
+
+
+void colorFill(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
+    strip->setPixelColor(1, c);
+    strip->setPixelColor(2, c);
+    strip->setPixelColor(3, c);
+    strip->setPixelColor(4, c);
+    delay(2000);
+    strip->show();
+    strip->setPixelColor(5, strip->Color(0,0,222));
+    strip->setPixelColor(6, strip->Color(0,0,222));
+    strip->setPixelColor(7, strip->Color(0,0,222));
+    strip->setPixelColor(8, strip->Color(0,0,222));
+    strip->show();
+    delay(2000);
+}
 
 // Fill the dots one after the other with a color
 void colorWipe(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
