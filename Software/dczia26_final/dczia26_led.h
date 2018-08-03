@@ -32,6 +32,7 @@
 Adafruit_NeoPixel* led_setup(uint8_t brightness);
 
 void startupLEDS(Adafruit_NeoPixel* strip);
+void brighten(Adafruit_NeoPixel* strip);
 void led_loop_advance(Adafruit_NeoPixel* strip);
 void led_set_color(Adafruit_NeoPixel* strip, uint8_t key, uint8_t r, uint8_t g, uint8_t b, bool show_now);
 void led_brightness_set(Adafruit_NeoPixel* strip, uint8_t newbrightness);
