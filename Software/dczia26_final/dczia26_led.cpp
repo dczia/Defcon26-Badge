@@ -35,7 +35,7 @@ Adafruit_NeoPixel* led_setup(uint8_t brightness)
   return(strip);
 }
 
-void startupLEDS(Adafruit_NeoPixel* strip)
+void startupLEDS(Adafruit_NeoPixel* strip) //Startup Animation
 {
     brighten(strip);
   //colorFill(strip, strip->Color(255,0,0), 20);
@@ -45,7 +45,7 @@ void led_loop_advance(Adafruit_NeoPixel* strip)
 {
   // Some example procedures showing how to display to the pixels:
   
-  rainbowCycle(strip, 16);
+  rainbowUP(strip, 16);
 }
 
 
@@ -99,12 +99,12 @@ void colorFill(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
 void brighten(Adafruit_NeoPixel* strip) {
   uint16_t i, j;
 
-  for (j = 0; j < 255; j++) {
+  for (j = 0; j < 200; j++) {
     for (i = 0; i < strip->numPixels(); i++) {
       strip->setPixelColor(i, j, 0, 0);
     }
     strip->show();
-    delay(10);
+    delay(8);
   }
   
 }
@@ -141,9 +141,53 @@ void rainbowCycle(Adafruit_NeoPixel* strip, uint8_t wait) {
   
   //for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
 
-    for(i=0; i< strip->numPixels(); i++) {
+    for(i=0; i< strip->numPixels(); i=i+4) {
       strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i+1, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i+2, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i+3, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
     }
+    strip->show();
+//    delay(wait);
+//  }
+
+  j++;
+}
+
+//Rainbow up
+void rainbowUP(Adafruit_NeoPixel* strip, uint8_t wait) {
+  static uint16_t j = 0;
+         uint16_t i;
+         bool reverse = false;
+
+  // removed looping to make rest of application more responsive.  
+  // outer "j" variable changed to static so that future calls can 
+  // pick up where it left off ... 
+  
+  //for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+//while(reverse = false) {
+    for(i=0; i< strip->numPixels(); i=i+4) {
+      strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i+1, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i+2, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i+3, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+       
+        strip->show();
+      }
+
+ //      while(reverse = true) {
+ /*       for(i=15; i>0; i=i-4) {
+      
+      strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i-1, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i-2, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+      strip->setPixelColor(i-3, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
+
+        
+      }
+        strip->show();
+ //     }
+  */  
     strip->show();
 //    delay(wait);
 //  }

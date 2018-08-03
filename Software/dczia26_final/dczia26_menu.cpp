@@ -200,7 +200,7 @@ void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
             set_led_from_keystate(keypd, KEY_R3C0, ledstrip, LED_R3C0, false);
             set_led_from_keystate(keypd, KEY_R3C1, ledstrip, LED_R3C1, false);
             set_led_from_keystate(keypd, KEY_R3C2, ledstrip, LED_R3C2, false);
-            set_led_from_keystate(keypd, KEY_R3C3, ledstrip, LED_R3C3, true);
+            set_led_from_keystate(keypd, KEY_R3C3, ledstrip, LED_R3C3, false);
 
             delay(1);
           }

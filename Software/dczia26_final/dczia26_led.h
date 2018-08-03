@@ -53,6 +53,9 @@ void rainbow(Adafruit_NeoPixel* strip, uint8_t wait);
 // Slightly different, this makes the rainbow equally distributed throughout
 void rainbowCycle(Adafruit_NeoPixel* strip, uint8_t wait);
 
+// Slightly different, this makes the rainbow equally distributed throughout
+void rainbowUP(Adafruit_NeoPixel* strip, uint8_t wait);
+
 //Theatre-style crawling lights.
 void theaterChase(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait);
 
