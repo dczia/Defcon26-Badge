@@ -11,7 +11,7 @@
 // Global variables
 // initilized in "setup()"
 // used in "loop()"
-SSD1306            *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driver for ssd1306 display" (https://github.com/ThingPulse/esp8266-oled-ssd1306)
+Adafruit_SSD1306   *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driver for ssd1306 display" (https://github.com/ThingPulse/esp8266-oled-ssd1306)
 Keypad             *keys = NULL; // currently customized and included within project (will update to forked lib later)
 //Adafruit_NeoPixel  *leds = NULL; // uses v1.xx from "Adafruit NeoPixel" (https://github.com/adafruit/Adafruit_NeoMatrix)
 
@@ -34,7 +34,7 @@ void setup(void)
   ble_setup();
   
   // call welcome screen (once)
-  if (oled) oled_welcome(oled);
+  oled_welcome(oled);
 
   // done with init fuction
   Serial.println("done!");
