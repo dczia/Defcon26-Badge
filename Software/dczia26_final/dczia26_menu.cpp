@@ -1,6 +1,11 @@
 #include "dczia26_menu.h"
 #include "dczia26_keypad.h"
 
+ 
+
+
+#if 0
+
 void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
 {
   // keypad layout
@@ -265,4 +270,6 @@ void set_led_from_keystate(Keypad *keypd, char key, Adafruit_NeoPixel *ledstrip,
     }
   }
 }
+
+#endif
 

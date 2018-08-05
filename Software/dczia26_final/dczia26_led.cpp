@@ -1,273 +1,108 @@
+// NeoPixelFunFadeInOut
+// This example will randomly pick a color and fade all pixels to that color, then
+// it will fade them to black and restart over
+// 
+// This example demonstrates the use of a single animation channel to animate all
+// the pixels at once.
+//
+
 #include "dczia26_led.h"
 
-uint8_t brightness_value_current   = 255;
-uint8_t brightness_value_previous  = 255;
 
-Adafruit_NeoPixel* led_setup(uint8_t brightness)
+// For Esp8266, the Pin is omitted and it uses GPIO3 due to DMA hardware use.  
+// There are other Esp8266 alternative methods that provide more pin options, but also have
+// other side effects.
+//NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(PixelCount);
+//
+// NeoEsp8266Uart800KbpsMethod uses GPI02 instead
+
+NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(PixelCount, PixelPin);
+
+NeoPixelAnimator animations(AnimationChannels); // NeoPixel animation management object
+
+uint16_t effectState = 0;  // general purpose variable used to store effect state
+
+
+// what is stored for state is specific to the need, in this case, the colors.
+// basically what ever you need inside the animation update function
+struct MyAnimationState
 {
-  // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
-  // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
-  // and minimize distance between Arduino and first pixel.  Avoid connecting
-  // on a live circuit...if you must, connect GND first.
-  
-  // Parameter 1 = number of pixels in strip
-  // Parameter 2 = Arduino pin number (most are valid)
-  // Parameter 3 = pixel type flags, add together as needed:
-  //   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-  //   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-  //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-  //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-  //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-  //Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); //Gradual Fade
+    RgbColor StartingColor;
+    RgbColor EndingColor;
+};
 
-  Adafruit_NeoPixel* strip = NULL;
-  int i;
-  
-  strip = new Adafruit_NeoPixel(16, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800); 
-  strip->begin();
-  led_brightness_set(strip, brightness);
-  for(i=0; i<strip->numPixels(); i++) 
-  {
-    strip->setPixelColor(i, 0);
-  }
-  strip->show(); // Initialize all pixels to 'off'
-  delay(1);
-  return(strip);
-}
+// one entry per pixel to match the animation timing manager
+MyAnimationState animationState[AnimationChannels];
 
-void startupLEDS(Adafruit_NeoPixel* strip) //Startup Animation
+void SetRandomSeed()
 {
-    brighten(strip);
-  //colorFill(strip, strip->Color(255,0,0), 20);
+    uint32_t seed;
+
+    // random works best with a seed that can use 31 bits
+    // analogRead on a unconnected pin tends toward less than four bits
+    seed = analogRead(0);
+    delay(1);
+
+    for (int shifts = 3; shifts < 31; shifts += 3)
+    {
+        seed ^= analogRead(0) << shifts;
+        delay(1);
+    }
+
+    randomSeed(seed);
 }
 
-void led_loop_advance(Adafruit_NeoPixel* strip)
+// simple blend function
+void BlendAnimUpdate(const AnimationParam& param)
 {
-  // Some example procedures showing how to display to the pixels:
-  
-  rainbowUP(strip, 16);
+    // this gets called for each animation on every time step
+    // progress will start at 0.0 and end at 1.0
+    // we use the blend function on the RgbColor to mix
+    // color based on the progress given to us in the animation
+    RgbColor updatedColor = RgbColor::LinearBlend(
+        animationState[param.index].StartingColor,
+        animationState[param.index].EndingColor,
+        param.progress);
+
+    // apply the color to the strip
+    for (uint16_t pixel = 0; pixel < PixelCount; pixel++)
+    {
+        strip.SetPixelColor(pixel, updatedColor);
+    }
 }
 
-
-void led_set_color(Adafruit_NeoPixel* strip, uint8_t key, uint8_t r, uint8_t g, uint8_t b, bool show_now)
+void FadeInFadeOutRinseRepeat(float luminance)
 {
-  int color = strip->Color(r, g, b);
-  strip->setPixelColor(key, color);
-  if (show_now) strip->show();
-}
+    if (effectState == 0)
+    {
+        // Fade upto a random color
+        // we use HslColor object as it allows us to easily pick a hue
+        // with the same saturation and luminance so the colors picked
+        // will have similiar overall brightness
+        RgbColor target = HslColor(random(360) / 360.0f, 1.0f, luminance);
+        uint16_t time = random(800, 2000);
 
-void led_brightness_set(Adafruit_NeoPixel* strip, uint8_t newbrightness)
-{
-  // led_brightness
-  // 1-255 = dim setting (1 = dimmest, 255 = needweldingmask)
-  // any actual dimming (less than 255) will "sparkle" natively ...  it's a "feature"'d bug... we think.
+        animationState[0].StartingColor = strip.GetPixelColor(0);
+        animationState[0].EndingColor = target;
 
-  brightness_value_previous  = brightness_value_current;  // save current
-  brightness_value_current   = newbrightness;             // set new
-  strip->setBrightness(brightness_value_current);
-}
-
-void led_brightness_restore_last(Adafruit_NeoPixel* strip)
-{
-  brightness_value_current   = brightness_value_previous; // restore previous
-  strip->setBrightness(brightness_value_current);
-}
-
-
-
-
-//////////////////////
-// Color Functions // 
-/////////////////////
-
-
-void colorFill(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
-    strip->setPixelColor(0, 255,0,0);
-    strip->setPixelColor(1, 0,255,255);
-    strip->setPixelColor(2, 0,255,255);
-    strip->setPixelColor(11, 0,255,255);
-//  delay(2000);
-    //strip->show();
-    strip->setPixelColor(4, 0,0,255);
-    
-    strip->setPixelColor(12, 0,0,255);
-    strip->setPixelColor(8, 0,0,255);
-    strip->show();
-    delay(2000);
-}
-
-
-//Startup Fade
-void brighten(Adafruit_NeoPixel* strip) {
-  uint16_t i, j;
-
-  for (j = 0; j < 200; j++) {
-    for (i = 0; i < strip->numPixels(); i++) {
-      strip->setPixelColor(i, j, j, 0);
+        animations.StartAnimation(0, time, BlendAnimUpdate);
     }
-    strip->show();
-    delay(8);
-  }
+    else if (effectState == 1)
+    {
+        // fade to black
+        uint16_t time = random(600, 700);
 
- /* for (j = 0; j < 200; j++) {
-    for (i = 0; i < strip->numPixels(); i++) {
-      strip->setPixelColor(1, j, 0, 0);
-      strip->setPixelColor(2, j, 0, 0);
-      strip->setPixelColor(4, j, 0, 0);
-      strip->setPixelColor(5, j, 0, 0);
-      strip->setPixelColor(6, j, 0, 0);
-      strip->setPixelColor(7, j, 0, 0);
-      strip->setPixelColor(8, j, 0, 0);
-      strip->setPixelColor(9, j, 0, 0);
-      strip->setPixelColor(10, j, 0, 0);
-      strip->setPixelColor(11, j, 0, 0);
-      strip->setPixelColor(13, j, 0, 0);
-      strip->setPixelColor(14, j, 0, 0);
-      
-      
+        animationState[0].StartingColor = strip.GetPixelColor(0);
+        animationState[0].EndingColor = RgbColor(0);
+
+        animations.StartAnimation(0, time, BlendAnimUpdate);
     }
-    strip->show();
-    delay(8);
-  }  */
 
-  
+    // toggle to the next effect state
+   // effectState = (effectState + 1) % 2;
+   effectState = 0;
 }
 
-// Fill the dots one after the other with a color
-void colorWipe(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip->numPixels(); i++) {
-    strip->setPixelColor(i, c);
-    strip->show();
-    delay(wait);
-  }
-}
 
-void rainbow(Adafruit_NeoPixel* strip, uint8_t wait) {
-  uint16_t i, j;
-
-  for(j=0; j<256; j++) {
-    for(i=0; i<strip->numPixels(); i++) {
-      strip->setPixelColor(i, Wheel(strip, (i+j) & 255));
-    }
-    strip->show();
-    delay(wait);
-  }
-}
-
-// Slightly different, this makes the rainbow equally distributed throughout
-void rainbowCycle(Adafruit_NeoPixel* strip, uint8_t wait) {
-  static uint16_t j = 0;
-         uint16_t i;
-
-  // removed looping to make rest of application more responsive.  
-  // outer "j" variable changed to static so that future calls can 
-  // pick up where it left off ... 
-  
-  //for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
-
-    for(i=0; i< strip->numPixels(); i=i+4) {
-      strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i+1, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i+2, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i+3, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-    }
-    strip->show();
-//    delay(wait);
-//  }
-
-  j++;
-}
-
-//Rainbow up
-void rainbowUP(Adafruit_NeoPixel* strip, uint8_t wait) {
-  static uint16_t j = 0;
-         uint16_t i;
-         bool reverse = false;
-
-  // removed looping to make rest of application more responsive.  
-  // outer "j" variable changed to static so that future calls can 
-  // pick up where it left off ... 
-  
-  //for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
-//while(reverse = false) {
-    for(i=0; i< strip->numPixels(); i=i+4) {
-      strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i+1, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i+2, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i+3, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-       
-        strip->show();
-      }
-
- //      while(reverse = true) {
- /*       for(i=15; i>0; i=i-4) {
-      
-      strip->setPixelColor(i, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i-1, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i-2, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-      strip->setPixelColor(i-3, Wheel(strip, ((i * 256 / strip->numPixels()) + j) & 255));
-
-        
-      }
-        strip->show();
- //     }
-  */  
-    strip->show();
-//    delay(wait);
-//  }
-
-  j++;
-}
-
-//Theatre-style crawling lights.
-void theaterChase(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
-  for (int j=0; j<10; j++) {  //do 10 cycles of chasing
-    for (int q=0; q < 3; q++) {
-      for (uint16_t i=0; i < strip->numPixels(); i=i+3) {
-        strip->setPixelColor(i+q, c);    //turn every third pixel on
-      }
-      strip->show();
-
-      delay(wait);
-
-      for (uint16_t i=0; i < strip->numPixels(); i=i+3) {
-        strip->setPixelColor(i+q, 0);        //turn every third pixel off
-      }
-    }
-  }
-}
-
-//Theatre-style crawling lights with rainbow effect
-void theaterChaseRainbow(Adafruit_NeoPixel* strip, uint8_t wait) {
-  for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
-    for (int q=0; q < 3; q++) {
-      for (uint16_t i=0; i < strip->numPixels(); i=i+3) {
-        strip->setPixelColor(i+q, Wheel(strip,  (i+j) % 255));    //turn every third pixel on
-      }
-      strip->show();
-
-      delay(wait);
-
-      for (uint16_t i=0; i < strip->numPixels(); i=i+3) {
-        strip->setPixelColor(i+q, 0);        //turn every third pixel off
-      }
-    }
-  }
-}
-
-// Input a value 0 to 255 to get a color value.
-// The colours are a transition r - g - b - back to r.
-uint32_t Wheel(Adafruit_NeoPixel* strip, byte WheelPos) {
-  WheelPos = 255 - WheelPos;
-  if(WheelPos < 85) {
-    return strip->Color(255 - WheelPos * 3, 0, WheelPos * 3);
-  }
-  if(WheelPos < 170) {
-    WheelPos -= 85;
-    return strip->Color(0, WheelPos * 3, 255 - WheelPos * 3);
-  }
-  WheelPos -= 170;
-  return strip->Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-}
 
 

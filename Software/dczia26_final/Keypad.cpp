@@ -58,8 +58,11 @@ void Keypad::begin(char *userKeymap) {
 char Keypad::getKey() {
 	single_key = true;
 
-	if (getKeys() && key[0].stateChanged && (key[0].kstate==PRESSED))
-		return key[0].kchar;
+	if (getKeys() && key[0].stateChanged && (key[0].kstate==PRESSED)){
+        Serial.print("Key: "); Serial.print(key[0].kchar);
+        return key[0].kchar;
+	}
+		
 	
 	single_key = false;
 
@@ -75,6 +78,7 @@ bool Keypad::getKeys() {
 		scanKeys();
 		keyActivity = updateList();
 		startTime = millis();
+
 	}
 
 	return keyActivity;

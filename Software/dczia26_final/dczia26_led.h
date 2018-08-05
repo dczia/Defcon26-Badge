@@ -1,13 +1,21 @@
 #pragma once
 
-#include <Adafruit_NeoPixel.h>
+#include <NeoPixelBus.h>
+#include <NeoPixelAnimator.h>
 
-#ifdef __AVR__
-  #include <avr/power.h>
-#endif
 
-// pin used to communicate with LEDs
-#define NEOPIXEL_PIN 27
+
+const uint16_t PixelCount = 16; // make sure to set this to the number of pixels in your strip
+const uint8_t PixelPin = 27;  // make sure to set this to the correct pin, ignored for Esp8266
+const uint8_t AnimationChannels = 1; // we only need one as all the pixels are animated at once
+
+
+extern NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip; //(PixelCount, PixelPin);
+
+extern NeoPixelAnimator animations; //(AnimationChannels); // NeoPixel animation management object
+
+void SetRandomSeed();
+void FadeInFadeOutRinseRepeat(float luminance);
 
 // LED array-to-matrix mapping
 #define LED_R0C0 15
@@ -29,40 +37,4 @@
 
 
 
-Adafruit_NeoPixel* led_setup(uint8_t brightness);
-
-void startupLEDS(Adafruit_NeoPixel* strip);
-void brighten(Adafruit_NeoPixel* strip);
-void led_loop_advance(Adafruit_NeoPixel* strip);
-void led_set_color(Adafruit_NeoPixel* strip, uint8_t key, uint8_t r, uint8_t g, uint8_t b, bool show_now);
-void led_brightness_set(Adafruit_NeoPixel* strip, uint8_t newbrightness);
-void led_brightness_restore_last(Adafruit_NeoPixel* strip);
-
-
-//////////////////////
-// Color Functions // 
-/////////////////////
-
-// Fill the dots one after the other with a color
-void colorFill(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait);
-
-void colorWipe(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait);
-
-void rainbow(Adafruit_NeoPixel* strip, uint8_t wait);
-
-// Slightly different, this makes the rainbow equally distributed throughout
-void rainbowCycle(Adafruit_NeoPixel* strip, uint8_t wait);
-
-// Slightly different, this makes the rainbow equally distributed throughout
-void rainbowUP(Adafruit_NeoPixel* strip, uint8_t wait);
-
-//Theatre-style crawling lights.
-void theaterChase(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait);
-
-//Theatre-style crawling lights with rainbow effect
-void theaterChaseRainbow(Adafruit_NeoPixel* strip, uint8_t wait);
-
-// Input a value 0 to 255 to get a color value.
-// The colours are a transition r - g - b - back to r.
-uint32_t Wheel(Adafruit_NeoPixel* strip, byte WheelPos);
 
