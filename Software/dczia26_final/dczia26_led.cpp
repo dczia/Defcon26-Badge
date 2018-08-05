@@ -96,16 +96,40 @@ void colorFill(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
     delay(2000);
 }
 
+
+//Startup Fade
 void brighten(Adafruit_NeoPixel* strip) {
   uint16_t i, j;
 
   for (j = 0; j < 200; j++) {
     for (i = 0; i < strip->numPixels(); i++) {
-      strip->setPixelColor(i, j, 0, 0);
+      strip->setPixelColor(i, j, j, 0);
     }
     strip->show();
     delay(8);
   }
+
+ /* for (j = 0; j < 200; j++) {
+    for (i = 0; i < strip->numPixels(); i++) {
+      strip->setPixelColor(1, j, 0, 0);
+      strip->setPixelColor(2, j, 0, 0);
+      strip->setPixelColor(4, j, 0, 0);
+      strip->setPixelColor(5, j, 0, 0);
+      strip->setPixelColor(6, j, 0, 0);
+      strip->setPixelColor(7, j, 0, 0);
+      strip->setPixelColor(8, j, 0, 0);
+      strip->setPixelColor(9, j, 0, 0);
+      strip->setPixelColor(10, j, 0, 0);
+      strip->setPixelColor(11, j, 0, 0);
+      strip->setPixelColor(13, j, 0, 0);
+      strip->setPixelColor(14, j, 0, 0);
+      
+      
+    }
+    strip->show();
+    delay(8);
+  }  */
+
   
 }
 

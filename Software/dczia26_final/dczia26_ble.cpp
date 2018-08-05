@@ -1,4 +1,4 @@
-/*#include "dczia26_ble.h"
+#include "dczia26_ble.h"
 #include "sys/time.h"
 
 RTC_DATA_ATTR static time_t last;        // remember last boot in RTC Memory
@@ -79,4 +79,4 @@ void ble_setup() {
 
 void ble_loop() {
 
-}*/
+} 

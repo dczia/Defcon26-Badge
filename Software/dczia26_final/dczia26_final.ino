@@ -5,7 +5,7 @@
 #include "dczia26_keypad.h"
 #include "dczia26_led.h"
 #include "dczia26_oled.h"
-//#include "dczia26_ble.h"
+#include "dczia26_ble.h"
 #include "dczia26_menu.h"
 
 // Global variables
@@ -29,7 +29,7 @@ void setup(void)
   delay(1);
   oled = oled_setup();
   delay(1);
- // ble_setup();
+  ble_setup();
   
   // call welcome screen (once)
   if (oled) oled_welcome(oled);
