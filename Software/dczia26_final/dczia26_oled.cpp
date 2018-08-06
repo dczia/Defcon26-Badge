@@ -49,32 +49,32 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   screen->println("main_menu() in 5..");
   screen->display();
   delay(1000);
-  
+
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->println("4..");
   screen->display();
   delay(1000);
-  
+
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->println("3..");
   screen->display();
   delay(1000);
-  
+
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->println("2..");
   //screen->drawLogBuffer(0, 0);
   screen->display();
   delay(1000);
-  
+
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->println("1..");
   screen->display();
   delay(2500);
-  
+
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->setTextSize(2);
