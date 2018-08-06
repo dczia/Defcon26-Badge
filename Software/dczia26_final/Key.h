@@ -44,16 +44,16 @@ const char NO_KEY = '\0';
 
 class Key {
 public:
-	// members
-	char kchar;
-	int kcode;
-	KeyState kstate;
-	boolean stateChanged;
+  // members
+  char kchar;
+  int kcode;
+  KeyState kstate;
+  boolean stateChanged;
 
-	// methods
-	Key();
-	Key(char userKeyChar);
-	void key_update(char userKeyChar, KeyState userState, boolean userStatus);
+  // methods
+  Key();
+  Key(char userKeyChar);
+  void key_update(char userKeyChar, KeyState userState, boolean userStatus);
 
 private:
 

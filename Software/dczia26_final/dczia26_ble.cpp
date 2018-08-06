@@ -27,26 +27,26 @@ void setBeacon() {
   oBeacon.setMinor(bootcount&0xFFFF);
   BLEAdvertisementData oAdvertisementData = BLEAdvertisementData();
   BLEAdvertisementData oScanResponseData = BLEAdvertisementData();
-  
+
   oAdvertisementData.setFlags(0x04); // BR_EDR_NOT_SUPPORTED 0x04
-  
+
   std::string strServiceData = "";
-  
+
   strServiceData += (char)26;     // Len
   strServiceData += (char)0xFF;   // Type
-  strServiceData += oBeacon.getData(); 
+  strServiceData += oBeacon.getData();
 
   oAdvertisementData.setName("DCZia26");
   oAdvertisementData.addData(strServiceData);
   oAdvertisementData.setAppearance(APPEARANCE_DC26);
-  
+
   //Response Data doesn't need a name
   oScanResponseData.addData(strServiceData);
   oScanResponseData.setAppearance(APPEARANCE_DC26);
-  
+
   pAdvertising->setAdvertisementData(oAdvertisementData);
   pAdvertising->setScanResponseData(oScanResponseData);
-  
+
 }
 
 void ble_setup() {
@@ -58,7 +58,7 @@ void ble_setup() {
   Serial.printf("deep sleep (%lds since last reset, %lds since last boot)\n",now.tv_sec,now.tv_sec-last);
 
   last = now.tv_sec;
-  
+
   // Create the BLE Device
   BLEDevice::init("DCZia26");
 
@@ -66,7 +66,7 @@ void ble_setup() {
   BLEServer *pServer = BLEDevice::createServer();
 
   pAdvertising = pServer->getAdvertising();
-  
+
   setBeacon();
   BLEService *pService = pServer->createService(SERVICE_UUID);
   pService->start();
@@ -74,9 +74,9 @@ void ble_setup() {
   pAdvertising->start();
   Serial.println("Advertising started...");
   delay(10);
-  
+
 }
 
 void ble_loop() {
 
-} 
+}
