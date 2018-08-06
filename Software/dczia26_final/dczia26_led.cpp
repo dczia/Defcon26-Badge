@@ -87,7 +87,24 @@ void BlendAnimUpdate(const AnimationParam& param)
     for (uint16_t pixel = 0; pixel < PixelCount; pixel++)
     {
         strip.SetPixelColor(pixel, updatedColor);
+        
     }
+    
+}
+
+void SimpleBlendAnimUpdate(const AnimationParam& param)
+{
+    // this gets called for each animation on every time step
+    // progress will start at 0.0 and end at 1.0
+    // we use the blend function on the RgbColor to mix
+    // color based on the progress given to us in the animation
+    RgbColor updatedColor = RgbColor::LinearBlend(
+        animationState[param.index].StartingColor,
+        animationState[param.index].EndingColor,
+        param.progress);
+    // apply the color to the strip
+    strip.SetPixelColor(param.index, updatedColor);
+    delay(5);
 }
 
 void FadeInFadeOutRinseRepeat(float luminance)
@@ -121,6 +138,33 @@ void FadeInFadeOutRinseRepeat(float luminance)
    // effectState = (effectState + 1) % 2;
    effectState = 0;
 }
+
+void PickRandom(float luminance)
+{
+    // pick random count of pixels to animate
+    uint16_t count = random(PixelCount);
+    while (count > 0)
+    {
+        // pick a random pixel
+        uint16_t pixel = random(PixelCount);
+
+        // pick random time and random color
+        // we use HslColor object as it allows us to easily pick a color
+        // with the same saturation and luminance 
+        uint16_t time = random(100, 400);
+        auto myrand = random(1000)/1000.;
+        
+        strip.SetPixelColor(pixel, HslColor(0.0, 1.0f, luminance * myrand * myrand * myrand));
+        
+        //animations.StartAnimation(pixel, time, SimpleBlendAnimUpdate);
+        
+
+        count--;
+    }
+    strip.Show();
+    delay(250);
+}
+
 
 
 

@@ -145,13 +145,12 @@ void loop(void) {
     case '8':
     case '9':
     case '0':
-    case 'A':
     case 'B':
     case 'C':
     case '#':
     case '*':
         // Set the mode message
-        mode_name = "Low Rainbow";
+        mode_name = "Low\nRainbow";
         
         //Default Animation Loop
         if (animations.IsAnimating()) {
@@ -160,7 +159,7 @@ void loop(void) {
             strip.Show();
         } else {
             // No animation runnning, start some 
-            FadeInFadeOutRinseRepeat(.1f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+            FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
         }
         break;
     case 'D':
@@ -175,14 +174,14 @@ void loop(void) {
             strip.Show();
         } else {
             // No animation runnning, start some 
-            FadeInFadeOutRinseRepeat(0.0f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+            FadeInFadeOutRinseRepeat(0.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
         }
     
         break;
         
     case '2':
         // Set the mode message
-        mode_name = "High Rainbow";
+        mode_name = "High\nRainbow";
     
         //Default Animation Loop
         if (animations.IsAnimating()) {
@@ -197,12 +196,12 @@ void loop(void) {
 
      case '3': {
         // Set the mode message
-        mode_name = "Pixel Picker";
+        mode_name = "Pixel\nPicker";
 
         if(newpress) {
           // Turn off any animations
           animations.StopAnimation(0);
-          delay(10);
+          delay(1);
           
           // Set what it means to be an on and off pixel
           auto on = HslColor(120.0 / 360.0, 1.0, 0.5);
@@ -215,19 +214,35 @@ void loop(void) {
                 strip.SetPixelColor(ijtop(i,j),color);
              }
           }
-          delay(10);
+          delay(1);
           strip.Show();
         }
+        break; }
+         
+     case 'A':
+        // Set the mode message
+        mode_name = "Connection\nMachine";
+        if(newmode)
+            animations.StopAnimation(0);
+    
+        //Default Animation Loop
+        if (animations.IsAnimating()) {
+            // The normal loop just needs these two to run the active animations
+            animations.UpdateAnimations();
+            strip.Show();
+        } else {
+            // No animation runnning, start some 
+            PickRandom(.2); // 0.0 = black, 0.25 is normal, 0.5 is bright
+        }    
         break;
-     }}
+     
+     }
 
     // Set the LED message
     if(newmode) {
         oled->clearDisplay();
         oled->setCursor(0, 0);
-        oled->setTextSize(2);
-        oled->println(" -DCZia26-");
-        oled->setTextSize(1);
+        oled->setTextSize(mode_size);
         oled->println(mode_name.c_str());
         oled->display();
     }

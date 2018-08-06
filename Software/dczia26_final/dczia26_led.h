@@ -19,6 +19,7 @@ extern NeoPixelAnimator animations; //(AnimationChannels); // NeoPixel animation
 void SetRandomSeed();
 void startupAnimation();
 void FadeInFadeOutRinseRepeat(float luminance);
+void PickRandom(float luminance);
 
 // LED array-to-matrix mapping
 #define LED_R0C0 0
