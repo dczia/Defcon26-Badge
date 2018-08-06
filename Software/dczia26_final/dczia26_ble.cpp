@@ -73,7 +73,7 @@ void ble_setup() {
    // Start advertising
   pAdvertising->start();
   Serial.println("Advertising started...");
-  delay(100);
+  delay(10);
   
 }
 

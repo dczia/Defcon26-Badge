@@ -15,6 +15,7 @@ extern NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip; //(PixelCount, PixelP
 extern NeoPixelAnimator animations; //(AnimationChannels); // NeoPixel animation management object
 
 void SetRandomSeed();
+void startupAnimation();
 void FadeInFadeOutRinseRepeat(float luminance);
 
 // LED array-to-matrix mapping

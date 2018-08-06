@@ -13,9 +13,6 @@
 // used in "loop()"
 SSD1306            *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driver for ssd1306 display" (https://github.com/ThingPulse/esp8266-oled-ssd1306)
 Keypad             *keys = NULL; // currently customized and included within project (will update to forked lib later)
-//Adafruit_NeoPixel  *leds = NULL; // uses v1.xx from "Adafruit NeoPixel" (https://github.com/adafruit/Adafruit_NeoMatrix)
-
-
 
 // in arduino world, "setup()" is called once at power-up (or reset) ... 
 void setup(void)
@@ -27,7 +24,20 @@ void setup(void)
   Serial.print("Constructing...");
   keys = keypad_setup();
   delay(1);
-//  leds = led_setup(100);
+
+    //Setup LEDS
+    strip.Begin();
+    strip.Show();
+
+    startupAnimation();
+    strip.Show();
+
+    animations.StopAnimation(0);
+
+    SetRandomSeed();
+    
+    
+    
   delay(1);
   oled = oled_setup();
   delay(1);
@@ -38,11 +48,6 @@ void setup(void)
 
   // done with init fuction
   Serial.println("done!");
-  //if (leds) startupLEDS(leds);
-
-
-    strip.Begin();
-    strip.Show();
 
     SetRandomSeed();
   
@@ -61,24 +66,35 @@ void loop(void)
   // if key(s) are pressed, then appropriate (and 
   // potentially blocking) actions take place.
  // main_menu(oled, keys, leds);
-  ble_loop();
+ 
+   ble_loop();
   // advance color cycling by one iteration
-  delay(1);
+ // delay(1);
 
+
+    
+    FadeInFadeOutRinseRepeat(.1f);
+
+    animations.UpdateAnimations();
+    strip.Show();
+
+
+/*
+//Default Animation Loop
  if (animations.IsAnimating())
     {
         // the normal loop just needs these two to run the active animations
+        
         animations.UpdateAnimations();
         strip.Show();
     }
     else
     {
         // no animation runnning, start some 
-        //
-        FadeInFadeOutRinseRepeat(.5f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+        FadeInFadeOutRinseRepeat(.1f); // 0.0 = black, 0.25 is normal, 0.5 is bright
     }
   
-  
+  */
 
 }
 

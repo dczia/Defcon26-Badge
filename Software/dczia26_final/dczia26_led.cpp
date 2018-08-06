@@ -22,6 +22,19 @@ NeoPixelAnimator animations(AnimationChannels); // NeoPixel animation management
 
 uint16_t effectState = 0;  // general purpose variable used to store effect state
 
+#define colorSaturation 128
+
+RgbColor red(colorSaturation, 0, 0);
+RgbColor green(0, colorSaturation, 0);
+RgbColor blue(0, 0, colorSaturation);
+RgbColor white(colorSaturation);
+RgbColor black(0);
+
+HslColor hslRed(red);
+HslColor hslGreen(green);
+HslColor hslBlue(blue);
+HslColor hslWhite(white);
+HslColor hslBlack(black);
 
 // what is stored for state is specific to the need, in this case, the colors.
 // basically what ever you need inside the animation update function
@@ -33,6 +46,12 @@ struct MyAnimationState
 
 // one entry per pixel to match the animation timing manager
 MyAnimationState animationState[AnimationChannels];
+
+
+void startupAnimation()
+{
+strip.ClearTo(hslRed);
+}
 
 void SetRandomSeed()
 {
