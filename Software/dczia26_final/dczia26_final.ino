@@ -38,16 +38,16 @@ void setup(void)
     
     
     
-  delay(1);
+ // delay(1);
   oled = oled_setup();
-  delay(1);
+  //delay(1);
   ble_setup();
   
   // call welcome screen (once)
   oled_welcome(oled);
 
   // done with init fuction
-  Serial.println("done!");
+   Serial.println("Done With Setup!");
 
     SetRandomSeed();
   
@@ -60,27 +60,9 @@ void loop(void)
 
    auto keypress = keys->getKey(); // non-blocking
   
-  // main menu itself is non-blocking;
-  // if no keys are pressed, function returns so that 
-  // the next line(s) can operate (e.g. led color changing)
-  // if key(s) are pressed, then appropriate (and 
-  // potentially blocking) actions take place.
- // main_menu(oled, keys, leds);
- 
-   ble_loop();
-  // advance color cycling by one iteration
-  delay(1);
-
-
-    
-   // FadeInFadeOutRinseRepeat(.1f);
-
-  //  animations.UpdateAnimations();
-  //  strip.Show();
-
-
 
 //Default Animation Loop
+
  if (animations.IsAnimating())
     {
         // the normal loop just needs these two to run the active animations

@@ -10,6 +10,8 @@ const uint8_t PixelPin = 27;  // make sure to set this to the correct pin, ignor
 const uint8_t AnimationChannels = 1; // we only need one as all the pixels are animated at once
 
 
+// extern NeoPixelBus<NeoGrbFeature, NeoEsp32I2s0800KbpsMethod> strip; //(PixelCount, PixelPin);
+
 extern NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip; //(PixelCount, PixelPin);
 
 extern NeoPixelAnimator animations; //(AnimationChannels); // NeoPixel animation management object
