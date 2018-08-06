@@ -29,10 +29,10 @@ void setup(void)
     strip.Begin();
     strip.Show();
 
-    startupAnimation();
+   startupAnimation();
     strip.Show();
 
-    animations.StopAnimation(0);
+   // animations.StopAnimation(0);
 
     SetRandomSeed();
     
@@ -69,17 +69,17 @@ void loop(void)
  
    ble_loop();
   // advance color cycling by one iteration
- // delay(1);
+  delay(1);
 
 
     
-    FadeInFadeOutRinseRepeat(.1f);
+   // FadeInFadeOutRinseRepeat(.1f);
 
-    animations.UpdateAnimations();
-    strip.Show();
+  //  animations.UpdateAnimations();
+  //  strip.Show();
 
 
-/*
+
 //Default Animation Loop
  if (animations.IsAnimating())
     {
@@ -94,7 +94,7 @@ void loop(void)
         FadeInFadeOutRinseRepeat(.1f); // 0.0 = black, 0.25 is normal, 0.5 is bright
     }
   
-  */
+ 
 
 }
 
