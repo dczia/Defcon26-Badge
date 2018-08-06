@@ -15,42 +15,42 @@ Adafruit_SSD1306   *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driv
 Keypad             *keys = NULL; // currently customized and included within project (will update to forked lib later)
 
 // in arduino world, "setup()" is called once at power-up (or reset) ... 
-void setup(void)
-{
-  // init system debug output
-  Serial.begin(115200);
+void setup(void) {
+    // init system debug output
+    Serial.begin(115200);
 
-  // call constructors
-  Serial.print("Constructing...");
-  keys = keypad_setup();
-  delay(1);
+    // call constructors
+    Serial.print("Constructing...");
+    keys = keypad_setup();
+    delay(1);
 
     //Setup LEDS
     strip.Begin();
     strip.Show();
-
-   startupAnimation();
+    startupAnimation();
     strip.Show();
+    // animations.StopAnimation(0);
 
-   // animations.StopAnimation(0);
+    
+    // Setup the OLED
+    oled = oled_setup();
 
-    SetRandomSeed();
-    
-    
-    
- // delay(1);
-  oled = oled_setup();
-  //delay(1);
-  ble_setup();
+    // Setup the bluetooth
+    ble_setup();
   
-  // call welcome screen (once)
-  oled_welcome(oled);
+    // call welcome screen (once)
+    oled_welcome(oled);
 
-  // done with init fuction
-   Serial.println("Done With Setup!");
+    // done with init fuction
+    Serial.println("Done With Setup!");
 
+    // Set a random seed
     SetRandomSeed();
-  
+}
+
+// Maps a pixel location to a pixel value
+uint ijtop(uint const & i,uint const & j) {
+    return (j-1)+(i-1)*4;
 }
 
 // in arduino world, "loop()" is called over and over and over and ... 
@@ -64,12 +64,22 @@ void loop(void) {
     // the animations
     static auto newmode = true;
 
+    // Determine if we have a new keypress
+    static auto newpress = true;
+
+    // Last key pressed
+    static auto key = '1';
+    static auto key_i = uint(1);
+    static auto key_j = uint(1);
+
     // Grab the current keypress.  If there is none, it will be
     // NO_KEY.
     auto keypress = keys->getKey(); // non-blocking
 
     // If we have a keypress, deal with the command
     if(keypress != NO_KEY) {
+      // Denote that a new key was pressed
+      newpress = true;
 
       // If we're in menu mode, then the next keypress determines
       // the new mode
@@ -83,6 +93,44 @@ void loop(void) {
          mode = 'D';
          newmode = true;
       }
+
+      // Convert the keypress into a coordinate (key_i,key_j) where
+      // key_i denotes the row and key_j denotes the column.  The
+      // upper left corner has coordinate (1,1).
+      key = keypress;
+      if(keypress=='1') {
+        key_i = 1; key_j = 1;
+      } else if(keypress=='2') {
+        key_i = 1; key_j = 2;
+      } else if(keypress=='3') {
+        key_i = 1; key_j = 3;
+      } else if(keypress=='4') {
+        key_i = 2; key_j = 1;
+      } else if(keypress=='5') {
+        key_i = 2; key_j = 2;
+      } else if(keypress=='6') {
+        key_i = 2; key_j = 3;
+      } else if(keypress=='7') {
+        key_i = 3; key_j = 1;
+      } else if(keypress=='8') {
+        key_i = 3; key_j = 2;
+      } else if(keypress=='9') {
+        key_i = 3; key_j = 3;
+      } else if(keypress=='0') {
+        key_i = 4; key_j = 2;
+      } else if(keypress=='*') {
+        key_i = 4; key_j = 1;
+      } else if(keypress=='#') {
+        key_i = 4; key_j = 3;
+      } else if(keypress=='A') {
+        key_i = 1; key_j = 4;
+      } else if(keypress=='B') {
+        key_i = 2; key_j = 4;
+      } else if(keypress=='C') {
+        key_i = 3; key_j = 4;
+      } else if(keypress=='D') {
+        key_i = 4; key_j = 4;
+      }
     }
 
     // Run the code associated with the particular command
@@ -90,7 +138,6 @@ void loop(void) {
     auto mode_size = 2;
     switch(mode) {
     case '1':
-    case '3':
     case '4':
     case '5':
     case '6':
@@ -147,7 +194,32 @@ void loop(void) {
             FadeInFadeOutRinseRepeat(.5f); // 0.0 = black, 0.25 is normal, 0.5 is bright
         }    
         break;
-    }
+
+     case '3': {
+        // Set the mode message
+        mode_name = "Pixel Picker";
+
+        if(newpress) {
+          // Turn off any animations
+          animations.StopAnimation(0);
+          delay(10);
+          
+          // Set what it means to be an on and off pixel
+          auto on = HslColor(120.0 / 360.0, 1.0, 0.5);
+          auto off = HslColor(240.0 / 360.0, 1.0, 0.05);
+
+          // Loop over the pixels
+          for(auto i=uint(1);i<=4;i++) {
+             for(auto j=uint(1);j<=4;j++) {
+                auto color = (key_i==i && key_j==j) ? on : off;
+                strip.SetPixelColor(ijtop(i,j),color);
+             }
+          }
+          delay(10);
+          strip.Show();
+        }
+        break;
+     }}
 
     // Set the LED message
     if(newmode) {
@@ -160,5 +232,6 @@ void loop(void) {
 
     // At this point, the mode has already run, so we're no longer in a new mode
     newmode=false;
+    newpress=false;
 }
 
