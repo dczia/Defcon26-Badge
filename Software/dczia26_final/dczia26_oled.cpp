@@ -2,31 +2,8 @@
 
 Adafruit_SSD1306* oled_setup(void)
 {
-  // Use the corresponding display class:
-
-  // Initialize the OLED display using SPI
-  // D5 -> CLK
-  // D7 -> MOSI (DOUT)
-  // D0 -> RES
-  // D2 -> DC
-  // D8 -> CS
-  // SSD1306Spi        display(D0, D2, D8);
-  // or
-  // SH1106Spi         display(D0, D2);
-
-  // Initialize the OLED display using brzo_i2c
-  // D3 -> SDA
-  // D5 -> SCL
-  // SSD1306Brzo display(0x3c, D3, D5);
-  // or
-  // SH1106Brzo  display(0x3c, D3, D5);
-
-  // Initialize the OLED display using Wire library
-  // SH1106 display(0x3c, D3, D5);
-
+  //Initialize the screen
   Adafruit_SSD1306* screen = NULL;
-
-  //screen = new Adafruit_SSD1306(0x3c, 21, 22);
   screen = new Adafruit_SSD1306();
   screen->begin(SSD1306_SWITCHCAPVCC, 0x3c);
   screen->setTextSize(1);
