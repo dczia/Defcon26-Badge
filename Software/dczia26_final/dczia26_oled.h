@@ -13,7 +13,7 @@ void oled_drawLines(Adafruit_SSD1306 *screen);
 void oled_drawRect(Adafruit_SSD1306 *screen);
 void oled_drawZia(Adafruit_SSD1306 *screen);
 void oled_fillRect(Adafruit_SSD1306 *screen);
-//void oled_drawCircle(Adafruit_SSD1306 *screen);
+void oled_drawCircle(Adafruit_SSD1306 *screen);
 
 const char zia[] PROGMEM =
 { // 64x64

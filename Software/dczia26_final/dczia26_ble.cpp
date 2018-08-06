@@ -70,7 +70,8 @@ void ble_setup() {
   setBeacon();
   BLEService *pService = pServer->createService(SERVICE_UUID);
   pService->start();
-   // Start advertising
+  
+  // Start advertising
   pAdvertising->start();
   Serial.println("Advertising started...");
   delay(10);
@@ -78,5 +79,5 @@ void ble_setup() {
 }
 
 void ble_loop() {
-
+  //DO NOTHING FOR NOW
 } 

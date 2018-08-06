@@ -15,6 +15,10 @@
 
 ```
 **News**
+August 2018
+* FINAL INO is up use that for use with the final board.  
+* ProtoDos is frozen for now. Library changes + board layout changes mean Final and Dos aren't really interchangable.
+
 July 2018 Update 1
 * ProtoDos code updated with BLE Code working and advertising to DC26 with 0X5050 Manufacturing ID
 * Some ProtoDos code cleanup 
