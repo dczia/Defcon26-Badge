@@ -153,7 +153,9 @@ void loop(void) {
     if(newmode) {
         oled->clearDisplay();
         oled->setCursor(0, 0);
-        oled->setTextSize(mode_size);
+        oled->setTextSize(2);
+        oled->println(" -DCZia26-");
+        oled->setTextSize(1);
         oled->println(mode_name.c_str());
         oled->display();
     }
