@@ -6,7 +6,7 @@
 
 #if 0
 
-void main_menu(SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
+void main_menu(Adafruit_SSD1306 *screen, Keypad *keypd, Adafruit_NeoPixel *ledstrip)
 {
   // keypad layout
   // 1 2 3 A
