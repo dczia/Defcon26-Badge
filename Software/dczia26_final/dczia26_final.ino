@@ -55,28 +55,68 @@ void setup(void)
 
 // in arduino world, "loop()" is called over and over and over and ... 
 // you get the idea... we don't need to "while(1)" ourselves...
-void loop(void)
-{
+void loop(void) {
 
-   auto keypress = keys->getKey(); // non-blocking
-  
+    // Store what mode we're currently in
+    static auto mode = '1';
 
-//Default Animation Loop
+    // Grab the current keypress.  If there is none, it will be
+    // NO_KEY.
+    auto keypress = keys->getKey(); // non-blocking
 
- if (animations.IsAnimating())
-    {
-        // the normal loop just needs these two to run the active animations
-        
-        animations.UpdateAnimations();
-        strip.Show();
+    // If we have a keypress, deal with the command
+    if(keypress != NO_KEY) {
+
+      // If we're in menu mode, then the next keypress determines
+      // the new mode
+      if(mode == 'D') {
+          mode = keypress;
+
+      // If we're not in menu mode, but we press the menu button,
+      // D, then move us into menu mode
+      } else if(keypress == 'D') {
+         mode = 'D';
+      }
     }
-    else
-    {
-        // no animation runnning, start some 
-        FadeInFadeOutRinseRepeat(.1f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-    }
-  
- 
 
+    // Run the code associated with the particular command
+    switch(mode) {
+    case '1':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+    case '0':
+    case 'A':
+    case 'B':
+    case 'C':
+    case 'D':
+    case '#':
+    case '*':           
+        //Default Animation Loop
+        if (animations.IsAnimating()) {
+            // The normal loop just needs these two to run the active animations
+            animations.UpdateAnimations();
+            strip.Show();
+        } else {
+            // No animation runnning, start some 
+            FadeInFadeOutRinseRepeat(.1f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+        }
+        break;
+    case '2':
+        //Default Animation Loop
+        if (animations.IsAnimating()) {
+            // The normal loop just needs these two to run the active animations
+            animations.UpdateAnimations();
+            strip.Show();
+        } else {
+            // No animation runnning, start some 
+            FadeInFadeOutRinseRepeat(.5f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+        }    
+        break;
+    }
 }
 

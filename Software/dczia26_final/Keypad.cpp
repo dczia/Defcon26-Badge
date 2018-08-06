@@ -62,10 +62,7 @@ char Keypad::getKey() {
         Serial.print("Key: "); Serial.print(key[0].kchar);
         return key[0].kchar;
 	}
-		
-	
 	single_key = false;
-
 	return NO_KEY;
 }
 
