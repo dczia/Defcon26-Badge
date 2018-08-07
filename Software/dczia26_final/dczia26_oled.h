@@ -14,6 +14,7 @@ void oled_drawRect(Adafruit_SSD1306 *screen);
 void oled_drawZia(Adafruit_SSD1306 *screen);
 void oled_fillRect(Adafruit_SSD1306 *screen);
 void oled_drawCircle(Adafruit_SSD1306 *screen);
+void oled_displaytest(Adafruit_SSD1306 *screen);
 
 const int DISPLAY_WIDTH = 128;
 const int DISPLAY_HEIGHT = 32;

@@ -138,7 +138,6 @@ void loop(void) {
   auto mode_size = 2;
   switch (mode) {
     case '1':
-    case '5':
     case '6':
     case '7':
     case '8':
@@ -161,6 +160,11 @@ void loop(void) {
         FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
       }
       break;
+    case '5':
+      oled_displaytest(oled);
+      mode = 'D';
+      break;
+
     case 'D':
       // Set the mode message
       mode_name = "Menu";

@@ -18,6 +18,19 @@ Adafruit_SSD1306* oled_setup(void)
   return (screen);
 }
 
+void oled_displaytest(Adafruit_SSD1306 *screen){
+  screen->clearDisplay();
+  oled_drawLines(screen);
+  screen->clearDisplay();
+  oled_drawRect(screen);
+  screen->clearDisplay();
+  oled_fillRect(screen);
+  screen->clearDisplay();
+  oled_drawCircle(screen);
+  screen->clearDisplay();
+  oled_drawZia(screen);
+  screen->clearDisplay();
+}
 
 void oled_welcome(Adafruit_SSD1306 *screen)
 {
@@ -65,15 +78,14 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   screen->invertDisplay(false);
 }
 
-/*
   void oled_drawLines(Adafruit_SSD1306 *screen) {
   for (int16_t i=0; i<DISPLAY_WIDTH; i+=4) {
-    screen->drawLine(0, 0, i, DISPLAY_HEIGHT-1);
+    screen->drawLine(0, 0, i, DISPLAY_HEIGHT-1, 1);
     screen->display();
     delay(10);
   }
   for (int16_t i=0; i<DISPLAY_HEIGHT; i+=4) {
-    screen->drawLine(0, 0, DISPLAY_WIDTH-1, i);
+    screen->drawLine(0, 0, DISPLAY_WIDTH-1, i, 1);
     screen->display();
     delay(10);
   }
@@ -81,37 +93,37 @@ void oled_welcome(Adafruit_SSD1306 *screen)
 
   screen->clearDisplay();
   for (int16_t i=0; i<DISPLAY_WIDTH; i+=4) {
-    screen->drawLine(0, DISPLAY_HEIGHT-1, i, 0);
+    screen->drawLine(0, DISPLAY_HEIGHT-1, i, 0, 1);
     screen->display();
     delay(10);
   }
   for (int16_t i=DISPLAY_HEIGHT-1; i>=0; i-=4) {
-    screen->drawLine(0, DISPLAY_HEIGHT-1, DISPLAY_WIDTH-1, i);
+    screen->drawLine(0, DISPLAY_HEIGHT-1, DISPLAY_WIDTH-1, i, 1);
     screen->display();
     delay(10);
   }
   delay(250);
 
-  screen->clear();
+  screen->clearDisplay();
   for (int16_t i=DISPLAY_WIDTH-1; i>=0; i-=4) {
-    screen->drawLine(DISPLAY_WIDTH-1, DISPLAY_HEIGHT-1, i, 0);
+    screen->drawLine(DISPLAY_WIDTH-1, DISPLAY_HEIGHT-1, i, 0, 1);
     screen->display();
     delay(10);
   }
   for (int16_t i=DISPLAY_HEIGHT-1; i>=0; i-=4) {
-    screen->drawLine(DISPLAY_WIDTH-1, DISPLAY_HEIGHT-1, 0, i);
+    screen->drawLine(DISPLAY_WIDTH-1, DISPLAY_HEIGHT-1, 0, i, 1);
     screen->display();
     delay(10);
   }
   delay(250);
   screen->clearDisplay();
   for (int16_t i=0; i<DISPLAY_HEIGHT; i+=4) {
-    screen->drawLine(DISPLAY_WIDTH-1, 0, 0, i);
+    screen->drawLine(DISPLAY_WIDTH-1, 0, 0, i, 1);
     screen->display();
     delay(10);
   }
   for (int16_t i=0; i<DISPLAY_WIDTH; i+=4) {
-    screen->drawLine(DISPLAY_WIDTH-1, 0, i, DISPLAY_HEIGHT-1);
+    screen->drawLine(DISPLAY_WIDTH-1, 0, i, DISPLAY_HEIGHT-1, 1);
     screen->display();
     delay(10);
   }
@@ -121,12 +133,12 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   // Adapted from Adafruit_SSD1306
   void oled_drawRect(Adafruit_SSD1306 *screen) {
   for (int16_t i=0; i<DISPLAY_HEIGHT/2; i+=2) {
-    screen->drawRect(i, i, DISPLAY_WIDTH-2*i, DISPLAY_HEIGHT-2*i);
+    screen->drawRect(i, i, DISPLAY_WIDTH-2*i, DISPLAY_HEIGHT-2*i, 1);
     screen->display();
     delay(10);
   }
   }
-  */
+  
 
   //draw zia
   void oled_drawZia(Adafruit_SSD1306 *screen) {
@@ -143,19 +155,15 @@ void oled_welcome(Adafruit_SSD1306 *screen)
     screen->display();
   }
   }
-/*
+
   // Adapted from Adafruit_SSD1306
   void oled_fillRect(Adafruit_SSD1306 *screen) {
   uint8_t color = 1;
   for (int16_t i=0; i<DISPLAY_HEIGHT/2; i+=3) {
-    screen->setColor((color % 2 == 0) ? BLACK : WHITE); // alternate colors
-    screen->fillRect(i, i, DISPLAY_WIDTH - i*2, DISPLAY_HEIGHT - i*2);
+    screen->fillRect(i, i, DISPLAY_WIDTH - i*2, DISPLAY_HEIGHT - i*2, 1);
     screen->display();
     delay(10);
-    color++;
   }
-  // Reset back to WHITE
-  screen->setColor(WHITE);
   }
 
 
@@ -166,7 +174,7 @@ void oled_welcome(Adafruit_SSD1306 *screen)
 
 
   for (int16_t i=0; i<DISPLAY_HEIGHT; i+=2) {
-    screen->drawCircle(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, i);
+    screen->drawCircle(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, i, 1);
     screen->display();
     delay(10);
   }
@@ -179,17 +187,17 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   //  ------|-----
   //   0100 | 1000
   //
-  screen->drawCircleQuads(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_HEIGHT/4, 0b00000001);
+  screen->drawCircle(DISPLAY_WIDTH/4, DISPLAY_HEIGHT/4, DISPLAY_HEIGHT/4, 1);
   screen->display();
   delay(200);
-  screen->drawCircleQuads(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_HEIGHT/4, 0b00000011);
+  screen->drawCircle(DISPLAY_WIDTH/4, DISPLAY_HEIGHT/4*3, DISPLAY_HEIGHT/4, 1);
   screen->display();
   delay(200);
-  screen->drawCircleQuads(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_HEIGHT/4, 0b00000111);
+  screen->drawCircle(DISPLAY_WIDTH/4*3, DISPLAY_HEIGHT/4*3, DISPLAY_HEIGHT/4, 1);
   screen->display();
   delay(200);
-  screen->drawCircleQuads(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_HEIGHT/4, 0b00001111);
+  screen->drawCircle(DISPLAY_WIDTH/4*3, DISPLAY_HEIGHT/4, DISPLAY_HEIGHT/4, 1);
   screen->display();
   }
-*/
+
 
