@@ -65,7 +65,6 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   screen->invertDisplay(false);
 }
 
-// Adapted from Adafruit_SSD1306
 /*
   void oled_drawLines(Adafruit_SSD1306 *screen) {
   for (int16_t i=0; i<DISPLAY_WIDTH; i+=4) {
@@ -127,25 +126,24 @@ void oled_welcome(Adafruit_SSD1306 *screen)
     delay(10);
   }
   }
+  */
 
   //draw zia
   void oled_drawZia(Adafruit_SSD1306 *screen) {
 
-  for (int16_t i=0; i<DISPLAY_WIDTH-DISPLAY_HEIGHT; ++i) {
+  for (int16_t i=0; i<DISPLAY_WIDTH-dczia_size; ++i) {
     screen->clearDisplay();
-    screen->drawFastImage(i, 0, 64, 64, zia);
+    screen->drawBitmap(i, 0, zia, dczia_size, dczia_size, 1);
     screen->display();
-    delay(10);
   }
 
-  for (int16_t i=0; i<DISPLAY_WIDTH-DISPLAY_HEIGHT; ++i) {
+  for (int16_t i=0; i<DISPLAY_WIDTH-dczia_size; ++i) {
     screen->clearDisplay();
-    screen->drawFastImage(DISPLAY_WIDTH-DISPLAY_HEIGHT-i, 0, 64, 64, zia);
+    screen->drawBitmap(DISPLAY_WIDTH-dczia_size-i, 0, zia, dczia_size, dczia_size, 1);
     screen->display();
-    delay(10);
   }
   }
-
+/*
   // Adapted from Adafruit_SSD1306
   void oled_fillRect(Adafruit_SSD1306 *screen) {
   uint8_t color = 1;
