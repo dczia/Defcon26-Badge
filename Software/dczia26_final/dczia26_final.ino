@@ -137,20 +137,21 @@ void loop(void) {
   auto mode_name = std::string();
   auto mode_size = 2;
   switch (mode) {
-    case '1':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    case 'B':
-    case 'C':
-    case '#':
-    case '*':
+    case '1': // Reserved for Light Mode
+    case '4': // Reserved for Light Mode
+    case '5': // Reserved for Light Mode
+    case '6': // Reserved for Light Mode
+    case '9': // Reserved for Function Mode
+    case 'B': // Reserved for Light Mode
+    case 'C': // Reserved for Function Mode
+    case '#': // Reserved for Function Mode
+    case '*': // Reserved for Funciton Mode
       // Set the mode message
       mode_name = "Low Rainbow";
       runDefaultAnimations();
       break;
 
+    //Menu/Exit
     case 'D':
       // Set the mode message
       mode_name = "Menu";
@@ -168,6 +169,9 @@ void loop(void) {
 
       break;
 
+    //Light modes:
+    //1, 2, 3, A
+    //4, 5, 6, B
     case '2':
       // Set the mode message
       mode_name = "High Rainbow";
@@ -214,15 +218,25 @@ void loop(void) {
       mode_name = "Connection Machine";
       if (newmode)
         animations.StopAnimation(0);
-      runDefaultAnimations();
+      //Connection Machine animation
+      if (animations.IsAnimating()) {
+        animations.UpdateAnimations();
+        strip.Show();
+      } else {
+        PickRandom(.2); 
+      }
       break;
-    case '4':
+
+    // Function Modes:
+    // 7, 8, 9, C
+    // *, #
+    case '7':
       // Reserving for BLE Scanning project
       // Set the mode message
       mode_name = "BLE Scanning";
       runDefaultAnimations();
       break;
-    case '5':
+    case '8':
       mode_name = "OLED Test";
       oled_displaytest(oled);
       mode = 'D';
@@ -255,6 +269,7 @@ void loop(void) {
   newpress = false;
 }
 
+//Low Rainbow default mode
 void runDefaultAnimations(void) {
   //Default Animation Loop
   if (animations.IsAnimating()) {
