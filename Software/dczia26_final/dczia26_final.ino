@@ -142,27 +142,13 @@ void loop(void) {
     case '7':
     case '8':
     case '9':
-    case '0':
     case 'B':
     case 'C':
     case '#':
     case '*':
       // Set the mode message
       mode_name = "Low Rainbow";
-
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
-      break;
-    case '5':
-      oled_displaytest(oled);
-      mode = 'D';
+      runDefaultAnimations();
       break;
 
     case 'D':
@@ -228,31 +214,29 @@ void loop(void) {
       mode_name = "Connection Machine";
       if (newmode)
         animations.StopAnimation(0);
-
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        PickRandom(.2); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
+      runDefaultAnimations();
       break;
     case '4':
       // Reserving for BLE Scanning project
       // Set the mode message
       mode_name = "BLE Scanning";
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        FadeInFadeOutRinseRepeat(.25f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
+      runDefaultAnimations();
       break;
+    case '5':
+      mode_name = "OLED Test";
+      oled_displaytest(oled);
+      mode = 'D';
+      break;
+    case '0':
+      // Credits
+      if (newmode == true) {
+        oled_displayCredits(oled);
+        //Put it back on the main menu...
+        mode = 'D';
+      }
+      runDefaultAnimations();
+      break;
+
   }
 
   // Set the LED message
@@ -270,4 +254,17 @@ void loop(void) {
   newmode = false;
   newpress = false;
 }
+
+void runDefaultAnimations(void) {
+  //Default Animation Loop
+  if (animations.IsAnimating()) {
+    // The normal loop just needs these two to run the active animations
+    animations.UpdateAnimations();
+    strip.Show();
+  } else {
+    // No animation runnning, start some
+    FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+  }
+}
+
 
