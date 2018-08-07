@@ -234,6 +234,20 @@ void loop(void) {
       // Reserving for BLE Scanning project
       // Set the mode message
       mode_name = "BLE Scanning";
+      if (newmode) {
+        int bleResults[2];
+        ble_loop(bleResults);
+        oled->clearDisplay();
+        oled->setCursor(0, 0);
+        oled->print("Defcon26 Badges: ");
+        oled->print(bleResults[0]);
+        oled->print("\n");
+        oled->print("DCZia Badges: ");
+        oled->print(bleResults[1]);
+        oled->display();
+        delay(5000);
+        newmode=false;
+      }
       runDefaultAnimations();
       break;
     case '8':

@@ -24,4 +24,4 @@
 #define GPIO_DEEP_SLEEP_DURATION     10  // sleep x seconds and then wake up
 
 void ble_setup(void);
-void ble_loop(void);
+void ble_loop(int bleScanCount[]);

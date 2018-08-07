@@ -16,7 +16,8 @@ extern "C" {
 BLEAdvertising *pAdvertising;
 struct timeval now;
 
-
+int dc26Badges;
+int dcZiaBadges;
 
 void setBeacon() {
 
@@ -78,6 +79,35 @@ void ble_setup() {
   
 }
 
-void ble_loop() {
-  //DO NOTHING FOR NOW
+class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
+    void onResult(BLEAdvertisedDevice advertisedDevice) {
+      Serial.printf("Advertised Device: %s \n", advertisedDevice.toString().c_str());
+      if(advertisedDevice.getAppearance() == APPEARANCE_DC26) {
+        Serial.printf("*** DC26!!\n");
+        dc26Badges = dc26Badges + 1;
+        if(advertisedDevice.getName() == "DCZia26") {
+          Serial.printf("*** DCZia!!\n");
+          dcZiaBadges = dcZiaBadges + 1;
+        }
+      }
+    }
+};
+
+void ble_loop(int bleScanCount[]) { 
+  dc26Badges = 0;
+  dcZiaBadges = 0;
+  BLEScan* pBLEScan = BLEDevice::getScan(); //create new scan
+  pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
+  pBLEScan->setActiveScan(true); //active scan uses more power, but get results faster
+  BLEScanResults foundDevices = pBLEScan->start(10);
+  bleScanCount[0] = dc26Badges;
+  bleScanCount[1] = dcZiaBadges;
+  //Serial Information
+  Serial.print("Devices found: ");
+  Serial.println(foundDevices.getCount());
+  Serial.println("DC26 Badges: ");
+  Serial.println(dc26Badges);
+  Serial.println("DCZia Badges: ");
+  Serial.println(dcZiaBadges);
+  Serial.println("Scan done!");
 } 
