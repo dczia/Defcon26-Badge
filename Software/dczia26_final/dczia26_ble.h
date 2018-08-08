@@ -27,5 +27,4 @@
 const int BLE_SCAN_TIME = 10; // 10 seconds
 
 void ble_setup(void);
-void ble_scan_all(Adafruit_SSD1306 *screen);
 void ble_scan_dczia(int bleScanCount[]);

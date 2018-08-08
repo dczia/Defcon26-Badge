@@ -144,6 +144,7 @@ void loop(void) {
     case '4': // Reserved for Light Mode
     case '5': // Reserved for Light Mode
     case '6': // Reserved for Light Mode
+    case '8': // Reserved for Function Mode
     case '9': // Reserved for Function Mode
     case 'B': // Reserved for Light Mode
     case '#': // Reserved for Function Mode
@@ -245,35 +246,30 @@ void loop(void) {
       // Set the mode message
       mode_name = "BLE Scanning";
       if (newmode) {
-        int bleResults[2];
-        ble_scan_dczia(bleResults);
+        int bleResults[3];
         oled->clearDisplay();
         oled->setCursor(0, 0);
+        oled->setTextSize(2);
+        oled->println("Scanning..");
+        oled->display();
+        ble_scan_dczia(bleResults);
+        oled->clearDisplay();
+        oled->setTextSize(1);
+        oled->setCursor(0, 0);
+        oled->println("- BLE Scan Results -");
+        oled->print("BLE Devices: ");
+        oled->print(bleResults[2]);
+        oled->print("\n");
         oled->print("Defcon26 Badges: ");
         oled->print(bleResults[0]);
         oled->print("\n");
         oled->print("DCZia Badges: ");
         oled->print(bleResults[1]);
         oled->display();
-        delay(5000);
         newmode=false;
       }
       runDefaultAnimations();
       break;
-    case '8':
-      // Reserving for BLE Scanning project (all named things)
-      // Set the mode message
-      oled->clearDisplay();
-      delay(1);
-      ble_scan_all(oled);
-      newmode=false;
-      mode_name = "BLE Scanning and Record";
-      runDefaultAnimations();
-      mode='D';
-      mode_name = "Menu";
-      keypress='D';
-      break;
-      
     case 'C':
       oled_displaytest(oled);
       // go back to menu

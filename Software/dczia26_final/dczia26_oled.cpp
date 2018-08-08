@@ -36,33 +36,21 @@ void oled_welcome(Adafruit_SSD1306 *screen)
 {
   screen->clearDisplay();
   screen->println("Welcome, dczia..");
-  screen->println("main_menu() in 5..");
+  screen->println("main_menu() in 3..");
   screen->display();
-  delay(1000);
-
-  screen->clearDisplay();
-  screen->setCursor(0, 0);
-  screen->println("4..");
-  screen->display();
-  delay(1000);
-
-  screen->clearDisplay();
-  screen->setCursor(0, 0);
-  screen->println("3..");
-  screen->display();
-  delay(1000);
+  delay(750);
 
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->println("2..");
   screen->display();
-  delay(1000);
+  delay(750);
 
   screen->clearDisplay();
   screen->setCursor(0, 0);
   screen->println("1..");
   screen->display();
-  delay(2500);
+  delay(1000);
 
   screen->clearDisplay();
   screen->setCursor(0, 0);
@@ -73,7 +61,7 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   screen->display();
   delay(250);
   screen->invertDisplay(true);
-  delay(1000);
+  delay(750);
   screen->invertDisplay(false);
 }
 
