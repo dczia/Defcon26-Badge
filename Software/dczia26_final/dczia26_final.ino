@@ -141,7 +141,7 @@ void loop(void) {
   auto mode_size = 2;
   switch (mode) {
     case '1': // Reserved for Light Mode
-//    case '4': // Reserved for Light Mode
+    case '4': // Reserved for Light Mode
     case '5': // Reserved for Light Mode
     case '6': // Reserved for Light Mode
     case '9': // Reserved for Function Mode
