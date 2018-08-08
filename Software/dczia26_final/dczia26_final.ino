@@ -147,11 +147,19 @@ void loop(void) {
     case '*': // Reserved for Funciton Mode
       // Set the mode message
       mode_name = "Low Rainbow";
-      runDefaultAnimations();
-      break;
 
-    //Menu/Exit
-    case 'D':
+      //Default Animation Loop  
+      if (animations.IsAnimating()) { 
+        // The normal loop just needs these two to run the active animations  
+        animations.UpdateAnimations();  
+        strip.Show(); 
+      } else {  
+        // No animation runnning, start some  
+        FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright 
+      } 
+      break;
+      
+      case 'D':
       // Set the mode message
       mode_name = "Menu";
       mode_size = 4;
