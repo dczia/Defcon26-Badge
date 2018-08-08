@@ -109,19 +109,18 @@ void ble_scan_all(Adafruit_SSD1306 *screen) {
     screen->setCursor(0, 0);
     screen->println("DeviceList: ");
     screen->display();
-    delay(1000);
 
     for (int i = 0; i < foundDevices.getCount(); ++i) {
       if (foundDevices.getDevice(i).haveName()) {
         reset = reset % 4;
         if (reset == 0) { // flush and print to screen
-          screen->display();
           delay(1000);
           screen->setCursor(0,0);
           screen->clearDisplay();
           reset++;
         }
         screen->println(foundDevices.getDevice(i).getName().c_str());
+        screen->display();
       }
     }
     screen->display();

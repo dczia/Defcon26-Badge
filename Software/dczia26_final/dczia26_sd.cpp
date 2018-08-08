@@ -57,7 +57,8 @@ void writeData(const char * path, const char * message){
           }
     }
     if(file.println(message)){
-        Serial.println("File written");
+        Serial.println("File written with data");
+        Serial.println(message);
     } else {
         Serial.println("Write failed");
     }

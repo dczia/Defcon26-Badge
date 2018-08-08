@@ -260,25 +260,27 @@ void loop(void) {
       }
       runDefaultAnimations();
       break;
-    case '4':
+    case '8':
       // Reserving for BLE Scanning project (all named things)
       // Set the mode message
-      
       oled->clearDisplay();
       delay(1);
       ble_scan_all(oled);
-
-      keypress='D';
-      mode = 'D';
-      newmode = true;
+      newmode=false;
+      mode_name = "BLE Scanning and Record";
+      runDefaultAnimations();
+      mode='D';
       mode_name = "Menu";
-
+      keypress='D';
+      break;
+      
     case 'C':
       oled_displaytest(oled);
       // go back to menu
       mode='D';
       mode_name = "Menu";
       keypress='D';
+      break;
 
     case '0':
       // Credits
