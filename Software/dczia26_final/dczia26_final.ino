@@ -143,7 +143,6 @@ void loop(void) {
     case '1': // Reserved for Light Mode
     case '8': // Reserved for Function Mode
     case '9': // Reserved for Function Mode
-    case 'C': // Reserved for Function Mode
     case '#': // Reserved for Function Mode
     case '*': // Reserved for Funciton Mode
       // Set the mode message
