@@ -24,7 +24,8 @@
 
 #define GPIO_DEEP_SLEEP_DURATION     10  // sleep x seconds and then wake up
 
-const int BLE_SCAN_TIME = 5; // 10 seconds
+const int BLE_SCAN_TIME = 10; // 10 seconds
 
 void ble_setup(void);
 void ble_scan_all(Adafruit_SSD1306 *screen);
+void ble_scan_dczia(int bleScanCount[]);

@@ -137,37 +137,20 @@ void loop(void) {
   auto mode_name = std::string();
   auto mode_size = 2;
   switch (mode) {
-    case '1':
-    case '4':
-    case '7':
-    case '8':
-    case '9':
-    case '0':
-    case 'B':
-    case 'C':
-    case '#':
-    case '*':
+    case '1': // Reserved for Light Mode
+    case '4': // Reserved for Light Mode
+    case '5': // Reserved for Light Mode
+    case '6': // Reserved for Light Mode
+    case '9': // Reserved for Function Mode
+    case 'B': // Reserved for Light Mode
+    case '#': // Reserved for Function Mode
+    case '*': // Reserved for Funciton Mode
       // Set the mode message
       mode_name = "Low Rainbow";
-
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
-      break;
-    case '6':
-      oled_displaytest(oled);
-      // go back to menu
-      mode='D';
-      mode_name = "Menu";
-      keypress='D';
+      runDefaultAnimations();
       break;
 
+    //Menu/Exit
     case 'D':
       // Set the mode message
       mode_name = "Menu";
@@ -185,6 +168,9 @@ void loop(void) {
 
       break;
 
+    //Light modes:
+    //1, 2, 3, A
+    //4, 5, 6, B
     case '2':
       // Set the mode message
       mode_name = "High Rainbow";
@@ -231,19 +217,40 @@ void loop(void) {
       mode_name = "Connection Machine";
       if (newmode)
         animations.StopAnimation(0);
-
-      //Default Animation Loop
+      //Connection Machine animation
       if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
         animations.UpdateAnimations();
         strip.Show();
       } else {
-        // No animation runnning, start some
-        PickRandom(.2); // 0.0 = black, 0.25 is normal, 0.5 is bright
+        PickRandom(.2); 
       }
       break;
-    case '5':
+
+    // Function Modes:
+    // 7, 8, 9, C
+    // *, #
+    case '7':
       // Reserving for BLE Scanning project
+      // Set the mode message
+      mode_name = "BLE Scanning";
+      if (newmode) {
+        int bleResults[2];
+        ble_scan_dczia(bleResults);
+        oled->clearDisplay();
+        oled->setCursor(0, 0);
+        oled->print("Defcon26 Badges: ");
+        oled->print(bleResults[0]);
+        oled->print("\n");
+        oled->print("DCZia Badges: ");
+        oled->print(bleResults[1]);
+        oled->display();
+        delay(5000);
+        newmode=false;
+      }
+      runDefaultAnimations();
+      break;
+    case '8':
+      // Reserving for BLE Scanning project (all named things)
       // Set the mode message
       
       oled->clearDisplay();
@@ -254,7 +261,24 @@ void loop(void) {
       mode = 'D';
       newmode = true;
       mode_name = "Menu";
+
+    case 'C':
+      oled_displaytest(oled);
+      // go back to menu
+      mode='D';
+      mode_name = "Menu";
+      keypress='D';
+
+    case '0':
+      // Credits
+      if (newmode == true) {
+        oled_displayCredits(oled);
+        //Put it back on the main menu...
+        mode = 'D';
+      }
+      runDefaultAnimations();
       break;
+
   }
 
   // Set the LED message
@@ -272,4 +296,18 @@ void loop(void) {
   newmode = false;
   newpress = false;
 }
+
+//Low Rainbow default mode
+void runDefaultAnimations(void) {
+  //Default Animation Loop
+  if (animations.IsAnimating()) {
+    // The normal loop just needs these two to run the active animations
+    animations.UpdateAnimations();
+    strip.Show();
+  } else {
+    // No animation runnning, start some
+    FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+  }
+}
+
 
