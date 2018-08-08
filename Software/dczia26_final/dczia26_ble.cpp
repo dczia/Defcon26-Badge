@@ -78,6 +78,48 @@ void ble_setup() {
   
 }
 
-void ble_loop() {
-  //DO NOTHING FOR NOW
+class EmptyCallback: public BLEAdvertisedDeviceCallbacks {
+  void onResult(BLEAdvertisedDevice advertisedDevice) { 
+  } // onResult
+}; // MyAdvertisedDeviceCallbacks
+
+
+void ble_scan_all(Adafruit_SSD1306 *screen) {
+    screen->clearDisplay();
+    screen->setFont();
+    screen->setCursor(0, 0);
+    screen->println("Scanning all...");
+    screen->display();
+    delay(1);
+    BLEScan* pBLEScan = BLEDevice::getScan(); //create new scan
+    pBLEScan->setAdvertisedDeviceCallbacks(new EmptyCallback());
+    pBLEScan->setActiveScan(true); //active scan uses more power, but get results faster
+    BLEScanResults foundDevices = pBLEScan->start(BLE_SCAN_TIME);
+    screen->clearDisplay();
+    screen->setCursor(0, 0);
+    screen->println("Number devices found: ");
+    screen->println(foundDevices.getCount());
+    screen->display();
+    delay(1000);
+
+    int reset = 1; // start off with 1 line
+    screen->clearDisplay();
+    screen->setCursor(0, 0);
+    screen->println("DeviceList: ");
+    screen->display();
+    delay(1000);
+
+    for (int i = 0; i < foundDevices.getCount(); ++i) {
+      if (foundDevices.getDevice(i).haveName()) {
+        reset = reset % 4;
+        if (reset == 0) {
+          screen->setCursor(0,0);
+          screen->clearDisplay();
+          reset++;
+        }
+        screen->println(foundDevices.getDevice(i).getName().c_str());
+        screen->display();
+        delay(1000);
+      }
+    }
 } 

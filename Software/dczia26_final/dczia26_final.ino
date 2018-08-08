@@ -138,7 +138,7 @@ void loop(void) {
   auto mode_size = 2;
   switch (mode) {
     case '1':
-    case '6':
+    case '4':
     case '7':
     case '8':
     case '9':
@@ -160,9 +160,12 @@ void loop(void) {
         FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
       }
       break;
-    case '5':
+    case '6':
       oled_displaytest(oled);
-      mode = 'D';
+      // go back to menu
+      mode='D';
+      mode_name = "Menu";
+      keypress='D';
       break;
 
     case 'D':
@@ -239,19 +242,18 @@ void loop(void) {
         PickRandom(.2); // 0.0 = black, 0.25 is normal, 0.5 is bright
       }
       break;
-    case '4':
+    case '5':
       // Reserving for BLE Scanning project
       // Set the mode message
-      mode_name = "BLE Scanning";
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        FadeInFadeOutRinseRepeat(.25f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
+      
+      oled->clearDisplay();
+      delay(1);
+      ble_scan_all(oled);
+
+      keypress='D';
+      mode = 'D';
+      newmode = true;
+      mode_name = "Menu";
       break;
   }
 
