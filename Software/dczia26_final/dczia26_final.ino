@@ -141,16 +141,15 @@ void loop(void) {
   auto mode_size = 2;
   switch (mode) {
     case '1': // Reserved for Light Mode
-    case '4': // Reserved for Light Mode
-    case '5': // Reserved for Light Mode
-    case '6': // Reserved for Light Mode
     case '8': // Reserved for Function Mode
     case '9': // Reserved for Function Mode
-    case 'B': // Reserved for Light Mode
+    case 'C': // Reserved for Function Mode
     case '#': // Reserved for Function Mode
     case '*': // Reserved for Funciton Mode
       // Set the mode message
-      mode_name = "Low Rainbow";
+      mode_name = "Press Bottom Right\nfor Main Menu";
+      runDefaultAnimations();
+      break;
 
       //Default Animation Loop  
       if (animations.IsAnimating()) { 
@@ -185,7 +184,7 @@ void loop(void) {
     //4, 5, 6, B
     case '2':
       // Set the mode message
-      mode_name = "High Rainbow";
+      mode_name = "Bright Rainbow";
 
       //Default Animation Loop
       if (animations.IsAnimating()) {
@@ -198,7 +197,7 @@ void loop(void) {
       }
       break;
 
-    case '3': {
+    case 'B': {
         // Set the mode message
         mode_name = "Pixel Picker";
 
@@ -214,7 +213,7 @@ void loop(void) {
           // Loop over the pixels
           for (auto i = uint(1); i <= 4; i++) {
             for (auto j = uint(1); j <= 4; j++) {
-              auto color = (key_i == i && key_j == j) ? on : off;
+             auto color = (key_i == i && key_j == j) ? on : off;
               strip.SetPixelColor(ijtop(i, j), color);
             }
           }
@@ -234,13 +233,68 @@ void loop(void) {
         animations.UpdateAnimations();
         strip.Show();
       } else {
-        PickRandom(.2); 
+        PickRandom(.3); 
       }
       break;
+
+      case '4':
+      // Set the mode message
+      mode_name = "Random Mode";
+      if (newmode)
+        animations.StopAnimation(0);
+      //Connection Machine animation
+      if (animations.IsAnimating()) {
+        animations.UpdateAnimations();
+        strip.Show();
+      } else {
+        Random(.2); 
+      }
+      break;
+
+      case '5':
+      // Set the mode message
+      mode_name = "Light Walk Mode";
+      if (newmode)
+        animations.StopAnimation(0);
+      //Connection Machine animation
+      if (animations.IsAnimating()) {
+        animations.UpdateAnimations();
+        strip.Show();
+      } else {
+        LightIteration(.3); 
+      }
+      break;
+
+      case '3':
+      // Set the mode message
+      mode_name = "Party Mode";
+      if (newmode)
+        animations.StopAnimation(0);
+      //Connection Machine animation
+      if (animations.IsAnimating()) {
+        animations.UpdateAnimations();
+        strip.Show();
+      } else {
+        PartyMode(.1); 
+      }
+      break;
+
 
     // Function Modes:
     // 7, 8, 9, C
     // *, #
+
+
+    case '6':
+      // Set the mode message
+      mode_name = "Color Waves";
+      if (newmode) {
+        animations.StopAnimation(0);
+      } else {
+        ColorWaves(.1); 
+      }
+      break;
+      
     case '7':
       // Reserving for BLE Scanning project
       // Set the mode message
@@ -270,6 +324,7 @@ void loop(void) {
       }
       runDefaultAnimations();
       break;
+    
     case 'C':
       oled_displaytest(oled);
       // go back to menu
@@ -318,5 +373,3 @@ void runDefaultAnimations(void) {
     FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
   }
 }
-
-
