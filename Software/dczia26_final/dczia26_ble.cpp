@@ -1,4 +1,5 @@
 #include "dczia26_ble.h"
+#include "dczia26_sd.h"
 #include "sys/time.h"
 
 RTC_DATA_ATTR static time_t last;        // remember last boot in RTC Memory
@@ -81,9 +82,9 @@ void ble_setup() {
 
 class EmptyCallback: public BLEAdvertisedDeviceCallbacks {
   void onResult(BLEAdvertisedDevice advertisedDevice) { 
+      SDRecordBLE(advertisedDevice.toString().c_str());
   } // onResult
 }; // MyAdvertisedDeviceCallbacks
-
 
 void ble_scan_all(Adafruit_SSD1306 *screen) {
     screen->clearDisplay();
@@ -113,16 +114,18 @@ void ble_scan_all(Adafruit_SSD1306 *screen) {
     for (int i = 0; i < foundDevices.getCount(); ++i) {
       if (foundDevices.getDevice(i).haveName()) {
         reset = reset % 4;
-        if (reset == 0) {
+        if (reset == 0) { // flush and print to screen
+          screen->display();
+          delay(1000);
           screen->setCursor(0,0);
           screen->clearDisplay();
           reset++;
         }
         screen->println(foundDevices.getDevice(i).getName().c_str());
-        screen->display();
-        delay(1000);
       }
     }
+    screen->display();
+    delay(1000);
 }
 
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {

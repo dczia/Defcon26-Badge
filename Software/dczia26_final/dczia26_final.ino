@@ -7,6 +7,7 @@
 #include "dczia26_oled.h"
 #include "dczia26_ble.h"
 #include "dczia26_menu.h"
+#include "dczia26_sd.h"
 
 // Global variables
 // initilized in "setup()"
@@ -41,11 +42,13 @@ void setup(void) {
   // call welcome screen (once)
   oled_welcome(oled);
 
-  // done with init fuction
-  Serial.println("Done With Setup!");
-
   // Set a random seed
   SetRandomSeed();
+
+  SDSetup(oled);
+
+  // done with init fuction
+  Serial.println("Done With Setup!");
 }
 
 // Maps a pixel location to a pixel value
@@ -138,7 +141,7 @@ void loop(void) {
   auto mode_size = 2;
   switch (mode) {
     case '1': // Reserved for Light Mode
-    case '4': // Reserved for Light Mode
+//    case '4': // Reserved for Light Mode
     case '5': // Reserved for Light Mode
     case '6': // Reserved for Light Mode
     case '9': // Reserved for Function Mode
@@ -147,11 +150,19 @@ void loop(void) {
     case '*': // Reserved for Funciton Mode
       // Set the mode message
       mode_name = "Low Rainbow";
-      runDefaultAnimations();
-      break;
 
-    //Menu/Exit
-    case 'D':
+      //Default Animation Loop  
+      if (animations.IsAnimating()) { 
+        // The normal loop just needs these two to run the active animations  
+        animations.UpdateAnimations();  
+        strip.Show(); 
+      } else {  
+        // No animation runnning, start some  
+        FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright 
+      } 
+      break;
+      
+      case 'D':
       // Set the mode message
       mode_name = "Menu";
       mode_size = 4;
@@ -249,7 +260,7 @@ void loop(void) {
       }
       runDefaultAnimations();
       break;
-    case '8':
+    case '4':
       // Reserving for BLE Scanning project (all named things)
       // Set the mode message
       
