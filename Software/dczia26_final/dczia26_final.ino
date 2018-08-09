@@ -1,3 +1,4 @@
+
 // dczia 2018 proto dos test firmware
 // combines all major hardware aspects (led, oled, keypad, ble)
 
@@ -245,6 +246,11 @@ void loop(void) {
       // Set the mode message
       mode_name = "BLE Scanning";
       if (newmode) {
+        oled->clearDisplay();
+        oled->setCursor(0, 0);
+        oled->println("Scanning for DEFCON");
+        oled->println("badges...");
+        oled->display();
         int bleResults[2];
         ble_scan_dczia(bleResults);
         oled->clearDisplay();
