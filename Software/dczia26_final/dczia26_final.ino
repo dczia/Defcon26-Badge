@@ -38,7 +38,7 @@ void setup(void) {
   oled = oled_setup();
 
   // Setup the bluetooth
-  ble_setup();
+  ble_setup(oled);
 
   // call welcome screen (once)
   oled_welcome(oled);
