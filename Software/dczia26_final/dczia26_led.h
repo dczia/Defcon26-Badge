@@ -20,6 +20,11 @@ void SetRandomSeed();
 void startupAnimation();
 void FadeInFadeOutRinseRepeat(float luminance);
 void PickRandom(float luminance);
+void LightIteration(float luminance);
+void PartyMode(float luminance);
+void Random(float luminance);
+void ColorWaves(float luminance);
+HslColor Wheel(byte WheelPos);
 
 // LED array-to-matrix mapping
 #define LED_R0C0 0

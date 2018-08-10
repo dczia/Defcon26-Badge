@@ -32,6 +32,7 @@ BLEAddress *pServerAddress;
 
 int dc26Badges;
 int dcZiaBadges;
+int foundDevicesCount;
 
 bool connected = false;
 bool doConnect = false;
@@ -103,7 +104,6 @@ void ble_setup(Adafruit_SSD1306   *oled) {
 
   screen = oled;
 }
-
 class EmptyCallback: public BLEAdvertisedDeviceCallbacks {
   void onResult(BLEAdvertisedDevice advertisedDevice) { 
       SDRecordBLE(advertisedDevice.toString().c_str());
@@ -154,6 +154,7 @@ void ble_scan_all(Adafruit_SSD1306 *screen) {
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
       Serial.printf("Advertised Device: %s \n", advertisedDevice.toString().c_str());
+      //SDRecordBLE(advertisedDevice.toString().c_str());
       if(advertisedDevice.getAppearance() == APPEARANCE_DC26) {
         Serial.printf("*** DC26!!\n");
         dc26Badges = dc26Badges + 1;
@@ -170,12 +171,14 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
 void ble_scan_dczia(int bleScanCount[]) { 
   dc26Badges = 0;
   dcZiaBadges = 0;
+  foundDevicesCount = 0;
   BLEScan* pBLEScan = BLEDevice::getScan(); //create new scan
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
   pBLEScan->setActiveScan(true); //active scan uses more power, but get results faster
   BLEScanResults foundDevices = pBLEScan->start(BLE_SCAN_TIME);
   bleScanCount[0] = dc26Badges;
   bleScanCount[1] = dcZiaBadges;
+  bleScanCount[2] = foundDevices.getCount();
   //Serial Information
   Serial.print("Devices found: ");
   Serial.println(foundDevices.getCount());

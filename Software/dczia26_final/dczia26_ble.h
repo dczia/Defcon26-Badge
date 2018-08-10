@@ -10,7 +10,7 @@
 #include <BLEBeacon.h>
 #include <Adafruit_SSD1306.h>
 
-#define BADGE_NAME "DCZia26_olive"
+#define BADGE_NAME "DCZia26"
 
 static BLEUUID SERVICE_UUID           ("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"); // UART service UUID
 static BLEUUID CHARACTERISTIC_UUID_RX ("6E400002-B5A3-F393-E0A9-E50E24DCCA9E");
@@ -29,6 +29,7 @@ const int BLE_SCAN_TIME = 10; // 10 seconds
 
 void ble_setup(Adafruit_SSD1306   *oled);
 void ble_scan_all(Adafruit_SSD1306 *screen);
+
 void ble_scan_dczia(int bleScanCount[]);
 void ble_client();
 bool ble_clientConnect(BLEAddress * pAddress);
