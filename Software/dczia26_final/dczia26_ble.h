@@ -23,13 +23,11 @@ static BLEUUID BEACON_UUID            ("8ec76ea3-6668-48da-9866-75be8bc86f4d"); 
 #define DCZIA_MFG_ID 0x5050
 #define SHOTBOT_MFG_ID 0x5150
 
-#define GPIO_DEEP_SLEEP_DURATION     10  // sleep x seconds and then wake up
+#define GPIO_DEEP_SLEEP_DURATION     5  // sleep x seconds and then wake up
 
 const int BLE_SCAN_TIME = 10; // 10 seconds
 
 void ble_setup(Adafruit_SSD1306   *oled);
-void ble_scan_all(Adafruit_SSD1306 *screen);
-
 void ble_scan_dczia(int bleScanCount[]);
 void ble_client();
 bool ble_clientConnect(BLEAddress * pAddress);

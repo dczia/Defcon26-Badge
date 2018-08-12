@@ -14,7 +14,7 @@ const uint8_t AnimationChannels = 1; // we only need one as all the pixels are a
 
 extern NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip; //(PixelCount, PixelPin);
 
-extern NeoPixelAnimator animations; //(AnimationChannels); // NeoPixel animation management object
+extern NeoPixelAnimator animations; //(AnimationChannels); // NeoPixel animation maagement object
 
 void SetRandomSeed();
 void startupAnimation();
@@ -24,6 +24,7 @@ void LightIteration(float luminance);
 void PartyMode(float luminance);
 void Random(float luminance);
 void ColorWaves(float luminance);
+
 HslColor Wheel(byte WheelPos);
 
 // LED array-to-matrix mapping
@@ -44,6 +45,18 @@ HslColor Wheel(byte WheelPos);
 #define LED_R3C2 14
 #define LED_R3C3 15
 
+#define colorSaturation 128
 
+const RgbColor red(colorSaturation, 0, 0);
+const RgbColor green(0, colorSaturation, 0);
+const RgbColor blue(0, 0, colorSaturation);
+const RgbColor white(colorSaturation);
+const RgbColor black(0);
+
+const HslColor hslRed(red);
+const HslColor hslGreen(green);
+const HslColor hslBlue(blue);
+const HslColor hslWhite(white);
+const HslColor hslBlack(black);
 
 

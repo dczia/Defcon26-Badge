@@ -16,6 +16,14 @@
 Adafruit_SSD1306   *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driver for ssd1306 display" (https://github.com/ThingPulse/esp8266-oled-ssd1306)
 Keypad             *keys = NULL; // currently customized and included within project (will update to forked lib later)
 
+void runDefaultAnimations();
+
+enum colorWheel {RED = 0, BLUE, GREEN, WITE, BLK, TOTAL_COLORS}; // spelling of white intentional
+uint8_t saved_pic[4][4] = {{0, 0, 0, 0},
+                         {0, 0, 0, 0},
+                         {0, 0, 0, 0},
+                         {0, 0, 0, 0}};
+
 // in arduino world, "setup()" is called once at power-up (or reset) ...
 void setup(void) {
   // init system debug output
@@ -145,6 +153,7 @@ void loop(void) {
     case '9': // Reserved for Function Mode
     case '#': // Reserved for Function Mode
     case '*': // Reserved for Funciton Mode
+    case 'H': // Reserved for Funciton Mode
       // Set the mode message
       mode_name = "Press Bottom Right\nfor Main Menu";
       runDefaultAnimations();
@@ -287,54 +296,75 @@ void loop(void) {
     case '6':
       // Set the mode message
       mode_name = "Color Waves";
-      if (newmode) {
+      if (newmode) 
         animations.StopAnimation(0);
+      if (animations.IsAnimating()) {
+        animations.UpdateAnimations();
+        strip.Show();
       } else {
         ColorWaves(.1); 
       }
       break;
       
     case '7':
-      // Reserving for BLE Scanning project
-      // Set the mode message
-      mode_name = "BLE Scanning";
       if (newmode) {
+        // Set the mode message
+        mode_name = "Shiny Buttons";
         int bleResults[3];
-        oled->clearDisplay();
-        oled->setCursor(0, 0);
-        oled->setTextSize(2);
-        oled->println("Scanning..");
-        oled->display();
         ble_scan_dczia(bleResults);
-        oled->clearDisplay();
-        oled->setTextSize(1);
-        oled->setCursor(0, 0);
-        oled->println("- BLE Scan Results -");
-        oled->print("BLE Devices: ");
-        oled->print(bleResults[2]);
-        oled->print("\n");
-        oled->print("Defcon26 Badges: ");
-        oled->print(bleResults[0]);
-        oled->print("\n");
-        oled->print("DCZia Badges: ");
-        oled->print(bleResults[1]);
-        oled->display();
+        //Connection Machine animation
+        if (animations.IsAnimating()) {
+          animations.UpdateAnimations();
+          strip.Show();
+        } else {
+          PickRandom(.3); 
+        }
         newmode=false;
       }
-      runDefaultAnimations();
       break;
+      
+    case '8':
+      animations.StopAnimation(0);
+      delay(1);
+      // Set the mode message
+      mode_name = "ImageMaker";
+      if (newpress) {
+        // Turn off any animations
+        animations.StopAnimation(0);
+        delay(1);
 
-    case '8':   
-      mode_name = "BLE Scanning";
-      if (newmode) {
-        int bleResults[3];
-        ble_scan_all(oled);
-        oled->clearDisplay();
-        newmode=false;
+        // Loop over the pixels
+        for (auto i = uint(1); i <= 4; i++) {
+          for (auto j = uint(1); j <= 4; j++) {
+            if (key_i == i && key_j == j) {
+              saved_pic[i-1][j-1] = (saved_pic[i-1][j-1] + 1) % TOTAL_COLORS;
+            }
+            auto color = hslRed;
+            switch (saved_pic[i-1][j-1]) {
+              case RED:
+                color = hslRed;
+              break;
+              case BLUE:
+                color = hslBlue;
+              break;
+              case GREEN:
+                color = hslGreen;
+              break;
+              case WITE:
+                color = hslWhite;
+              break;
+              case BLK:
+                color = hslBlack;
+              break;
+           }
+           strip.SetPixelColor(ijtop(i, j), color);
+          }
+        }
+        delay(1);
+        strip.Show();
       }
-      runDefaultAnimations();
       break;
-    
+  
     case 'C':
       oled_displaytest(oled);
       // go back to menu
@@ -371,8 +401,9 @@ void loop(void) {
   newpress = false;
 }
 
+
 //Low Rainbow default mode
-void runDefaultAnimations(void) {
+void runDefaultAnimations() {
   //Default Animation Loop
   if (animations.IsAnimating()) {
     // The normal loop just needs these two to run the active animations
