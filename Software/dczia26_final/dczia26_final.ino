@@ -18,11 +18,22 @@ Keypad             *keys = NULL; // currently customized and included within pro
 
 void runDefaultAnimations();
 
-enum colorWheel {RED = 0, BLUE, GREEN, WITE, BLK, TOTAL_COLORS}; // spelling of white intentional
+enum colorWheel {PRPL=0, BLUE, TEAL, GREEN, YLLW, ORGE, RED, WITE, BLK, TOTAL_COLORS}; // spelling of white intentional
 uint8_t saved_pic[4][4] = {{0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0, 0}};
+
+char* saved_pic_to_char_array(uint8_t pic[4][4]){
+  char ret[17];
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++i) {
+      ret[i*4 + j] = '0' + pic[i][j];
+    } 
+  }
+  ret[16] = '\0';
+  return ret;
+}
 
 // in arduino world, "setup()" is called once at power-up (or reset) ...
 void setup(void) {
@@ -344,12 +355,24 @@ void loop(void) {
               case RED:
                 color = hslRed;
               break;
-              case BLUE:
+              case BLUE:              
                 color = hslBlue;
+              break;
+              case TEAL:
+                color = hslTeal;
               break;
               case GREEN:
                 color = hslGreen;
               break;
+              case YLLW:
+                color = hslYellow;
+              break;
+              case ORGE:
+                color = hslOrange;
+              break;
+              case PRPL:
+                color = hslPurple;
+              break;   
               case WITE:
                 color = hslWhite;
               break;

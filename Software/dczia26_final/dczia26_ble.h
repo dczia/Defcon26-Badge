@@ -27,11 +27,13 @@ static BLEUUID BEACON_UUID            ("8ec76ea3-6668-48da-9866-75be8bc86f4d"); 
 
 const int BLE_SCAN_TIME = 10; // 10 seconds
 
+#define DELAY 100
+
 void ble_setup(Adafruit_SSD1306   *oled);
 void ble_scan_dczia(int bleScanCount[]);
 void ble_client();
 bool ble_clientConnect(BLEAddress * pAddress);
-void ble_clientWrite(const std::string mesg);
+void ble_clientWrite(char* mesg);
 void ble_clientReport();
 void print_charateristic_msg();
 std::string string_to_hex(const std::string& input);

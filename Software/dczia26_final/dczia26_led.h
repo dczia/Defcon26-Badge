@@ -50,13 +50,20 @@ HslColor Wheel(byte WheelPos);
 const RgbColor red(colorSaturation, 0, 0);
 const RgbColor green(0, colorSaturation, 0);
 const RgbColor blue(0, 0, colorSaturation);
+const RgbColor teal(0, colorSaturation, colorSaturation);
 const RgbColor white(colorSaturation);
+const RgbColor yellow(colorSaturation, colorSaturation-32, 0);
+const RgbColor orange(colorSaturation, colorSaturation-96, 0);
+const RgbColor purple(colorSaturation, 0, colorSaturation);
 const RgbColor black(0);
 
 const HslColor hslRed(red);
 const HslColor hslGreen(green);
+const HslColor hslTeal(teal);
 const HslColor hslBlue(blue);
 const HslColor hslWhite(white);
+const HslColor hslYellow(yellow);
+const HslColor hslOrange(orange);
+const HslColor hslPurple(purple);
 const HslColor hslBlack(black);
-
 

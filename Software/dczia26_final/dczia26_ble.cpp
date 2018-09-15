@@ -149,22 +149,10 @@ void ble_scan_dczia(int bleScanCount[]) {
 } 
 
 void ble_client() { 
-  screen->clearDisplay();
-  screen->setCursor(0, 0);
-  
   if(!connected && doConnect)
     connected = ble_clientConnect(pServerAddress);
   if(connected)
     ble_clientReport();
-
-//  //testing writting to server
-//  if(connected && !written){
-//    written = true;
-//    delay(DELAY);
-//    delay(DELAY);
-//    ble_clientWrite("The client has written!!!!");
-//  }
-  screen->display();
 }
 
 bool ble_clientConnect(BLEAddress * pAddress) {
@@ -202,14 +190,14 @@ bool ble_clientConnect(BLEAddress * pAddress) {
 }
 
 //prints charateristic message from another server
-void ble_clientWrite(const std::string mesg) {
+void ble_clientWrite(char* mesg) {
   screen->clearDisplay();
   screen->setCursor(0, 0);
   if(pRemoteCharacteristic->canWrite())
   {
     screen->println("Writing client value");
     pRemoteCharacteristic->writeValue(mesg);
-    screen->println(mesg.c_str());
+    screen->println(mesg);
   }
   else
     screen->println("Cannot write server value");
