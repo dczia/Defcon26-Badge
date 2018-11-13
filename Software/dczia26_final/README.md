@@ -21,7 +21,7 @@ Follow the instructions for installing Espressif ESP32 boards.  There's a lot in
 
 Open `dczia_final.ino` in Arduino Studio.
 Select the correct board:
-	- TOOLS -> Board -> WEMOS LOLIN32
+  - TOOLS -> Board -> WEMOS LOLIN32
 Select the connected COM port (should be autodetected).
 Compile the sketch using the checkmark.
 Upload the sketch to the board.
@@ -29,13 +29,13 @@ Enjoy the lightshow.
 
 ### Troubleshooting
 - Fails to compile
-	- Double check that Espressif ESP32 is installed correctly
-	- Review all required libraries and make sure they're installed
-	- Review errors to identify if it is a board issue vs a library issue.
+  - Double check that Espressif ESP32 is installed correctly
+  - Review all required libraries and make sure they're installed
+  - Review errors to identify if it is a board issue vs a library issue.
 - Fails to upload
-	- Double check to make sure Espressif python tools were fully configured.
-	- Make sure the badge is connected and on (reconnect with badge switched to ON without batteries)
+  - Double check to make sure Espressif python tools were fully configured.
+  - Make sure the badge is connected and on (reconnect with badge switched to ON without batteries)
 - Display issues
-	- Make sure you're using Adafruit libraries and it is configured for `128x32`
+  - Make sure you're using Adafruit libraries and it is configured for `128x32`
 
 

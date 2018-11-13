@@ -21,7 +21,7 @@ const int DISPLAY_WIDTH = 128;
 const int DISPLAY_HEIGHT = 32;
 
 const int dczia_size = 32;
-const uint8_t zia[] PROGMEM = 
+const uint8_t zia[] PROGMEM =
 { // 32x32
   0x00, 0x04, 0x20, 0x00,
   0x00, 0x04, 0x20, 0x00,

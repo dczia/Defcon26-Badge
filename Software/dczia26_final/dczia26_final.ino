@@ -140,153 +140,153 @@ void loop(void) {
   auto mode_name = std::string();
   auto mode_size = 2;
   switch (mode) {
-    case '1': // Reserved for Light Mode
-    case '4': // Reserved for Light Mode
-    case '5': // Reserved for Light Mode
-    case '6': // Reserved for Light Mode
-    case '8': // Reserved for Function Mode
-    case '9': // Reserved for Function Mode
-    case 'B': // Reserved for Light Mode
-    case '#': // Reserved for Function Mode
-    case '*': // Reserved for Funciton Mode
-      // Set the mode message
-      mode_name = "Low Rainbow";
+  case '1': // Reserved for Light Mode
+  case '4': // Reserved for Light Mode
+  case '5': // Reserved for Light Mode
+  case '6': // Reserved for Light Mode
+  case '8': // Reserved for Function Mode
+  case '9': // Reserved for Function Mode
+  case 'B': // Reserved for Light Mode
+  case '#': // Reserved for Function Mode
+  case '*': // Reserved for Funciton Mode
+    // Set the mode message
+    mode_name = "Low Rainbow";
 
-      //Default Animation Loop  
-      if (animations.IsAnimating()) { 
-        // The normal loop just needs these two to run the active animations  
-        animations.UpdateAnimations();  
-        strip.Show(); 
-      } else {  
-        // No animation runnning, start some  
-        FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright 
-      } 
-      break;
-      
-      case 'D':
-      // Set the mode message
-      mode_name = "Menu";
-      mode_size = 4;
+    //Default Animation Loop
+    if (animations.IsAnimating()) {
+      // The normal loop just needs these two to run the active animations
+      animations.UpdateAnimations();
+      strip.Show();
+    } else {
+      // No animation runnning, start some
+      FadeInFadeOutRinseRepeat(.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+    }
+    break;
 
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        FadeInFadeOutRinseRepeat(0.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
+  case 'D':
+    // Set the mode message
+    mode_name = "Menu";
+    mode_size = 4;
 
-      break;
+    //Default Animation Loop
+    if (animations.IsAnimating()) {
+      // The normal loop just needs these two to run the active animations
+      animations.UpdateAnimations();
+      strip.Show();
+    } else {
+      // No animation runnning, start some
+      FadeInFadeOutRinseRepeat(0.05f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+    }
 
-    //Light modes:
-    //1, 2, 3, A
-    //4, 5, 6, B
-    case '2':
-      // Set the mode message
-      mode_name = "High Rainbow";
+    break;
 
-      //Default Animation Loop
-      if (animations.IsAnimating()) {
-        // The normal loop just needs these two to run the active animations
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        // No animation runnning, start some
-        FadeInFadeOutRinseRepeat(.5f); // 0.0 = black, 0.25 is normal, 0.5 is bright
-      }
-      break;
+  //Light modes:
+  //1, 2, 3, A
+  //4, 5, 6, B
+  case '2':
+    // Set the mode message
+    mode_name = "High Rainbow";
 
-    case '3': {
-        // Set the mode message
-        mode_name = "Pixel Picker";
+    //Default Animation Loop
+    if (animations.IsAnimating()) {
+      // The normal loop just needs these two to run the active animations
+      animations.UpdateAnimations();
+      strip.Show();
+    } else {
+      // No animation runnning, start some
+      FadeInFadeOutRinseRepeat(.5f); // 0.0 = black, 0.25 is normal, 0.5 is bright
+    }
+    break;
 
-        if (newpress) {
-          // Turn off any animations
-          animations.StopAnimation(0);
-          delay(1);
+  case '3': {
+    // Set the mode message
+    mode_name = "Pixel Picker";
 
-          // Set what it means to be an on and off pixel
-          auto on = HslColor(120.0 / 360.0, 1.0, 0.5);
-          auto off = HslColor(240.0 / 360.0, 1.0, 0.05);
+    if (newpress) {
+      // Turn off any animations
+      animations.StopAnimation(0);
+      delay(1);
 
-          // Loop over the pixels
-          for (auto i = uint(1); i <= 4; i++) {
-            for (auto j = uint(1); j <= 4; j++) {
-              auto color = (key_i == i && key_j == j) ? on : off;
-              strip.SetPixelColor(ijtop(i, j), color);
-            }
-          }
-          delay(1);
-          strip.Show();
+      // Set what it means to be an on and off pixel
+      auto on = HslColor(120.0 / 360.0, 1.0, 0.5);
+      auto off = HslColor(240.0 / 360.0, 1.0, 0.05);
+
+      // Loop over the pixels
+      for (auto i = uint(1); i <= 4; i++) {
+        for (auto j = uint(1); j <= 4; j++) {
+          auto color = (key_i == i && key_j == j) ? on : off;
+          strip.SetPixelColor(ijtop(i, j), color);
         }
-        break;
       }
+      delay(1);
+      strip.Show();
+    }
+    break;
+  }
 
-    case 'A':
-      // Set the mode message
-      mode_name = "Connection Machine";
-      if (newmode)
-        animations.StopAnimation(0);
-      //Connection Machine animation
-      if (animations.IsAnimating()) {
-        animations.UpdateAnimations();
-        strip.Show();
-      } else {
-        PickRandom(.2); 
-      }
-      break;
+  case 'A':
+    // Set the mode message
+    mode_name = "Connection Machine";
+    if (newmode)
+      animations.StopAnimation(0);
+    //Connection Machine animation
+    if (animations.IsAnimating()) {
+      animations.UpdateAnimations();
+      strip.Show();
+    } else {
+      PickRandom(.2);
+    }
+    break;
 
-    // Function Modes:
-    // 7, 8, 9, C
-    // *, #
-    case '7':
-      // Reserving for BLE Scanning project
-      // Set the mode message
-      mode_name = "BLE Scanning";
-      if (newmode) {
-        int bleResults[3];
-        oled->clearDisplay();
-        oled->setCursor(0, 0);
-        oled->setTextSize(2);
-        oled->println("Scanning..");
-        oled->display();
-        ble_scan_dczia(bleResults);
-        oled->clearDisplay();
-        oled->setTextSize(1);
-        oled->setCursor(0, 0);
-        oled->println("- BLE Scan Results -");
-        oled->print("BLE Devices: ");
-        oled->print(bleResults[2]);
-        oled->print("\n");
-        oled->print("Defcon26 Badges: ");
-        oled->print(bleResults[0]);
-        oled->print("\n");
-        oled->print("DCZia Badges: ");
-        oled->print(bleResults[1]);
-        oled->display();
-        newmode=false;
-      }
-      runDefaultAnimations();
-      break;
-    case 'C':
-      oled_displaytest(oled);
-      // go back to menu
-      mode='D';
-      mode_name = "Menu";
-      keypress='D';
-      break;
+  // Function Modes:
+  // 7, 8, 9, C
+  // *, #
+  case '7':
+    // Reserving for BLE Scanning project
+    // Set the mode message
+    mode_name = "BLE Scanning";
+    if (newmode) {
+      int bleResults[3];
+      oled->clearDisplay();
+      oled->setCursor(0, 0);
+      oled->setTextSize(2);
+      oled->println("Scanning..");
+      oled->display();
+      ble_scan_dczia(bleResults);
+      oled->clearDisplay();
+      oled->setTextSize(1);
+      oled->setCursor(0, 0);
+      oled->println("- BLE Scan Results -");
+      oled->print("BLE Devices: ");
+      oled->print(bleResults[2]);
+      oled->print("\n");
+      oled->print("Defcon26 Badges: ");
+      oled->print(bleResults[0]);
+      oled->print("\n");
+      oled->print("DCZia Badges: ");
+      oled->print(bleResults[1]);
+      oled->display();
+      newmode = false;
+    }
+    runDefaultAnimations();
+    break;
+  case 'C':
+    oled_displaytest(oled);
+    // go back to menu
+    mode = 'D';
+    mode_name = "Menu";
+    keypress = 'D';
+    break;
 
-    case '0':
-      // Credits
-      if (newmode == true) {
-        oled_displayCredits(oled);
-        //Put it back on the main menu...
-        mode = 'D';
-      }
-      runDefaultAnimations();
-      break;
+  case '0':
+    // Credits
+    if (newmode == true) {
+      oled_displayCredits(oled);
+      //Put it back on the main menu...
+      mode = 'D';
+    }
+    runDefaultAnimations();
+    break;
 
   }
 
