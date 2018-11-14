@@ -20,8 +20,8 @@ Keypad* keypad_setup(void)
 {
   Keypad* keypd = NULL;
   // initialize an instance of class NewKeypad
-  keypd = new Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
-  return(keypd);
+  keypd = new Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
+  return (keypd);
 }
 
 
