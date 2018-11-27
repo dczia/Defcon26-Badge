@@ -84,7 +84,7 @@ void ble_setup() {
 class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     void onResult(BLEAdvertisedDevice advertisedDevice) {
       Serial.printf("Advertised Device: %s \n", advertisedDevice.toString().c_str());
-      //SDRecordBLE(advertisedDevice.toString().c_str());
+      SDRecordBLE(advertisedDevice.toString().c_str());
       if(advertisedDevice.getAppearance() == APPEARANCE_DC26) {
         Serial.printf("*** DC26!!\n");
         dc26Badges = dc26Badges + 1;

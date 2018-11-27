@@ -143,7 +143,6 @@ void loop(void) {
     case '1': // Reserved for Light Mode
     case '8': // Reserved for Function Mode
     case '9': // Reserved for Function Mode
-    case '#': // Reserved for Function Mode
     case '*': // Reserved for Funciton Mode
       // Set the mode message
       mode_name = "Press Bottom Right\nfor Main Menu";
@@ -294,7 +293,7 @@ void loop(void) {
       }
       break;
       
-    case '7':
+    case '#':
       // Reserving for BLE Scanning project
       // Set the mode message
       mode_name = "BLE Scanning";
@@ -303,7 +302,7 @@ void loop(void) {
         oled->clearDisplay();
         oled->setCursor(0, 0);
         oled->setTextSize(2);
-        oled->println("Scanning..");
+        oled->println("Hacking..");
         oled->display();
         ble_scan_dczia(bleResults);
         oled->clearDisplay();
