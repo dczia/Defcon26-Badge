@@ -59,9 +59,6 @@ char Keypad::getKey() {
   single_key = true;
 
   if (getKeys() && key[0].stateChanged && (key[0].kstate == PRESSED)) {
-//    Serial.print("Key: "); 
-//    Serial.print(key[0].kchar);
-//    Serial.print("\r\n");
     return key[0].kchar;
   }
   single_key = false;
