@@ -7,6 +7,7 @@
 //
 
 #include "dczia26_led.h"
+#include "dczia26_keypad.h"
 
 
 // For Esp8266, the Pin is omitted and it uses GPIO3 due to DMA hardware use.
@@ -263,17 +264,19 @@ void ColorWaves(float luminance)
 {
 
   for (int i = 0; i < sizeof(ColorWavePixels) / sizeof ( int ); i++) {
-    Serial.print(" CW Index = ");
-    Serial.print(i);
-    Serial.print(sizeof(ColorWavePixels));
+//    Serial.print(" CW Index = ");
+//    Serial.print(i);
+//    Serial.print(sizeof(ColorWavePixels));
     strip.SetPixelColor(ColorWavePixels[i], HslColor(hue / 360.0f, 1.0f, luminance));
     strip.Show();
     delay(70);
     hue = (hue + 11) % 360;
+
+    if(keys->getKeys()){
+      Serial.print("Key down\r\n");
+      return;
+    }
   }
   delay(30);
 
 } // end waves
-
-
-

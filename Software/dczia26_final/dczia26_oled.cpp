@@ -1,7 +1,6 @@
 #include "dczia26_oled.h"
 
-Adafruit_SSD1306* oled_setup(void)
-{
+Adafruit_SSD1306* oled_setup(void){
   //Initialize the screen
   Adafruit_SSD1306* screen = NULL;
   screen = new Adafruit_SSD1306();
@@ -18,7 +17,7 @@ Adafruit_SSD1306* oled_setup(void)
   return (screen);
 }
 
-void oled_displaytest(Adafruit_SSD1306 *screen) {
+void oled_displaytest(Adafruit_SSD1306 *screen){
   screen->clearDisplay();
   oled_drawLines(screen);
   screen->clearDisplay();
@@ -32,8 +31,7 @@ void oled_displaytest(Adafruit_SSD1306 *screen) {
   screen->clearDisplay();
 }
 
-void oled_welcome(Adafruit_SSD1306 *screen)
-{
+void oled_welcome(Adafruit_SSD1306 *screen){
   screen->clearDisplay();
   screen->println("Welcome, dczia..");
   screen->println("main_menu() in 3..");
@@ -65,13 +63,13 @@ void oled_welcome(Adafruit_SSD1306 *screen)
   screen->invertDisplay(false);
 }
 
-void oled_drawLines(Adafruit_SSD1306 *screen) {
-  for (int16_t i = 0; i < DISPLAY_WIDTH; i += 4) {
+void oled_drawLines(Adafruit_SSD1306 *screen){
+  for(int16_t i = 0; i < DISPLAY_WIDTH; i += 4){
     screen->drawLine(0, 0, i, DISPLAY_HEIGHT - 1, 1);
     screen->display();
     delay(10);
   }
-  for (int16_t i = 0; i < DISPLAY_HEIGHT; i += 4) {
+  for(int16_t i = 0; i < DISPLAY_HEIGHT; i += 4){
     screen->drawLine(0, 0, DISPLAY_WIDTH - 1, i, 1);
     screen->display();
     delay(10);
@@ -79,12 +77,12 @@ void oled_drawLines(Adafruit_SSD1306 *screen) {
   delay(250);
 
   screen->clearDisplay();
-  for (int16_t i = 0; i < DISPLAY_WIDTH; i += 4) {
+  for(int16_t i = 0; i < DISPLAY_WIDTH; i += 4){
     screen->drawLine(0, DISPLAY_HEIGHT - 1, i, 0, 1);
     screen->display();
     delay(10);
   }
-  for (int16_t i = DISPLAY_HEIGHT - 1; i >= 0; i -= 4) {
+  for(int16_t i = DISPLAY_HEIGHT - 1; i >= 0; i -= 4){
     screen->drawLine(0, DISPLAY_HEIGHT - 1, DISPLAY_WIDTH - 1, i, 1);
     screen->display();
     delay(10);
@@ -92,24 +90,24 @@ void oled_drawLines(Adafruit_SSD1306 *screen) {
   delay(250);
 
   screen->clearDisplay();
-  for (int16_t i = DISPLAY_WIDTH - 1; i >= 0; i -= 4) {
+  for(int16_t i = DISPLAY_WIDTH - 1; i >= 0; i -= 4){
     screen->drawLine(DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 1, i, 0, 1);
     screen->display();
     delay(10);
   }
-  for (int16_t i = DISPLAY_HEIGHT - 1; i >= 0; i -= 4) {
+  for(int16_t i = DISPLAY_HEIGHT - 1; i >= 0; i -= 4){
     screen->drawLine(DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 1, 0, i, 1);
     screen->display();
     delay(10);
   }
   delay(250);
   screen->clearDisplay();
-  for (int16_t i = 0; i < DISPLAY_HEIGHT; i += 4) {
+  for(int16_t i = 0; i < DISPLAY_HEIGHT; i += 4){
     screen->drawLine(DISPLAY_WIDTH - 1, 0, 0, i, 1);
     screen->display();
     delay(10);
   }
-  for (int16_t i = 0; i < DISPLAY_WIDTH; i += 4) {
+  for(int16_t i = 0; i < DISPLAY_WIDTH; i += 4){
     screen->drawLine(DISPLAY_WIDTH - 1, 0, i, DISPLAY_HEIGHT - 1, 1);
     screen->display();
     delay(10);
@@ -118,8 +116,8 @@ void oled_drawLines(Adafruit_SSD1306 *screen) {
 }
 
 // Adapted from Adafruit_SSD1306
-void oled_drawRect(Adafruit_SSD1306 *screen) {
-  for (int16_t i = 0; i < DISPLAY_HEIGHT / 2; i += 2) {
+void oled_drawRect(Adafruit_SSD1306 *screen){
+  for(int16_t i = 0; i < DISPLAY_HEIGHT / 2; i += 2){
     screen->drawRect(i, i, DISPLAY_WIDTH - 2 * i, DISPLAY_HEIGHT - 2 * i, 1);
     screen->display();
     delay(10);
@@ -128,15 +126,15 @@ void oled_drawRect(Adafruit_SSD1306 *screen) {
 
 
 //draw zia
-void oled_drawZia(Adafruit_SSD1306 *screen) {
+void oled_drawZia(Adafruit_SSD1306 *screen){
 
-  for (int16_t i = 0; i < DISPLAY_WIDTH - dczia_size; ++i) {
+  for(int16_t i = 0; i < DISPLAY_WIDTH - dczia_size; ++i){
     screen->clearDisplay();
     screen->drawBitmap(i, 0, zia, dczia_size, dczia_size, 1);
     screen->display();
   }
 
-  for (int16_t i = 0; i < DISPLAY_WIDTH - dczia_size; ++i) {
+  for(int16_t i = 0; i < DISPLAY_WIDTH - dczia_size; ++i){
     screen->clearDisplay();
     screen->drawBitmap(DISPLAY_WIDTH - dczia_size - i, 0, zia, dczia_size, dczia_size, 1);
     screen->display();
@@ -144,17 +142,17 @@ void oled_drawZia(Adafruit_SSD1306 *screen) {
 }
 
 // Adapted from Adafruit_SSD1306
-void oled_fillRect(Adafruit_SSD1306 *screen) {
+void oled_fillRect(Adafruit_SSD1306 *screen){
   uint8_t color = 1;
-  for (int16_t i = 0; i < DISPLAY_HEIGHT / 2; i += 3) {
+  for(int16_t i = 0; i < DISPLAY_HEIGHT / 2; i += 3) {
     screen->fillRect(i, i, DISPLAY_WIDTH - i * 2, DISPLAY_HEIGHT - i * 2, 1);
     screen->display();
     delay(10);
   }
 }
 
-void oled_drawCircle(Adafruit_SSD1306 *screen) {
-  for (int16_t i = 0; i < DISPLAY_HEIGHT; i += 2) {
+void oled_drawCircle(Adafruit_SSD1306 *screen){
+  for(int16_t i = 0; i < DISPLAY_HEIGHT; i += 2) {
     screen->drawCircle(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, i, 1);
     screen->display();
     delay(10);
@@ -181,7 +179,7 @@ void oled_drawCircle(Adafruit_SSD1306 *screen) {
   screen->display();
 }
 
-void oled_displayCredits(Adafruit_SSD1306 *screen) {
+void oled_displayCredits(Adafruit_SSD1306 *screen){
   screen->clearDisplay();
   screen->setTextSize(2);
   screen->setTextColor(WHITE);
@@ -220,5 +218,3 @@ void oled_displayCredits(Adafruit_SSD1306 *screen) {
   screen->display();
   delay(3000);
 }
-
-
