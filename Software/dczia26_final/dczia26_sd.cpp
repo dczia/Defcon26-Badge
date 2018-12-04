@@ -11,25 +11,25 @@ extern "C" {
 
 static int sd_init_success = false;
 
-void SDSetup(Adafruit_SSD1306 *screen) {
+void SDSetup(Adafruit_SSD1306 *screen){
   Serial.begin(115200);
-  if (!SD.begin()) {
+  if(!SD.begin()){
     Serial.println("Card Mount Failed");
     return;
   }
   uint8_t cardType = SD.cardType();
 
-  if (cardType == CARD_NONE) {
+  if(cardType == CARD_NONE){
     Serial.println("No SD card attached");
     return;
   }
 
   Serial.print("SD Card Type: ");
-  if (cardType == CARD_MMC) {
+  if(cardType == CARD_MMC){
     Serial.println("MMC");
-  } else if (cardType == CARD_SD) {
+  } else if(cardType == CARD_SD){
     Serial.println("SDSC");
-  } else if (cardType == CARD_SDHC) {
+  } else if(cardType == CARD_SDHC){
     Serial.println("SDHC");
   } else {
     Serial.println("UNKNOWN");
@@ -42,21 +42,22 @@ void SDSetup(Adafruit_SSD1306 *screen) {
   writeData("/testFile", "data data data");
 }
 
-void writeData(const char * path, const char * message) {
-  if (! sd_init_success)
+void writeData(const char * path, const char * message){
+  if(! sd_init_success){
     return;
-  Serial.printf("Trying Writing file: %s\n", path);
+  }
+  Serial.printf("Trying Writing file: %s\r\n", path);
 
   File file = SD.open(path, FILE_APPEND);
-  if (!file) {
+  if(!file){
     Serial.println("Failed to open file for appending");
     file = SD.open(path, FILE_WRITE);
-    if (!file) {
+    if(!file){
       Serial.println("Failed to open file for writing");
       return;
     }
   }
-  if (file.println(message)) {
+  if(file.println(message)){
     Serial.println("File written with data");
     Serial.println(message);
   } else {
@@ -65,7 +66,6 @@ void writeData(const char * path, const char * message) {
   file.close();
 }
 
-void SDRecordBLE(const char* ble_ID) {
+void SDRecordBLE(const char* ble_ID){
   writeData("/ble_ids.txt", ble_ID);
 }
-

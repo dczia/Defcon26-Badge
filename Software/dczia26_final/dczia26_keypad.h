@@ -31,5 +31,4 @@ Keypad* keypad_setup(void);
 #define KEY_R3C2 '#'
 #define KEY_R3C3 'D'
 
-
-
+extern Keypad *keys;
