@@ -10,7 +10,7 @@
 #include "dczia26_sd.h"
 #include "arduinoFFT.h" // Standard Arduino FFT library 
 
-arduinoFFT FFT = arduinoFFT();
+arduinoFFT FFT = arduinoFFT(); // Create FFT object
 
 #define COLOR_GREEN HslColor(120.0 / 360.0, 1.0, 0.50)
 #define COLOR_BLUE HslColor(240.0 / 360.0, 1.0, 0.05)
@@ -20,7 +20,10 @@ arduinoFFT FFT = arduinoFFT();
 #define COLOR_YELLOW HslColor(60.0 / 360.0, 1.0, 0.50)
 #define COLOR_PINK HslColor(335.0 / 360.0, 1.0, 0.50)
 
-
+#define SCL_INDEX 0x00
+#define SCL_TIME 0x01
+#define SCL_FREQUENCY 0x02
+#define SCL_PLOT 0x03
 
 // Global variables
 Adafruit_SSD1306   *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driver for ssd1306 display" (https://github.com/ThingPulse/esp8266-oled-ssd1306)
@@ -44,9 +47,9 @@ void IRAM_ATTR onTimer() {
 #define MIC1_PIN 35               // Microphone is attached to Trinket GPIO #2/Gemma D2 (A1)
 #define DC_OFFSET 0               // DC offset in mic signal - if unusure, leave 0
 #define NOISE 30                  // Noise/hum/interference in mic signal
-#define SAMPLES 512               // Length of buffer for dynamic level adjustment
+#define SAMPLES 256               // Length of buffer for dynamic level adjustment
 #define SAMPLING_FREQUENCY 40000  // Hz, must be 40000 or less due to ADC conversion time. Determines maximum frequency that can be analysed by the FFT Fmax=sampleF/2.
-#define amplitude 50             // Depending on your audio source level, you may need to increase this value
+#define amplitude 100             // Depending on your audio source level, you may need to increase this value
 
 unsigned int sampling_period_us;
 unsigned long microseconds;
@@ -319,31 +322,78 @@ void loop(void) {
         oled->setTextSize(1);
         oled->setTextColor(WHITE);
         oled->setCursor(0,0);
-        oled->println("A  .2 .5 1K 2K 4K 8K");
+        oled->println(" A  B  C  D  E  F  G");
+
         for (int i = 2; i < (SAMPLES/2); i++){ // Don't use sample 0 and only first SAMPLES/2 are usable. Each array eleement represents a frequency and its value the amplitude.
-          if (vReal[i] > 2000) { // Add a crude noise filter, 10 x amplitude or more
+          if (vReal[i] > 1500) { // Add a crude noise filter, 10 x amplitude or more
             // Note, these are my best guesses for frequencies tuned with a pitch pipe
             int dsize = vReal[i]/amplitude;
-            int dmax = 50;
+            int dmax = 52;
             if (dsize > dmax) dsize = dmax;
+            
+            // print frequency every second
+            double peak = FFT.MajorPeak(vReal, SAMPLES, SAMPLING_FREQUENCY);
+            /*PRINT RESULTS*/
+            Serial.println(peak);     //Print out what frequency is the most dominant.
+            // Animate the OLED
+            for(double p = 1; p < 4; p += 1.0){ // ensure adding doubles and
+              if (peak >= p*415.3 && peak <= p*466.16) displayBand(0,(int)dsize); // A-range - 400ish Hz, around an A
+              if (peak >= p*466.16 && peak <= p*508)   displayBand(1,(int)dsize); // B
+              if (peak >= p*508 && peak <= p*570)      displayBand(2,(int)dsize); // C
+              if (peak >= p*570 && peak <= p*640)      displayBand(3,(int)dsize); // D
+              if (peak >= p*640 && peak <= p*680)      displayBand(4,(int)dsize); // E
+              if (peak >= p*680 && peak <= p*760)      displayBand(5,(int)dsize); // F
+              if (peak >= p*760 && peak <= p*855)      displayBand(6,(int)dsize); // G
+              if (peak >= p*855 && peak <= p*900)      displayBand(7,(int)dsize); // A 
+            }
 
-            if (i<=2 )             displayBand(0,(int)dsize); // 125Hz
-            if (i >3   && i<=4 )   displayBand(1,(int)dsize); // 250Hz
-            if (i >4   && i<=6 )   displayBand(2,(int)dsize); // 500Hz
-            if (i >6   && i<=14 )  displayBand(3,(int)dsize); // 1000Hz
-            if (i >14  && i<=30 )  displayBand(4,(int)dsize); // 2000Hz
-            if (i >30  && i<=53 )  displayBand(5,(int)dsize); // 4000Hz
-            if (i >53  && i<=200 ) displayBand(6,(int)dsize); // 8000Hz
-            if (i >200           ) displayBand(7,(int)dsize); // 16000Hz
+            // Animate the LEDS
+            for(double p = 1; p < 5; p += 1.0){ // ensure adding doubles and doubles
+              for (int s = 0; s <= dsize; s=s+13){ // Break amplitude in to 4 chunks vertically
+                uint16_t led;
+                //HslColor color;
 
-            //Serial.println(i);
-            //}
+                //if(p == 1) HslColor color = COLOR_GREEN;
+                //if(p == 2) HslColor color = COLOR_TEAL;
+                //if(p == 3) HslColor color = COLOR_YELLOW;
+                //if(p == 4) HslColor color = COLOR_RED;
+                
+                if (peak >= p*415.3 && peak <= p*508){
+                  // Light up LEDs 15, 11, 7, and 3 from GREEN - TEAL - YELLOW - RED
+                  led = 15 - ((p - 1) * 4);
+                }
+                if (peak >= p*508 && peak <= p*680){
+                  // Light up LEDs 14, 10, 6, and 2
+                  led = 14 - ((p - 1) * 4);
+                }
+                if (peak >= p*680 && peak <= p*760){
+                  // Light up LEDs 13, 9, 5, and 1
+                  led = 13 - ((p - 1) * 4);
+                }
+                
+                if (peak >= p*760 && peak <= p*900){
+                  // Light up LEDs 12, 8, 4, and 0
+                  led = 12 - ((p - 1) * 4);
+                }
+                // Set the mode message
+                if (newmode){
+                  animations.StopAnimation(0);
+                  newmode = false;
+                }
+                  
+                if (animations.IsAnimating()) {
+                  animations.UpdateAnimations();
+                  strip.Show();
+                } else {
+                  EQMode(0.5, COLOR_GREEN, COLOR_BLUE, led);                  
+                }
+              }
+            }
           }
           for (byte band = 0; band <= 6; band++) oled->drawFastHLine(18*band,64-peak[band],14,1);
         }
         if (millis()%4 == 0) {for (byte band = 0; band <= 6; band++) {if (peak[band] > 0) peak[band] -= 1;}} // Decay the peak
 
-        strip.Show();
         oled->display();
 
         // Pixel Picker!
@@ -361,11 +411,6 @@ void loop(void) {
               if(8 <= i && i <= 11) strip.SetPixelColor(i, COLOR_TEAL);
               if(4 <= i && i <= 7) strip.SetPixelColor(i, COLOR_YELLOW);
               if(0 <= i && i <= 3) strip.SetPixelColor(i, COLOR_RED);
-            }
-            else{
-              if(curIdx % 30 == 0){
-                strip.SetPixelColor(i, COLOR_BLUE);
-              }
             }
           }
           strip.Show();

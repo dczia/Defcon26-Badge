@@ -24,6 +24,7 @@ void LightIteration(float luminance);
 void PartyMode(float luminance);
 void Random(float luminance);
 void ColorWaves(float luminance);
+void EQMode(float luminance, HslColor start, HslColor finish, uint16_t led);
 HslColor Wheel(byte WheelPos);
 
 // LED array-to-matrix mapping

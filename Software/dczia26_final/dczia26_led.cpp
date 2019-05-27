@@ -280,3 +280,20 @@ void ColorWaves(float luminance)
   delay(30);
 
 } // end waves
+
+void EQMode(float luminance, HslColor start, HslColor finish, uint16_t led)
+{
+  
+  // Fade upto a random color
+  // we use HslColor object as it allows us to easily pick a hue
+  // with the same saturation and luminance so the colors picked
+  // will have similiar overall brightness
+  HslColor target = finish;
+  uint16_t time = 500;
+
+  animationState[0].StartingColor = start;
+  animationState[0].EndingColor = target;
+
+  animations.StartAnimation(led, time, BlendAnimUpdate);
+
+}
