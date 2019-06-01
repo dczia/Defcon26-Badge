@@ -1,8 +1,8 @@
-// dczia 2018 proto dos test firmware
-// combines all major hardware aspects (led, oled, keypad, ble)
+// dczia 2019 firmware for DCZia26 Badge
+// combines all major hardware aspects (led, oled, keypad, ble, mic)
 
 // split into functional regions
-#include "Key.h"
+#include "Key.h" // This was referred to as dczia.h previously
 #include "dczia26_keypad.h"
 #include "dczia26_led.h"
 #include "dczia26_oled.h"
@@ -12,13 +12,19 @@
 
 arduinoFFT FFT = arduinoFFT(); // Create FFT object
 
-#define COLOR_GREEN HslColor(120.0 / 360.0, 1.0, 0.50)
+#define COLOR_GREEN HslColor(120.0 / 360.0, 1.0, 0.10)
 #define COLOR_BLUE HslColor(240.0 / 360.0, 1.0, 0.05)
-#define COLOR_TEAL HslColor(175.0 / 360.0, 1.0, 0.50)
-#define COLOR_VIOLET HslColor(300.0 / 360.0, 1.0, 0.50)
-#define COLOR_RED HslColor(360.0 / 360.0, 1.0, 0.50)
-#define COLOR_YELLOW HslColor(60.0 / 360.0, 1.0, 0.50)
-#define COLOR_PINK HslColor(335.0 / 360.0, 1.0, 0.50)
+#define COLOR_TEAL HslColor(175.0 / 360.0, 1.0, 0.10)
+#define COLOR_VIOLET HslColor(300.0 / 360.0, 1.0, 0.10)
+#define COLOR_RED HslColor(360.0 / 360.0, 1.0, 0.10)
+#define COLOR_YELLOW HslColor(60.0 / 360.0, 1.0, 0.10)
+#define COLOR_PINK HslColor(335.0 / 360.0, 1.0, 0.10)
+
+// Initilazie the LED decay for animating the LEDs to the mic input
+int decayLED_a = 0;
+int decayLED_b = 0;
+int decayLED_c = 0;
+int decayLED_d = 0;
 
 #define SCL_INDEX 0x00
 #define SCL_TIME 0x01
@@ -304,9 +310,9 @@ void loop(void) {
       }
       break;
     case '7':
-      // Enable audio response mode!
+      // Enter real-time audio response mode ^_^
       if(curIdx < datapoints){
-        // Read from the mic until you hit the max captureMinutes (set above)
+        // Read from the mic until you hit the max datapoints (set above)
         oled->clearDisplay();
         for (int i = 0; i < SAMPLES; i++) {
           newTime = micros()-oldTime;
@@ -322,79 +328,123 @@ void loop(void) {
         oled->setTextSize(1);
         oled->setTextColor(WHITE);
         oled->setCursor(0,0);
-        oled->println(" A  B  C  D  E  F  G");
+        // Note, these are my best guesses for frequency to pitch assignment
+        // oled->println(" A  B  C  D  E  F  G");
+        oled->println("420Hz----------840Hz");
 
         for (int i = 2; i < (SAMPLES/2); i++){ // Don't use sample 0 and only first SAMPLES/2 are usable. Each array eleement represents a frequency and its value the amplitude.
-          if (vReal[i] > 1500) { // Add a crude noise filter, 10 x amplitude or more
-            // Note, these are my best guesses for frequencies tuned with a pitch pipe
+          if (vReal[i] > 1000) { // Add a crude noise filter, 10 x amplitude or more
             int dsize = vReal[i]/amplitude;
+            int dsizeLED = vReal[i]/amplitude;
+            
             int dmax = 52;
             if (dsize > dmax) dsize = dmax;
+            if (dsizeLED > dmax) dsizeLED = dmax;
             
-            // print frequency every second
             double peak = FFT.MajorPeak(vReal, SAMPLES, SAMPLING_FREQUENCY);
-            /*PRINT RESULTS*/
-            Serial.println(peak);     //Print out what frequency is the most dominant.
+
+            // Serial.println(peak);     //Print out what frequency is the most dominant.
             // Animate the OLED
-            for(double p = 1; p < 4; p += 1.0){ // ensure adding doubles and
-              if (peak >= p*415.3 && peak <= p*466.16) displayBand(0,(int)dsize); // A-range - 400ish Hz, around an A
-              if (peak >= p*466.16 && peak <= p*508)   displayBand(1,(int)dsize); // B
-              if (peak >= p*508 && peak <= p*570)      displayBand(2,(int)dsize); // C
-              if (peak >= p*570 && peak <= p*640)      displayBand(3,(int)dsize); // D
-              if (peak >= p*640 && peak <= p*680)      displayBand(4,(int)dsize); // E
-              if (peak >= p*680 && peak <= p*760)      displayBand(5,(int)dsize); // F
-              if (peak >= p*760 && peak <= p*855)      displayBand(6,(int)dsize); // G
-              if (peak >= p*855 && peak <= p*900)      displayBand(7,(int)dsize); // A 
+            for(double p = 1; p <= 4; p += 1.0){ // ensure adding doubles and
+              if (peak >= p*420.00 && peak < p*466.16) displayBand(0,(int)dsize); // A-range - 400ish Hz, around an A
+              if (peak >= p*466.16 && peak < p*508.00) displayBand(1,(int)dsize); // B
+              if (peak >= p*508.00 && peak < p*570.00) displayBand(2,(int)dsize); // C
+              if (peak >= p*570.00 && peak < p*640.00) displayBand(3,(int)dsize); // D
+              if (peak >= p*640.00 && peak < p*680.00) displayBand(4,(int)dsize); // E
+              if (peak >= p*680.00 && peak < p*760.00) displayBand(5,(int)dsize); // F
+              if (peak >= p*760.00 && peak < p*840.00) displayBand(6,(int)dsize); // G
             }
-
-            // Animate the LEDS
-            for(double p = 1; p < 5; p += 1.0){ // ensure adding doubles and doubles
-              for (int s = 0; s <= dsize; s=s+13){ // Break amplitude in to 4 chunks vertically
-                uint16_t led;
-                //HslColor color;
-
-                //if(p == 1) HslColor color = COLOR_GREEN;
-                //if(p == 2) HslColor color = COLOR_TEAL;
-                //if(p == 3) HslColor color = COLOR_YELLOW;
-                //if(p == 4) HslColor color = COLOR_RED;
-                
-                if (peak >= p*415.3 && peak <= p*508){
-                  // Light up LEDs 15, 11, 7, and 3 from GREEN - TEAL - YELLOW - RED
-                  led = 15 - ((p - 1) * 4);
-                }
-                if (peak >= p*508 && peak <= p*680){
-                  // Light up LEDs 14, 10, 6, and 2
-                  led = 14 - ((p - 1) * 4);
-                }
-                if (peak >= p*680 && peak <= p*760){
-                  // Light up LEDs 13, 9, 5, and 1
-                  led = 13 - ((p - 1) * 4);
-                }
-                
-                if (peak >= p*760 && peak <= p*900){
-                  // Light up LEDs 12, 8, 4, and 0
-                  led = 12 - ((p - 1) * 4);
-                }
-                // Set the mode message
-                if (newmode){
-                  animations.StopAnimation(0);
-                  newmode = false;
-                }
-                  
-                if (animations.IsAnimating()) {
-                  animations.UpdateAnimations();
-                  strip.Show();
-                } else {
-                  EQMode(0.5, COLOR_GREEN, COLOR_BLUE, led);                  
+            // Animate the LEDs
+            // Grid looks like:
+            /*____band____
+               3  2  1  0 |
+               7  6  5  4 | DSize
+              11 10  9  8 |
+              15 14 13 12 |
+            */
+            // Serial.print("DSizeLED");
+            // Serial.print(dsizeLED);
+            if (dsizeLED > 20) {
+              for(int i = 15; i >= 12; i--){
+                if(strip.GetPixelColor(i) != COLOR_GREEN) {
+                  strip.SetPixelColor(i, COLOR_GREEN);
                 }
               }
+              decayLED_a = 2;
+            }else{
+              if(decayLED_a > 0) decayLED_a --;
+              if(decayLED_b > 0) decayLED_b --;
+              if(decayLED_c > 0) decayLED_c --;
+              if(decayLED_d > 0) decayLED_d --;
             }
+            if(dsizeLED > 30){
+              for(int i = 11; i >= 8; i--){
+                if(strip.GetPixelColor(i) != COLOR_TEAL) {
+                  strip.SetPixelColor(i, COLOR_TEAL);
+                }
+              }
+              decayLED_b = 2;
+              decayLED_a = 4;
+            }
+            if(dsizeLED > 40){
+              for(int i = 7; i >= 4; i--){
+                if(strip.GetPixelColor(i) != COLOR_YELLOW) {
+                  strip.SetPixelColor(i, COLOR_YELLOW);
+                }
+              }
+              decayLED_c = 2;
+              decayLED_b = 4;
+              decayLED_a = 6;
+            }
+            if(dsizeLED > 47){
+              for(int i = 3; i >= 0; i--){
+                if(strip.GetPixelColor(i) != COLOR_RED) {
+                  strip.SetPixelColor(i, COLOR_RED);
+                }
+              }
+              decayLED_d = 2;
+              decayLED_c = 4;
+              decayLED_b = 6;
+              decayLED_a = 8;
+            }
+            
           }
           for (byte band = 0; band <= 6; band++) oled->drawFastHLine(18*band,64-peak[band],14,1);
         }
+        
         if (millis()%4 == 0) {for (byte band = 0; band <= 6; band++) {if (peak[band] > 0) peak[band] -= 1;}} // Decay the peak
 
         oled->display();
+        strip.Show();
+
+        if(decayLED_a == 0){
+          for(int i = 15; i >= 12; i--){
+            if(strip.GetPixelColor(i) != COLOR_BLUE) {
+              strip.SetPixelColor(i, COLOR_BLUE);
+            }
+          }
+        }
+        if(decayLED_b == 0){
+          for(int i = 11; i >= 8; i--){
+            if(strip.GetPixelColor(i) != COLOR_BLUE) {
+              strip.SetPixelColor(i, COLOR_BLUE);
+            }
+          }
+        }
+        if(decayLED_c == 0){
+          for(int i = 7; i >= 4; i--){
+            if(strip.GetPixelColor(i) != COLOR_BLUE) {
+              strip.SetPixelColor(i, COLOR_BLUE);
+            }
+          }
+        }
+        if(decayLED_d == 0){
+          for(int i = 3; i >= 0; i--){
+            if(strip.GetPixelColor(i) != COLOR_BLUE) {
+              strip.SetPixelColor(i, COLOR_BLUE);
+            }
+          }
+        }
 
         // Pixel Picker!
         if (keys->getState('D') != HOLD) {
@@ -407,15 +457,26 @@ void loop(void) {
           for(uint8_t i = 0; i < 16; i++){
             if((map >> i) & 0x01){
               // Key is down
-              if(12 <= i && i <= 15) strip.SetPixelColor(i, COLOR_GREEN);
-              if(8 <= i && i <= 11) strip.SetPixelColor(i, COLOR_TEAL);
-              if(4 <= i && i <= 7) strip.SetPixelColor(i, COLOR_YELLOW);
-              if(0 <= i && i <= 3) strip.SetPixelColor(i, COLOR_RED);
+              if(12 <= i && i <= 15) {
+                strip.SetPixelColor(i, COLOR_GREEN);
+                decayLED_a = 8;
+              }
+              if(8 <= i && i <= 11) {
+                strip.SetPixelColor(i, COLOR_TEAL);
+                decayLED_b = 6;
+              }
+              if(4 <= i && i <= 7) {
+                strip.SetPixelColor(i, COLOR_PINK);
+                decayLED_c = 4;
+              }
+              if(0 <= i && i <= 3) {
+                strip.SetPixelColor(i, COLOR_VIOLET);
+                decayLED_d = 2;
+              }
             }
           }
-          strip.Show();
         }
-    
+
         curIdx++;
         delay(delayMS);
         if(curIdx >= datapoints){
@@ -474,9 +535,7 @@ void loop(void) {
       }
       runDefaultAnimations();
       break;
-
   }
-
 }
 
 /**
