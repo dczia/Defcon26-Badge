@@ -216,5 +216,15 @@ void oled_displayCredits(Adafruit_SSD1306 *screen){
   screen->println("ancients, jediguybob");
   screen->println("& the @DCZia505 Crew!");
   screen->display();
+  delay(2000);
+  screen->clearDisplay();
+  screen->setTextSize(2);
+  screen->setTextColor(WHITE);
+  screen->setCursor(0, 0);
+  screen->println("Credits!");
+  screen->setTextSize(1);
+  screen->println("audio EQ by:");
+  screen->println("Aask");
+  screen->display();
   delay(3000);
 }
