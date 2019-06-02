@@ -26,11 +26,6 @@ int decayLED_b = 0;
 int decayLED_c = 0;
 int decayLED_d = 0;
 
-#define SCL_INDEX 0x00
-#define SCL_TIME 0x01
-#define SCL_FREQUENCY 0x02
-#define SCL_PLOT 0x03
-
 // Global variables
 Adafruit_SSD1306   *oled = NULL; // uses v3.xx from "esp8266 and esp32 oled driver for ssd1306 display" (https://github.com/ThingPulse/esp8266-oled-ssd1306)
 Keypad             *keys = NULL; // currently customized and included within project (will update to forked lib later)
@@ -81,34 +76,42 @@ void setup(void) {
   delay(1);
 
   //Setup LEDS
+  Serial.println("Set up LEDs...");
   strip.Begin();
   strip.Show();
   startupAnimation();
   strip.Show();
 
   // Setup the key scan interrupt
+  Serial.println("Set up \"Key Scan\"...");
   timer = timerBegin(0, 80, true);
   timerAttachInterrupt(timer, &onTimer, true);
   timerAlarmWrite(timer, 10000, true);
   timerAlarmEnable(timer);
 
   // Setup the OLED
+  Serial.println("Set up OLED...");
   oled = oled_setup();
 
   // Setup the bluetooth
   // COMMENT THIS OUT if your board gets stuck in a bootloop, or add a 100uF capacitor to C21 (boards sold on Tindie alreay have this fix)
+  Serial.println("Set up BLE...");
   ble_setup();
 
   // call welcome screen (once)
+  Serial.println("Display welcome screen...");
   oled_welcome(oled);
 
   // Set a random seed
+  Serial.println("Set a random seed...");
   SetRandomSeed();
 
   // Detect and setup a SD card
+  Serial.println("Check for SD card...");
   SDSetup(oled);
 
   // Set up Microphone
+  Serial.println("Set up Microphone (MAX4466 on J7)...");
   sampling_period_us = round(1000000 * (1.0 / SAMPLING_FREQUENCY));
 
   // done with init fuction
@@ -330,10 +333,10 @@ void loop(void) {
         oled->setCursor(0,0);
         // Note, these are my best guesses for frequency to pitch assignment
         // oled->println(" A  B  C  D  E  F  G");
-        oled->println("420Hz----------840Hz");
+        oled->println("420Hz---Aask---840Hz");
 
         for (int i = 2; i < (SAMPLES/2); i++){ // Don't use sample 0 and only first SAMPLES/2 are usable. Each array eleement represents a frequency and its value the amplitude.
-          if (vReal[i] > 1000) { // Add a crude noise filter, 10 x amplitude or more
+          if (vReal[i] > 2000) { // Add a crude noise filter, 10 x amplitude or more
             int dsize = vReal[i]/amplitude;
             int dsizeLED = vReal[i]/amplitude;
             
@@ -362,20 +365,18 @@ void loop(void) {
               11 10  9  8 |
               15 14 13 12 |
             */
-            // Serial.print("DSizeLED");
-            // Serial.print(dsizeLED);
-            if (dsizeLED > 20) {
+            Serial.print("DSizeLED");
+            Serial.print(dsizeLED);
+            if (dsizeLED > 23) {
               for(int i = 15; i >= 12; i--){
                 if(strip.GetPixelColor(i) != COLOR_GREEN) {
                   strip.SetPixelColor(i, COLOR_GREEN);
                 }
               }
+              decayLED_d = 0;
+              decayLED_c = 0;
+              decayLED_b = 0;
               decayLED_a = 2;
-            }else{
-              if(decayLED_a > 0) decayLED_a --;
-              if(decayLED_b > 0) decayLED_b --;
-              if(decayLED_c > 0) decayLED_c --;
-              if(decayLED_d > 0) decayLED_d --;
             }
             if(dsizeLED > 30){
               for(int i = 11; i >= 8; i--){
@@ -383,6 +384,8 @@ void loop(void) {
                   strip.SetPixelColor(i, COLOR_TEAL);
                 }
               }
+              decayLED_d = 0;
+              decayLED_c = 0;
               decayLED_b = 2;
               decayLED_a = 4;
             }
@@ -392,6 +395,7 @@ void loop(void) {
                   strip.SetPixelColor(i, COLOR_YELLOW);
                 }
               }
+              decayLED_d = 0;
               decayLED_c = 2;
               decayLED_b = 4;
               decayLED_a = 6;
@@ -409,42 +413,20 @@ void loop(void) {
             }
             
           }
-          for (byte band = 0; band <= 6; band++) oled->drawFastHLine(18*band,64-peak[band],14,1);
+          for (byte band = 0; band <= 6; band++) {
+            oled->drawFastHLine(18*band,64-peak[band],14,1);
+          }
         }
-        
-        if (millis()%4 == 0) {for (byte band = 0; band <= 6; band++) {if (peak[band] > 0) peak[band] -= 1;}} // Decay the peak
+
+        // Decay the peak
+        if (millis()%4 == 0) {
+          for (byte band = 0; band <= 6; band++) {
+            if (peak[band] > 0) peak[band] -= 1;
+          }
+        } 
 
         oled->display();
         strip.Show();
-
-        if(decayLED_a == 0){
-          for(int i = 15; i >= 12; i--){
-            if(strip.GetPixelColor(i) != COLOR_BLUE) {
-              strip.SetPixelColor(i, COLOR_BLUE);
-            }
-          }
-        }
-        if(decayLED_b == 0){
-          for(int i = 11; i >= 8; i--){
-            if(strip.GetPixelColor(i) != COLOR_BLUE) {
-              strip.SetPixelColor(i, COLOR_BLUE);
-            }
-          }
-        }
-        if(decayLED_c == 0){
-          for(int i = 7; i >= 4; i--){
-            if(strip.GetPixelColor(i) != COLOR_BLUE) {
-              strip.SetPixelColor(i, COLOR_BLUE);
-            }
-          }
-        }
-        if(decayLED_d == 0){
-          for(int i = 3; i >= 0; i--){
-            if(strip.GetPixelColor(i) != COLOR_BLUE) {
-              strip.SetPixelColor(i, COLOR_BLUE);
-            }
-          }
-        }
 
         // Pixel Picker!
         if (keys->getState('D') != HOLD) {
@@ -483,6 +465,40 @@ void loop(void) {
           Serial.println("Done collecting audio samples!");
           mode = 'D';
         }
+      
+      
+      if(decayLED_a == 0){
+        for(int i = 15; i >= 12; i--){
+          if(strip.GetPixelColor(i) != COLOR_BLUE) {
+            strip.SetPixelColor(i, COLOR_BLUE);
+          }
+        }
+      }
+      if(decayLED_b == 0){
+        for(int i = 11; i >= 8; i--){
+          if(strip.GetPixelColor(i) != COLOR_BLUE) {
+            strip.SetPixelColor(i, COLOR_BLUE);
+          }
+        }
+      }
+      if(decayLED_c == 0){
+        for(int i = 7; i >= 4; i--){
+          if(strip.GetPixelColor(i) != COLOR_BLUE) {
+            strip.SetPixelColor(i, COLOR_BLUE);
+          }
+        }
+      }
+      if(decayLED_d == 0){
+        for(int i = 3; i >= 0; i--){
+          if(strip.GetPixelColor(i) != COLOR_BLUE) {
+            strip.SetPixelColor(i, COLOR_BLUE);
+          }
+        }
+      }
+      if(decayLED_a > 0) decayLED_a--;
+      if(decayLED_b > 0) decayLED_b--;
+      if(decayLED_c > 0) decayLED_c--;
+      if(decayLED_d > 0) decayLED_d--;
       }
       break;
       
