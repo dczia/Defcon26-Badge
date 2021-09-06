@@ -15,14 +15,17 @@
 
 ```
 **News**
+September 2021
+* Added new pre built binary file of the badge firmware with bug fixes for the boot loop issue. (Thanks to Aask for the guidance!)
+* Updated final software readme and this readme.
+
 August 2018
 * FINAL INO is up use that for use with the final board.  
 * ProtoDos is frozen for now. Library changes + board layout changes mean Final and Dos aren't really interchangable.
 
-July 2018 Update 1
+July 2018 Update 2
 * ProtoDos code updated with BLE Code working and advertising to DC26 with 0X5050 Manufacturing ID
 * Some ProtoDos code cleanup 
-
 
 June 2018 Update
 * Final board revision in the works. Expecting proto tres boards soon.
@@ -60,7 +63,7 @@ Defcon2018 Style Guide: https://defcon.org/html/defcon-26/dc-26-theme.html
 * SSD1306 OLED Screen
 * Gatreon Blue Keyswitches
 * Neopixel Mini RGB LEDs
-* 2x or 3x AA power
+* 3x AA power or USB power
 * Shitty / Minibadge Addons supported
 
 **DevKit Setup Instructions**
@@ -73,20 +76,5 @@ To Test:
 - Use Nordic's nRF utility for the phone. 
 - Review #badgelife's doc for BLE communication.  Compare to last year's badge to see the correct manufacturer ID and appearance.
 
-
-**Old Notes**
-* ESP32 - [Wemos Lolin ESP32 OLED Module For Arduino ESP32 OLED WiFi + Bluetooth](https://forum.arduino.cc/index.php?topic=495555.0)
-* Keyswitches - SMD RGB Type Needed (They have clear casings allowing for SMD leds to shine through.
-	* Gateron Blues / Whatevers - Clear top, white bottom. Supposedly the white bottom ones have the smd cutout $0.25ea[Gateron Blue (60G) Tactile Click Switches (Pack of 10) by Mechanical Keyboards Inc](https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=1272)
-* Keycaps
-	* DIY 3D Printed. STL File is now in repo.	
-* Power - Lipo // AA’s? - Thinking AA's for ease of sourcing, and no need to fuss with lipo packs.
-
-Prototype Board OLED Notes:
-WeMos OLED 
-I2C Data 5, Clock 4
-[u8g2setupcpp · olikraus/u8g2 Wiki · GitHub](https://github.com/olikraus/u8g2/wiki/u8g2setupcpp#ssd1306-128x64_noname)
-
-Constructor:  U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, 4, 5, U8X8_PIN_NONE);
 
 #dczia

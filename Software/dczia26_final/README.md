@@ -5,27 +5,33 @@ This is it.
 ## Overview
 DC Zia 26 - 2018 Final Build Out.
 This should cover what is required for building and loading the sketch onto the DC Zia badge.
+You can build the firmware using the arduino .ino sketch, or we now have a binay file that can be uploaded using something like esptool (https://diyprojects.io/esp-easy-flash-firmware-esptool-py-esp8266/)
 
 ### Required Libraries
-- Espressif ESP32 - [ESP32 Setup Instructions](https://github.com/espressif/arduino-esp32#installation-instructions) 
-
-### Arduino Installable Libraries
+- Espressif ESP32 - [ESP32 Setup Instructions](https://github.com/espressif/arduino-esp32#installation-instructions)
+- NeopixelBus
+- arduinoFFT
 - Adafruit SSD1306 OLED Library
 - Adafruit GDX Library
 - Neopixel BUS Library
 - Keypad (http://playground.arduino.cc/Code/Keypad)
 
-## Build Instructions
+### Build Instructions
 Make sure you're running a recent version of Arduino Studio. 
-Follow the instructions for installing Espressif ESP32 boards.  There's a lot in there, so make sure you go through each step.  Make sure that you're using a version newer than June 2018 as there's BLE library changes which are required for building.
+Follow the instructions for installing the Espressif ESP32 boards via the board manager at ([ESP32 Setup Instructions](https://github.com/espressif/arduino-esp32#installation-instructions)).
 
 Open `dczia_final.ino` in Arduino Studio.
 Select the correct board:
-  - TOOLS -> Board -> WEMOS LOLIN32
+  - TOOLS -> Board -> ESP 32 Dev Module
 Select the connected COM port (should be autodetected).
 Compile the sketch using the checkmark.
 Upload the sketch to the board.
 Enjoy the lightshow.
+
+### Usage of the Badge
+The Board will boot into a default light mode. Press and hold the bottom right key to exit the current mode and goto the main menu.
+The top 9 buttons each will activate a different mode.
+Press and hold the bottom right key to exit the current mode.
 
 ### Troubleshooting
 - Fails to compile
